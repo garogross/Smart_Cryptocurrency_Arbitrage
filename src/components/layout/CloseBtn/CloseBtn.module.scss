@@ -1,0 +1,16 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+.closeBtn {
+  position: absolute;
+  right: $container-padding;
+  top: 20px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+
+  &__icon {
+    @include svg(30px,$color-black);
+  }
+}
+

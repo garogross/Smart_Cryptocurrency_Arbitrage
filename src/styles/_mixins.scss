@@ -1,0 +1,132 @@
+@import "vars";
+
+@mixin smScreenMedia {
+  @media (max-width: $sm-screen) {
+    @content;
+  }
+}
+
+@mixin mdScreenMedia {
+  @media (max-width: $md-screen) {
+    @content;
+  }
+}
+
+@mixin lgScreenMedia {
+  @media (max-width: $lg-screen) {
+    @content;
+  }
+}
+
+@mixin xlScreenMedia {
+  @media (max-width: $xl-screen) {
+    @content;
+  }
+}
+
+
+@mixin setDistance($prop,$distance) {
+  @if ($distance == 120) {
+    #{$prop}: 120px;
+
+    @include xxlScreenMedia {
+      #{$prop}: 110px;
+    }
+
+    @include xlScreenMedia {
+      #{$prop}: 100px;
+    }
+
+    @include lgScreenMedia {
+      #{$prop}: 80px;
+    }
+
+    @include smScreenMedia {
+      #{$prop}: 40px;
+    }
+  } @else if ($distance == 60) {
+    #{$prop}: 60px;
+
+    @include xxlScreenMedia {
+      #{$prop}: 55px;
+    }
+
+    @include xlScreenMedia {
+      #{$prop}: 50px;
+    }
+
+    @include lgScreenMedia {
+      #{$prop}: 40px;
+    }
+
+    @include smScreenMedia {
+      #{$prop}: 20px;
+    }
+
+
+
+  } @else if ($distance == 140) {
+    #{$prop}: 140px;
+
+    @include xxlScreenMedia {
+      #{$prop}: 120px;
+    }
+
+    @include xlScreenMedia {
+      #{$prop}: 100px;
+    }
+
+    @include lgScreenMedia {
+      #{$prop}: 70px;
+    }
+
+    @include smScreenMedia {
+      #{$prop}: 40px;
+    }
+
+  }  @else if ($distance == 70) {
+    #{$prop}: 70px;
+
+    @include xxlScreenMedia {
+      #{$prop}: 60px;
+    }
+
+    @include xlScreenMedia {
+      #{$prop}: 50px;
+    }
+
+    @include lgScreenMedia {
+      #{$prop}: 35px;
+    }
+
+    @include smScreenMedia {
+      #{$prop}: 20px;
+    }
+  }
+}
+
+@mixin svg($width,$color,$height: $width,$stroke: none) {
+  width: $width;
+  height: $height;
+  transition: $transition;
+  fill: $color;
+  stroke: $stroke;
+}
+
+@mixin setFont($size,$weight,$color: $color-black) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color,
+}
+
+@mixin flexCol($layout: center,$align: center) {
+  display: flex;
+  justify-content: $layout;
+  align-items: $align;
+}
+
+@mixin hover {
+  @media (hover: hover) {
+    @content;
+  }
+}

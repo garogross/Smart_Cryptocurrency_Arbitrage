@@ -1,0 +1,8 @@
+export const arrowIcon = "arrowIcon"
+export const avatarIcon = "avatarIcon"
+export const calendarIcon = "calendarIcon"
+export const crossIcon = "crossIcon"
+export const deleteIcon = "deleteIcon"
+export const editIcon = "editIcon"
+export const notificationIcon = "notificationIcon"
+export const emptyTableIcon = "emptyTableIcon"
