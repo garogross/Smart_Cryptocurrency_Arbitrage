@@ -2,10 +2,10 @@ import React, {memo} from 'react';
 
 import styles from "./MainBtn.module.scss"
 
-const MainBtn = memo(({className,children,...properties}) => {
+const MainBtn = memo(({className,isPassive,children,...properties}) => {
     return (
         <button
-            className={`${styles['mainBtn']} ${className ? className : ''}`}
+            className={`${styles['mainBtn']} ${isPassive ? styles['mainBtn_passive'] : ''} ${className ? className : ''}`}
             {...properties}
         >{children}</button>
     );

@@ -1,0 +1,106 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+.arbitrageListItem {
+  width: 100%;
+  padding: 25px 30px 20px;
+  background-color: $color-blue-bold;
+  border-radius: 10px;
+
+  @include smScreenMedia {
+    padding: 17px 15px 15px;
+  }
+
+  &__header {
+    @include flexCol(space-between);
+    margin-bottom: 25px;
+  }
+
+  &__title {
+    @include setFont(16px, 700);
+  }
+
+  &__headerBtns {
+    @include flexCol();
+    gap: 8px;
+  }
+
+  &__hiderBtn {
+    cursor: pointer;
+    background: transparent;
+    border: none;
+  }
+
+  &__hideIcon {
+    @include svg(22px, $color-grey)
+  }
+
+  &__crossIcon {
+    @include svg(12px, transparent, 12px, $color-grey)
+  }
+
+  &__resultBlock {
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 10px;
+    padding: 17px 15px;
+    @include flexCol(flex-start,flex-start);
+    flex-direction: column;
+    gap: 5px;
+
+    &_output {
+      border-color: rgba(69, 95, 78, 0.45);
+      background-color: $color-green;
+      margin-bottom: 7px;
+    }
+
+    &_input {
+      background-color: $color-red-bold;
+      border-color: rgba(95, 69, 69, 0.45);
+      margin-bottom: 15px;
+    }
+  }
+
+  &__resultBlockText {
+    @include setFont(13px, 400);
+
+    &_green {
+      color: #75FFAC;
+    }
+
+    &_red {
+      color: #FF715F;
+    }
+  }
+
+  &__profitText {
+    @include setFont(17px, 700);
+    margin-bottom: 5px;
+
+    @include smScreenMedia {
+      font-size: 15px;
+    }
+
+    &_blue {
+      color: $color-main;
+    }
+  }
+
+
+  &__footer {
+    @include flexCol(space-between);
+    margin-top: 10px;
+
+    @include smScreenMedia {
+      margin-top: 20px;
+    }
+  }
+
+  &__footerText {
+    @include setFont(12px, 400, $color-grey);
+
+    @include smScreenMedia {
+      font-size: 10px;
+    }
+  }
+}

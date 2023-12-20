@@ -1,0 +1,72 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.supportBlock {
+  padding-top: 35px;
+
+  &__routeTitle {
+    margin-bottom: 35px;
+
+    @include smScreenMedia {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__main {
+    background-color: $color-black-bold;
+    border-radius: 16px;
+    padding: 50px;
+
+    @include smScreenMedia {
+      padding: 15px;
+    }
+  }
+
+  &__title {
+    @include setFont(24px, 400);
+    margin-bottom: 5px;
+
+    @include smScreenMedia {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__text {
+    @include setFont(15px, 400, #B2B0C8);
+    margin-bottom: 20px;
+
+    @include smScreenMedia {
+      font-size: 11px;
+    }
+  }
+
+  &__btns {
+    @include flexCol(stretch,flex-start);
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  &__btn {
+    background-color: $color-blue-bg;
+    border-radius: 6px;
+    padding: 15px;
+    @include flexCol();
+    gap: 7px;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__btnIcon {
+    @include svg(20px, $color-white)
+  }
+
+  &__btnText {
+    @include setFont(16px, 400)
+  }
+
+  &__btnText_link {
+    text-decoration: none;
+    color: $color-grey;
+  }
+}

@@ -1,0 +1,59 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+
+.hiddenItemsModal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  background: $color-blue-bold;
+  border-radius: 19px;
+  padding: 20px 50px 50px;
+  width: calc(100% - 16px);
+  max-width: 550px;
+
+  @include mdScreenMedia {
+    padding: 20px 30px 30px;
+  }
+
+  @include smScreenMedia {
+    padding: 15px;
+  }
+
+
+  &__title {
+    @include setFont(17px, 700);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__container {
+    @include flexCol();
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    @include flexCol();
+    gap: 10px;
+    padding: 10px 20px;
+    background-color: $color-main;
+    border-radius: 36px;
+  }
+
+  &__itemText {
+    @include setFont(14px, 400)
+  }
+
+  &__itemRemoveBtn {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }
+
+  &__itemRemoveIcon {
+    @include svg(9px,transparent,9px ,$color-white)
+  }
+}

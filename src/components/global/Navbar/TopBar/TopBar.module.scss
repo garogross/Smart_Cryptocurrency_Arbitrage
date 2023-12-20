@@ -1,0 +1,61 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+
+.topBar {
+  width: 100%;
+  background: transparent;
+  @include flexCol(space-between);
+  position: fixed;
+  top: 0;
+  transition: $transition;
+  z-index: 777;
+
+  &_active {
+    background: $color-main;
+  }
+
+  &_hidden {
+    top: -100px;
+  }
+
+
+  &__burgerBtn {
+    height: 56px;
+    width: 56px;
+    @include flexCol();
+    border: none;
+    background: transparent;
+    transition: $transition;
+    cursor: pointer;
+
+    &_active {
+      background: $color-blue-active;
+
+    }
+  }
+
+  &__burgerIcon {
+    @include svg(20px, $color-white);
+  }
+
+  &__logoBtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__logo {
+    object-fit: contain;
+  }
+
+  &__distanceBlock {
+    transition: $transition;
+    width: 100%;
+    height: 0;
+
+    &_active {
+      height: 56px;
+    }
+  }
+}

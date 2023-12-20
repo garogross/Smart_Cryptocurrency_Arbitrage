@@ -1,0 +1,126 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.pricing {
+  margin-bottom: 172px;
+
+  @include lgScreenMedia {
+    margin-bottom: 140px;
+  }
+
+  @include mdScreenMedia {
+    margin-bottom: 100px;
+  }
+
+  @include smScreenMedia {
+    margin-bottom: 80px;
+  }
+
+
+  &__title {
+    margin-bottom: 35px;
+  }
+
+  &__container {
+    @include flexCol(center, stretch);
+    max-width: 826px;
+    margin: 0 auto;
+    gap: 15px;
+
+    @include mdScreenMedia {
+      flex-direction: column;
+    }
+  }
+
+  &__box {
+    border-radius: 19px;
+    max-width: 100%;
+    background-color: #101328;
+    padding: 40px;
+    flex: 1;
+
+    @include smScreenMedia {
+      padding: 20px;
+    }
+  }
+
+  &__boxTitle {
+    @include setFont(20px, 700);
+    margin-bottom: 10px;
+
+    @include mdScreenMedia {
+      text-align: center;
+    }
+
+    @include smScreenMedia {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__boxText {
+    @include setFont(14px, 400, $color-text);
+  }
+
+  &__boxDescriptionText {
+    @include mdScreenMedia {
+      text-align: center;
+    }
+  }
+
+  &__boxPriceText {
+    background: linear-gradient(180deg, #6473C0 0%, $color-white 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    @include setFont(30px,700);
+    padding-top: 30px;
+    border-top: 1px dashed $color-main;
+    margin-bottom: 30px;
+    margin-top: 40px;
+
+    @include mdScreenMedia {
+      text-align: center;
+    }
+
+    @include smScreenMedia {
+      margin-top: 20px;
+      padding-top: 23px;
+      margin-bottom: 23px;
+    }
+
+  }
+
+  &__boxOptionBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    margin-top: 34px;
+
+    @include smScreenMedia {
+      margin-top: 15px;
+    }
+  }
+
+  &__boxOption {
+    @include flexCol(flex-start);
+    gap: 8px;
+
+    @include smScreenMedia {
+      justify-content: center;
+      align-items: flex-start;
+    }
+  }
+
+  &__boxOptionsText {
+    @include smScreenMedia {
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+
+  &__boxOptionIcon {
+    @include svg(15px, transparent,15px,$color-main);
+    min-width: 15px;
+  }
+}

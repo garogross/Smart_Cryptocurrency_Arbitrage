@@ -1,0 +1,82 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.mainPageHeader {
+  width: 100%;
+  background: radial-gradient(circle at -20% 30%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%),
+  radial-gradient(circle at 120% 30%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%);
+  padding-top: 50px;
+  padding-bottom: 78px;
+
+  @include smScreenMedia {
+    padding-top: 70px;
+  }
+
+  &__container {
+    @include flexCol();
+  }
+
+  &__textBlock {
+    flex: 5;
+  }
+
+  &__title {
+    @include setFont(74px, 600);
+    margin-bottom: 46px;
+
+    @include lgScreenMedia {
+      font-size: 50px;
+      margin-bottom: 30px;
+    }
+
+    @include mdScreenMedia {
+      font-size: 40px;
+      margin-bottom: 30px;
+    }
+
+    @include smScreenMedia {
+      font-size: 35px;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+  }
+
+  &__buttons {
+    @include flexCol(flex-start);
+    gap: 15px;
+
+    @include smScreenMedia {
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+
+
+  &__loginBtn {
+    cursor: pointer;
+    border: 1px solid $color-main;
+    background: transparent;
+    border-radius: 52px;
+    @include setFont(20, 600, $color-main);
+    padding: 14px 16px;
+
+    @include smScreenMedia {
+      font-size: 15px;
+    }
+  }
+
+  &_imageBlock {
+    flex: 7;
+    width: 100%;
+
+    @include smScreenMedia {
+      display: none;
+    }
+  }
+
+  &_image {
+    object-fit: contain;
+    width: 100%;
+  }
+}

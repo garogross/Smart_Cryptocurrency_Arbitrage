@@ -1,7 +1,7 @@
 import { animated, useTransition } from 'react-spring'
 
 const TransitionProvider = ({style,inProp,className,duration,height,children}) => {
-    const transDuration = duration ? duration : 100;
+    const transDuration = duration ? duration : 300;
 
 
     const styles = {
@@ -21,10 +21,15 @@ const TransitionProvider = ({style,inProp,className,duration,height,children}) =
             leave: { transform: 'rotateX(90deg)' },
         },
 
+        left: {
+            from: {left: '-350px'},
+            enter: {left: '0'},
+            leave: {left: '-350px'},
+        },
         right: {
-            from: {right: '-630px'},
+            from: {right: '-450px'},
             enter: {right: '0'},
-            leave: {right: '-630px'},
+            leave: {right: '-450px'},
         },
         translateX: {
             from: {translateX: '100%'},

@@ -1,6 +1,12 @@
 @import "vars";
 @import "mixins";
 
+:root {
+  --body-width: 1024px;
+}
+
+
+
 @font-face {
   font-family: 'SuisseIntl';
   src: url('../assets/fonts/SuisseIntl-Regular.ttf') format('ttf');
@@ -25,7 +31,7 @@
 }
 
 body {
-  background: $bg-color;
+  background: $color-bg;
 }
 
 .container {
@@ -35,40 +41,55 @@ body {
   margin-right: auto;
   padding-right: $container-padding;
   padding-left: $container-padding;
+
+  @include xlScreenMedia {
+    max-width: 960px;
+  }
+
+  @include lgScreenMedia {
+    max-width: 720px;
+  }
+
+  @include mdScreenMedia {
+    max-width: 560px;
+  }
 }
 
-
-.titleDef {
-  @include setFont(40px, 400);
-  color: $color-black;
+.titleTxt {
+  @include setFont(45px, 600, $color-white);
   text-align: center;
-  transition: $transition;
+
+  @include lgScreenMedia {
+    font-size: 40px;
+  }
+
+  @include mdScreenMedia {
+    font-size: 36px;
+  }
+
+  @include smScreenMedia {
+    font-size: 25px;
+  }
 }
 
-.subTitleDef {
-  @include setFont(30px, 400);
-  color: $color-black;
-  text-align: center;
+.subtitleTxt {
+  @include setFont(13px,600,#7288FF);
+}
+
+.contentTxt {
+  @include setFont(16px, 400, $color-text);
+
+  @include smScreenMedia {
+    font-size: 15px;
+  }
 }
 
 .blueText {
-  color: $color-blue
+  color: $color-main;
 }
 
-.greenText {
-  color: $color-green
-}
-
-.redText {
-  color: $color-red
-}
-
-.blackText {
-  color: $color-black
-}
-
-.boldText {
-  @include setFont(20px,700)
+.pageRouteTitle {
+  @include setFont(13px, 400, #9EADFF);
 }
 
 .scrollbarDef {
@@ -76,10 +97,10 @@ body {
 
   &::-webkit-scrollbar {
     cursor: default;
-    background: $color-grey-light;
+    background: $color-grey;
     border-radius: 6px;
     background-clip: padding-box;
-    width: 10px;
+    width: 6px;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -87,36 +108,21 @@ body {
     width: 14px;
     border-radius: 6px;
     background-clip: padding-box;
-    background: $color-blue;
-    border: 2px solid $color-grey-light;
+    background: $color-main;
   }
 
-}
-
-.inputDef {
-  width: 100%;
-  border: 2px solid $color-grey;
-  padding: 14px 16px;
-  border-radius: 10px;
-  color: $color-black;
-  transition: $transition;
-  @include setFont(18px,400);
-
-  &::placeholder {
-    color: $color-grey;
-  }
-
-  &:hover,&:focus,&:active {
-    background-color: $color-grey-light;
-    border-color: $color-blue;
-    outline: none;
-  }
-
-  &_invalid {
-    border-color: $color-red;
-  }
 }
 
 .shadowedBox {
   box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+}
+
+.gradientBg {
+  background: radial-gradient(circle at 50% 50%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%),
+  radial-gradient(circle at 50% 0%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%);
+  min-height: 100vh;
+
+  @include smScreenMedia {
+    background: none;
+  }
 }

@@ -1,0 +1,16 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+.secondaryBtn {
+  cursor: pointer;
+  border: none;
+  background-color: $color-main;
+  border-radius: 52px;
+  @include setFont(20, 600);
+  padding: 14px 16px;
+  box-shadow: 0px 4.53px 77.014px 0px rgba(88, 122, 242, 0.52);
+
+  @include smScreenMedia {
+    font-size: 15px;
+  }
+}

@@ -1,25 +1,25 @@
 @import "vars";
 
 @mixin smScreenMedia {
-  @media (max-width: $sm-screen) {
+  @media  (max-width: $sm-screen) {
     @content;
   }
 }
 
 @mixin mdScreenMedia {
-  @media (max-width: $md-screen) {
+  @media  (max-width: $md-screen) {
     @content;
   }
 }
 
 @mixin lgScreenMedia {
-  @media (max-width: $lg-screen) {
+  @media  (max-width: $lg-screen) {
     @content;
   }
 }
 
 @mixin xlScreenMedia {
-  @media (max-width: $xl-screen) {
+  @media  (max-width: $xl-screen) {
     @content;
   }
 }
@@ -113,7 +113,7 @@
   stroke: $stroke;
 }
 
-@mixin setFont($size,$weight,$color: $color-black) {
+@mixin setFont($size,$weight,$color: $color-white) {
   font-size: $size;
   font-weight: $weight;
   color: $color,
@@ -126,7 +126,7 @@
 }
 
 @mixin hover {
-  @media (hover: hover) {
+  @media  (hover: hover) {
     @content;
   }
 }

@@ -1,0 +1,32 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+.mainInput {
+  background-color: $color-input-bg;
+  border-radius: 10px;
+  padding: 16px;
+  @include setFont(16px, 400);
+  border: none;
+  outline: none;
+  transition: $transition;
+  width: 100%;
+
+  &:hover, &:focus{
+    outline: 1px solid $color-main;
+    background-color: #101320;
+  }
+
+  &::placeholder {
+    color: #585859;
+  }
+
+  &_invalid {
+
+  }
+  &_withIcon {
+    background-repeat: no-repeat;
+    background-size: 16px;
+    background-position: 17px 50%;
+    padding-left: 50px;
+  }
+}

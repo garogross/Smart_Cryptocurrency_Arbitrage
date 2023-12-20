@@ -1,0 +1,182 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.arbitrageScanner {
+  margin-bottom: 220px;
+
+  @include lgScreenMedia {
+    margin-bottom: 180px;
+  }
+
+  @include mdScreenMedia {
+    margin-bottom: 120px;
+  }
+
+  @include smScreenMedia {
+    margin-bottom: 80px;
+  }
+
+  &__block {
+    width: 100%;
+    border-radius: 24px;
+    padding: 32px 26px 0;
+    @include flexCol(flex-start);
+    background: url("../../../assets/images/MainPage/arbitrageScannerBg.jpg") center;
+    background-size: cover;
+    position: relative;
+    border:  1px solid rgba(255, 255, 255, 0.15);
+
+    @include mdScreenMedia {
+      gap: 60px!important;
+    }
+
+
+    &_dex {
+      gap: 40px;
+      margin-bottom: 80px;
+
+      @include lgScreenMedia {
+        flex-direction: column-reverse;
+      }
+    }
+
+    &_cex {
+      gap: 60px;
+
+      @include lgScreenMedia {
+        flex-direction: column;
+      }
+    }
+  }
+
+  &__dexImages {
+    flex: 1;
+    @include flexCol();
+    gap: 12px;
+
+    @include mdScreenMedia {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+
+  &__image {
+    border-radius: 15px 15px 0 0;
+    max-width: 100%;
+  }
+
+  &__lightImage {
+    max-width: 40%;
+
+    @include mdScreenMedia {
+      max-width: 80%;
+    }
+  }
+
+  &__darkImage {
+
+    &_dex {
+      max-width: 60%;
+    }
+
+    &_cex {
+      max-width: 44%;
+    }
+
+    @include mdScreenMedia {
+      max-width: 100%;
+    }
+  }
+
+  &__dexTextBlock {
+    flex: 1;
+  }
+
+  &__subtitle {
+    margin-bottom: 6px;
+
+    @include mdScreenMedia {
+      text-align: center;
+    }
+  }
+
+  &__title {
+    @include setFont(36px, 600);
+    margin-bottom: 25px;
+
+    @include mdScreenMedia {
+      text-align: center;
+    }
+
+    @include smScreenMedia {
+      font-size: 25px;
+      margin-bottom: 20px;
+    }
+  }
+
+  &__cexTextBlock {
+    flex: 5;
+    margin-left: 20px;
+  }
+
+  &__contentTxt {
+    @include mdScreenMedia {
+      text-align: center;
+    }
+  }
+
+  &__cexImages {
+    flex: 7;
+    @include flexCol(center,flex-end);
+    gap: 12px;
+
+    @include mdScreenMedia {
+      flex-direction: column;
+      gap: 0;
+      align-items: center;
+    }
+  }
+
+
+  &__deskAbsoluteBlock {
+    @include mdScreenMedia {
+      display: none;
+    }
+  }
+
+  &__dexRedAbsoluteBlock {
+    bottom: -24px;
+    left: 40%;
+  }
+
+  &__dexGreenAbsoluteBlock {
+    top: -24px;
+    left: 0;
+  }
+
+  &__cexRedAbsoluteBlock {
+    bottom: -24px;
+    right: 0;
+  }
+
+  &__cexGreenAbsoluteBlock {
+    top: -24px;
+    left: 40%;
+  }
+
+  &__mobAbsoluteBlockWrapper {
+    position: relative;
+    width: 100%;
+    display: none;
+
+    @include mdScreenMedia {
+      display: block;
+    }
+  }
+  &__mobAbsoluteBlock {
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+}

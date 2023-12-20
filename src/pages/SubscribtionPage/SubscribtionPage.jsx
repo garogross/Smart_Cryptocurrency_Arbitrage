@@ -1,8 +1,14 @@
 import React from 'react';
+import SubscribtionPageContainer
+    from "../../components/SubscribtionPage/SubscribtionPageContainer/SubscribtionPageContainer";
 
 function SubscribtionPage(props) {
     return (
-        <div></div>
+        <div className={'gradientBg'}>
+            <div className="container">
+                <SubscribtionPageContainer/>
+            </div>
+        </div>
     );
 }
 

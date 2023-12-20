@@ -1,0 +1,30 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.absoluteBlock {
+  padding: 13px 15px;
+  border-radius: 46px;
+  position: absolute;
+  backdrop-filter: blur(10px);
+
+  & p {
+    @include setFont(18px, 700)
+  }
+
+  &_red {
+    background-color: rgba(249, 44, 44, 0.4);
+
+    p {
+      color: #FF7184;
+    }
+  }
+
+  &_green {
+    background-color: rgba(68, 189, 80, 0.4);
+
+    p {
+      color: #65FA8E;
+    }
+  }
+}

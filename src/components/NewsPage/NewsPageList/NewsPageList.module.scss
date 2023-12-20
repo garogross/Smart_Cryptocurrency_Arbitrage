@@ -1,0 +1,67 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.newsList {
+  padding-top: 45px;
+  padding-bottom: 30px;
+
+  &__container {
+    @include flexCol(flex-start);
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  &__item {
+    padding: 25px;
+    width: calc(100% / 3 - 20px);
+    background-color: $color-black;
+    border-radius: 10px;
+    aspect-ratio: 1.5/1;
+    @include flexCol(flex-end, flex-start);
+    flex-direction: column;
+    cursor: pointer;
+
+    @include xlScreenMedia {
+      width: calc(50% - 10px);
+    }
+
+    @include mdScreenMedia {
+      width: 100%;
+      max-width: 400px;
+    }
+  }
+
+  &__itemTitle {
+    margin-bottom: 5px;
+  }
+
+  &__itemImg {
+    flex: 1 1;
+    aspect-ratio: 1.5/1;
+    height: 100%;
+    padding-bottom: 20px;
+    object-fit: cover;
+    border-radius: 10px;
+    align-self: center;
+  }
+
+  &__itemText {
+    @include setFont(23px, 700);
+    line-height: 1;
+    height: 2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background: -webkit-linear-gradient(180deg, $color-black 10%, $color-white 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    @include mdScreenMedia {
+      font-size: 18px;
+    }
+
+    @include smScreenMedia {
+      font-size: 16px;
+    }
+  }
+}

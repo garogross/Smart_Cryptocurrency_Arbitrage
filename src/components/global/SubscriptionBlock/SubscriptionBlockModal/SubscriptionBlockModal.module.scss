@@ -1,0 +1,40 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+
+.subscriptionBlockModal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  background: $color-blue-bold;
+  border-radius: 19px;
+  padding: 20px 20px 10px;
+  width: calc(100% - 16px);
+  max-width: 550px;
+
+  @include mdScreenMedia {
+    padding: 20px 30px 30px;
+  }
+
+  @include smScreenMedia {
+    padding: 15px;
+  }
+
+  &__title {
+    @include setFont(17px, 700);
+    margin-bottom: 30px;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  &__btns {
+    @include flexCol();
+    gap: 5px;
+
+    @include smScreenMedia {
+      flex-direction: column-reverse;
+    }
+  }
+}

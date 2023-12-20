@@ -1,0 +1,38 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.community {
+  @include flexCol();
+  margin-bottom: 200px;
+  flex-direction: column;
+
+  @include lgScreenMedia {
+    margin-bottom: 150px;
+  }
+
+  @include mdScreenMedia {
+    margin-bottom: 100px;
+  }
+
+  @include smScreenMedia {
+    margin-bottom: 80px;
+  }
+
+  &__title {
+    margin-bottom: 15px;
+  }
+
+  &__text {
+    margin-bottom: 9px;
+    text-align: center;
+
+    @include smScreenMedia {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__img {
+    max-width: 100%;
+  }
+}

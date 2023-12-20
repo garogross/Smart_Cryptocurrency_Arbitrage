@@ -1,0 +1,49 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.arbitrageBot {
+  margin-bottom: 196px;
+
+  @include mdScreenMedia {
+    margin-bottom: 100px;
+  }
+
+  @include smScreenMedia {
+    margin-bottom: 35px;
+  }
+
+  &__title {
+    margin-bottom: 15px;
+  }
+
+  &__contentText {
+    margin-bottom: 45px;
+    text-align: center;
+
+    @include smScreenMedia {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__image {
+    max-width: 100%;
+    margin: 0 auto;
+
+    &_desk {
+      display: block;
+
+      @include smScreenMedia {
+        display: none;
+      }
+    }
+
+    &_mob {
+      display: none;
+
+      @include smScreenMedia {
+        display: block;
+      }
+    }
+  }
+}

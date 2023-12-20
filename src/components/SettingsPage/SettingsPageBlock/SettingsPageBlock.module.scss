@@ -1,0 +1,145 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.settingsBlock {
+  padding-top: 35px;
+  min-height: 100vh;
+  padding-bottom: 20px;
+
+  @include smScreenMedia {
+    margin-top: 25px;
+  }
+
+  &__routeTitle {
+    margin-bottom: 35px;
+
+    @include smScreenMedia {
+      margin-bottom: 15px;
+    }
+  }
+
+  &__main {
+    background-color: $color-black-bold;
+    border-radius: 16px;
+    padding: 35px;
+
+    @include smScreenMedia {
+      padding: 0;
+      background: transparent;
+    }
+  }
+
+  &__mainTopBlock {
+    @include flexCol();
+    gap: 35px;
+    margin-bottom: 35px;
+
+    @include lgScreenMedia {
+      flex-direction: column;
+    }
+
+    @include smScreenMedia {
+      gap: 25px;
+      margin-bottom: 25px;
+    }
+  }
+
+  &__box {
+    background-color: $color-blue-bold;
+    border-radius: 24px;
+    padding: 30px 25px;
+
+    @include smScreenMedia {
+      padding: 15px;
+      border-radius: 16px;
+    }
+  }
+
+  &__boxSubtitle {
+    @include setFont(18px, 400, #B2B0C8);
+    margin-bottom: 10px;
+  }
+
+  &__boxTitle {
+    @include setFont(24px, 400);
+    margin-bottom: 35px;
+
+    @include smScreenMedia {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__boxinput {
+    margin-bottom: 10px;
+  }
+
+  &__boxBtn {
+    margin-top: 25px;
+
+    @include smScreenMedia {
+      margin-top: 18px;
+    }
+  }
+
+  &__notificationBlock {
+    background-color: $color-input-bg;
+    border-radius: 6px;
+    padding: 12px 20px;
+    gap: 10px;
+    @include flexCol(space-between);
+
+    @include smScreenMedia {
+      padding: 0;
+      align-self: flex-start;
+      border-radius: 0;
+    }
+  }
+
+  &__notificationBlockTitle {
+    @include setFont(16px, 400);
+    margin-bottom: 4px;
+  }
+
+  &__notificationBlockText {
+    @include setFont(14px, 400, $color-grey);
+    max-width: 300px;
+
+    @include smScreenMedia {
+      font-size: 11px;
+    }
+  }
+
+  &__notificationBlockBtn {
+    width: 56px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: $color-grey;
+    cursor: pointer;
+    border: none;
+    position: relative;
+    transition: $transition;
+
+    &::after {
+      content: "";
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background-color: $color-white;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: $transition;
+    }
+
+    &_active {
+      background-color: $color-main;
+
+      &::after {
+        left: 100%;
+        transform: translateX(-100%);
+      }
+    }
+
+  }
+}

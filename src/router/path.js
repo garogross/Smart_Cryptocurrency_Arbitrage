@@ -8,46 +8,58 @@ import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
 import ChangePasswordPage from "../pages/ChangePasswordPage/ChangePasswordPage";
 import ArbitragePage from "../pages/ArbitragePage/ArbitragePage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import SettingsPage from "../pages/SettingsPage/SettingsPage";
+
+export const mainPagePath = '/'
+export const arbitragePagePath = '/arbitrage'
+export const changePasswordPagePath = '/changePassword'
+export const forgotPasswordPagePath = '/forgotPassword'
+export const loginPagePath = '/login'
+export const newsPagePath = '/news'
+export const settingsPagePath = '/settings'
+export const signUpPagePath = '/signUp'
+export const subscribtionPagePath = '/subscribtion'
+export const supportPagePath = '/support'
 
 export const routes = [
     {
-        path: '/',
+        path: mainPagePath,
         component: <MainPage/>
     },
     {
-        path: 'arbitrage',
+        path: arbitragePagePath,
         component: <ArbitragePage/>
     },
     {
-        path: 'changePassword',
+        path: changePasswordPagePath,
         component: <ChangePasswordPage/>
     },
     {
-        path: 'forgotPassword',
+        path: forgotPasswordPagePath,
         component: <ForgotPasswordPage/>
     },
     {
-        path: 'login',
+        path: loginPagePath,
         component: <LoginPage/>
     },
     {
-        path: 'news',
+        path: newsPagePath,
         component: <NewsPage/>
     },
     {
-        path: 'settings',
+        path: settingsPagePath,
+        component: <SettingsPage/>
+    },
+    {
+        path: signUpPagePath,
         component: <SignUpPage/>
     },
     {
-        path: 'signUp',
-        component: <SignUpPage/>
-    },
-    {
-        path: 'subscribtion',
+        path: subscribtionPagePath,
         component: <SubscribtionPage/>
     },
     {
-        path: 'support',
+        path: supportPagePath,
         component: <SupportPage/>
     },
     {

@@ -1,0 +1,69 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.arbitrageHeader {
+  padding-top: 34px;
+
+  &__title {
+    margin-bottom: 25px;
+  }
+
+  &__options {
+    @include flexCol(space-between);
+
+    @include smScreenMedia {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  &__blacklistOptions {
+    @include flexCol();
+    gap: 17px;
+  }
+
+  &__btn {
+    padding: 10px 25px;
+    border-radius: 36px;
+    background-color: $color-main;
+    @include setFont(16px, 400);
+    @include flexCol();
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    transition: $transition;
+
+    &__disabled {
+      background-color: $color-blue-passive;
+    }
+  }
+
+  &__eyeBtn {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+
+  &__blacklistFilterOptions {
+    @include flexCol();
+    gap: 5px;
+
+    @include smScreenMedia {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+
+  &__eyeIcon {
+    @include svg(28px, $color-white, 18px)
+  }
+
+  &__filterArrowIcon {
+    @include svg(14px, transparent, 14px, $color-white)
+  }
+
+  &__refreshIcon {
+    @include svg(20px, transparent, 20px, $color-white)
+  }
+}

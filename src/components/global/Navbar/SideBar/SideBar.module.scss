@@ -1,0 +1,164 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+.sideBar {
+  width: 100%;
+  max-width: 312px;
+  background-color: $color-blue-bg;
+  border-right: 2px solid $color-border;
+  padding: 18px 30px 27px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 999999;
+
+  &__closeBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    position: absolute;
+    top: 26px;
+    right: -10px;
+
+    @include smScreenMedia {
+      right: 10px;
+    }
+  }
+
+  &__closeIcon {
+    @include svg(20px, $color-main)
+  }
+
+  &__logoImage {
+    width: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+  }
+
+  &__link {
+    padding: 13px 10px;
+    border-radius: 14px;
+    background: transparent;
+    @include flexCol(flex-start);
+    transition: $transition;
+    @include setFont(17px, 600, $color-grey);
+    text-decoration: none;
+    gap: 10px;
+    margin-bottom: 4px;
+
+    &_active {
+      background: $color-main;
+      color: $color-white;
+    }
+
+    &_active &Icon, {
+      fill: $color-white !important;
+    }
+
+    &_active &ArrowIcon, {
+      stroke: $color-white !important;
+      margin-left: auto;
+      transform: rotate(180deg);
+    }
+
+    &Icon {
+      @include svg(20px, $color-grey);
+    }
+
+    &ArrowIcon {
+      @include svg(11px, transparent, 11px, $color-grey);
+    }
+  }
+
+  &__line {
+    width: calc(100% - 10px);
+    margin: 13px auto 17px;
+    border: 1px solid $color-border;
+  }
+
+  &__acardeon {
+    margin: 10px auto 20px;
+    @include flexCol(flex-start, flex-start);
+    flex-direction: column;
+  }
+
+  &__acardeonItem {
+    padding: 4px 0;
+    border-left: 1px solid $color-blue-passive;
+    @include flexCol(flex-start);
+    gap: 5px;
+    @include setFont(14px, 400, $color-grey);
+    text-decoration: none;
+
+    &_active {
+      color: $color-white;
+    }
+  }
+
+  &__acardeonItemLine {
+    width: 9px;
+    height: 1px;
+    background-color: $color-blue-passive;
+  }
+
+  &__bottomBlock {
+    flex: 1;
+    @include flexCol(flex-end, flex-start);
+    flex-direction: column;
+    padding: 0 10px;
+  }
+
+  &__socialIconsBlock {
+    @include flexCol(flex-start);
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  &__socialIcon {
+    @include svg(25px, $color-grey);
+
+    &:hover {
+      fill: $color-white;
+    }
+  }
+
+  &__logoutBtn {
+    width: 100%;
+    background-color: $color-blue-passive;
+    border-radius: 68px;
+    padding: 13px 0;
+    @include flexCol();
+    gap: 5px;
+    border: none;
+    cursor: pointer;
+  }
+
+  &__socialBtn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  &__logoutIcon {
+    @include svg(20px, $color-grey);
+
+    &:hover {
+      fill: $color-white;
+    }
+  }
+
+  &__logoutText {
+    @include setFont(14px, 600)
+  }
+}
