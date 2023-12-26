@@ -31,7 +31,7 @@
   }
 
   &__mainTopBlock {
-    @include flexCol();
+    @include flexCol(center,stretch);
     gap: 35px;
     margin-bottom: 35px;
 
@@ -49,6 +49,7 @@
     background-color: $color-blue-bold;
     border-radius: 24px;
     padding: 30px 25px;
+    width: 100%;
 
     @include smScreenMedia {
       padding: 15px;
@@ -70,17 +71,6 @@
     }
   }
 
-  &__boxinput {
-    margin-bottom: 10px;
-  }
-
-  &__boxBtn {
-    margin-top: 25px;
-
-    @include smScreenMedia {
-      margin-top: 18px;
-    }
-  }
 
   &__notificationBlock {
     background-color: $color-input-bg;
@@ -93,6 +83,7 @@
       padding: 0;
       align-self: flex-start;
       border-radius: 0;
+      background-color: transparent;
     }
   }
 

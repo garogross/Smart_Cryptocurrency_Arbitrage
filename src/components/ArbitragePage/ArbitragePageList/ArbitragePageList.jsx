@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./ArbitragePageList.module.scss"
 import ArbitragePageListItem from "./ArbitragePageListItem/ArbitragePageListItem";
 
-function ArbitragePageList(props) {
+function ArbitragePageList() {
     return (
             <div className={styles["arbitrageList"]}>
                 <ArbitragePageListItem/>

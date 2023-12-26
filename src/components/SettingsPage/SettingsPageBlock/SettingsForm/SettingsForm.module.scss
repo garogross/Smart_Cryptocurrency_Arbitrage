@@ -1,0 +1,44 @@
+@import "../../../../styles/vars";
+@import "../../../../styles/mixins";
+
+.settingsForm {
+
+  &__input {
+    margin-bottom: 10px;
+  }
+
+  &__btn {
+    margin-top: 25px;
+
+    @include smScreenMedia {
+      margin-top: 18px;
+    }
+
+  }
+
+  &__notText {
+    @include setFont(14px, 400, $color-white);
+    padding: 0;
+    transition: $transition;
+    max-height: 0px;
+    text-align: center;
+    opacity: 0;
+
+    &_fail {
+      color: $color-red;
+    }
+
+    &_success {
+      color: #75FFAC;
+    }
+
+    &_active {
+      opacity: 1;
+      padding: 10px 0;
+      max-height: 50px;
+    }
+  }
+
+
+
+}

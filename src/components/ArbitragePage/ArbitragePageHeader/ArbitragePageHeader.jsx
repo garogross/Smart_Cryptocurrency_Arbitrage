@@ -40,7 +40,7 @@ const data = [
     },
 ]
 
-function ArbitragePageHeader(props) {
+function ArbitragePageHeader() {
     const [isBlackListModalOpened,setIsBlackListModalOpened] = useState(false)
     const [isHiddenItemsModalOpened,setIsHiddenItemsModalOpened] = useState(false)
     const [isAutoRefreshOn,setIsAutoRefreshOn] = useState(false)

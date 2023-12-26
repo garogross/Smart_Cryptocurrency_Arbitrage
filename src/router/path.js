@@ -5,14 +5,15 @@ import NewsPage from "../pages/NewsPage/NewsPage";
 import MainPage from "../pages/MainPage/MainPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage/ForgotPasswordPage";
-import ChangePasswordPage from "../pages/ChangePasswordPage/ChangePasswordPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage/ResetPasswordPage";
 import ArbitragePage from "../pages/ArbitragePage/ArbitragePage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import SettingsPage from "../pages/SettingsPage/SettingsPage";
+import PrivateRoute from "./PrivateRoute";
 
 export const mainPagePath = '/'
 export const arbitragePagePath = '/arbitrage'
-export const changePasswordPagePath = '/changePassword'
+export const resetPasswordPagePath = '/resetPassword'
 export const forgotPasswordPagePath = '/forgotPassword'
 export const loginPagePath = '/login'
 export const newsPagePath = '/news'
@@ -28,31 +29,31 @@ export const routes = [
     },
     {
         path: arbitragePagePath,
-        component: <ArbitragePage/>
+        component: <PrivateRoute element={<ArbitragePage/>}/>
     },
     {
-        path: changePasswordPagePath,
-        component: <ChangePasswordPage/>
+        path: resetPasswordPagePath,
+        component: <PrivateRoute element={<ResetPasswordPage/>} noAuth={true}/>
     },
     {
         path: forgotPasswordPagePath,
-        component: <ForgotPasswordPage/>
+        component: <PrivateRoute element={<ForgotPasswordPage/>} noAuth={true}/>
     },
     {
         path: loginPagePath,
-        component: <LoginPage/>
+        component: <PrivateRoute element={<LoginPage/>} noAuth={true}/>
     },
     {
         path: newsPagePath,
-        component: <NewsPage/>
+        component: <PrivateRoute element={<NewsPage/>}/>
     },
     {
         path: settingsPagePath,
-        component: <SettingsPage/>
+        component: <PrivateRoute element={<SettingsPage/>}/>
     },
     {
         path: signUpPagePath,
-        component: <SignUpPage/>
+        component: <PrivateRoute element={<SignUpPage/>} noAuth={true}/>
     },
     {
         path: subscribtionPagePath,

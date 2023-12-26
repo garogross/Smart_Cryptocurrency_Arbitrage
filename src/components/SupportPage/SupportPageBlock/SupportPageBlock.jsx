@@ -3,7 +3,7 @@ import Svg from "../../layout/Svg/Svg";
 import {emailIcon, telegramIcon} from "../../../assets/svg";
 import styles from "./SupportPageBlock.module.scss"
 
-function SupportPageBlock(props) {
+function SupportPageBlock() {
     return (
         <>
             <div className={styles["supportBlock"]}>

@@ -2,7 +2,7 @@ import React from 'react';
 import styles from "./MainPagePricing.module.scss"
 import SubscriptionBlock from "../../global/SubscriptionBlock/SubscriptionBlock";
 
-function MainPagePricing(props) {
+function MainPagePricing() {
     return (
         <div>
             <div className={styles["pricing"]}>

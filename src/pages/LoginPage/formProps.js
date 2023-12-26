@@ -8,11 +8,14 @@ export const formProps = () =>  ({
     title: <>Войти в <span className={'blueText'}>аккаунт</span></>,
     fields: [
         {
+            type: 'email',
+            key: "email",
             placeholder: "E-mail",
             img: emailImage
         },
         {
             type: 'password',
+            key: "password",
             placeholder: "Пароль",
             img: passwordImage
         },

@@ -64,7 +64,6 @@ function ArbitragePageFilterModal({show, onClose}) {
 
     const onToggleCheckBox = (e) => {
         const {name,value} = e.target
-        console.log(formData[name].includes(value))
         setFormData(prevState => ({
             ...prevState,
             [name]: prevState[name].includes(value) ?

@@ -29,6 +29,18 @@
     text-align: center;
   }
 
+  &__text {
+    @include setFont(14px, 400,$color-main);
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__loader {
+    @include flexCol();
+    padding: 10px 0;
+    overflow: hidden;
+  }
+
   &__btns {
     @include flexCol();
     gap: 5px;

@@ -90,7 +90,7 @@ function MainPageArbitrageScanner() {
                             className={styles["arbitrageScanner__mobAbsoluteBlock"]}
                         >KuCoin</AbsoluteBlock>
                     </div>
-                    <img src={dexArbitrageDarkImage} alt="orders" className={
+                    <img src={cexArbitrageDarkImage} alt="orders" className={
                         `${styles["arbitrageScanner__image"]} `+
                         `${styles["arbitrageScanner__darkImage"]} `+
                         `${styles["arbitrageScanner__darkImage_cex"]} `

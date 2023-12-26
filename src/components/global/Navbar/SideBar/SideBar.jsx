@@ -1,9 +1,16 @@
 import React, {Fragment} from 'react';
+import {useDispatch, useSelector} from "react-redux";
+import {logOut} from "../../../../redux/action/auth";
+import {Link, NavLink, useLocation, useNavigate} from "react-router-dom";
+
 import Svg from "../../../layout/Svg/Svg";
+import TransitionProvider from "../../../../providers/TransitionProvider";
+import Backdrop from "../../../layout/Backdrop/Backdrop";
+import NewPortalProvider from "../../../../providers/NewPortalProvider";
 
 import styles from "./SideBar.module.scss"
 import {
-    arbitragePagePath, mainPagePath,
+    arbitragePagePath, loginPagePath, mainPagePath,
     newsPagePath,
     settingsPagePath,
     subscribtionPagePath,
@@ -17,25 +24,25 @@ import {
     twitterIcon,
     youtubeIcon
 } from "../../../../assets/svg";
-import {Link, NavLink, useLocation} from "react-router-dom";
 import {navLogoImage} from "../../../../assets/images";
-import TransitionProvider from "../../../../providers/TransitionProvider";
-import Backdrop from "../../../layout/Backdrop/Backdrop";
-import NewPortalProvider from "../../../../providers/NewPortalProvider";
+import {subscriptionTypes} from "../../../../constants";
 
 const navLinks = [
     {
         title: "Arbitration News",
         icon: newsIcon,
         path: newsPagePath,
+        isPrivate: true,
         sublinks: [
             {
                 title: 'Актуальные новости',
-                href: 'actuals'
+                href: 'actuals',
+                isPrivate: true
             },
             {
                 title: 'Прошедшие новости',
-                href: 'latest'
+                href: 'latest',
+                isPrivate: true
             },
             {
                 title: 'News Free',
@@ -47,14 +54,17 @@ const navLinks = [
         title: "Arbitrage",
         icon: arbitrageIcon,
         path: arbitragePagePath,
+        isPrivate: true,
         sublinks: [
             {
                 title: 'CEX — CEX Arbitrage',
-                href: 'cex-dex'
+                href: 'cex-dex',
+                isPrivate: true
             },
             {
                 title: 'DEX — DEX Arbitrage',
-                href: 'dex-dex'
+                href: 'dex-dex',
+                isPrivate: true
             },
             {
                 title: 'Arbitrage Free',
@@ -71,6 +81,7 @@ const navLinks = [
         title: "Settings",
         icon: settingsIcon,
         path: settingsPagePath,
+        isPrivate: true
     },
     {
         title: "Support",
@@ -80,14 +91,27 @@ const navLinks = [
 ]
 
 function SideBar({burgerOpened, onCloseBurger}) {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const location = useLocation()
+    const token = useSelector(state => state.auth.token)
+    const user = useSelector(state => state.auth.user)
 
     const {pathname, hash} = location
+
+    const onClickLoginLogout = () => {
+        const clb = () => navigate(loginPagePath)
+        token ? dispatch(logOut(clb)) : navigate(loginPagePath)
+        onCloseBurger()
+    }
+
     const setActiveNavLinkClass = (defaultClass, activeClass) => {
         return ({isActive}) => (isActive ? `${defaultClass} ${activeClass}` : defaultClass)
     }
 
     const activeNavLinks = setActiveNavLinkClass(styles["sideBar__link"], styles["sideBar__link_active"])
+
+
     return (
         <>
             <Backdrop inProp={burgerOpened} onClose={onCloseBurger}/>
@@ -106,16 +130,21 @@ function SideBar({burgerOpened, onCloseBurger}) {
                             id={arrowIcon}
                         />
                     </button>
-                    <Link to={mainPagePath}>
+                    <Link to={mainPagePath} onClick={onCloseBurger}>
                         <img src={navLogoImage} alt="Logo" className={styles["sideBar__logoImage"]}/>
                     </Link>
                     <div className={`${styles["sideBar__menu"]} scrollbarDef`}>
                         {
-                            navLinks.map(({title, icon, path, sublinks}, index) => (
+                            navLinks.filter(item => token || !item.isPrivate).map(({
+                                                                                       title,
+                                                                                       icon,
+                                                                                       path,
+                                                                                       sublinks
+                                                                                   }, index) => (
                                     <Fragment key={index}>
                                         {index === navLinks.length - 1 ? <b className={styles['sideBar__line']}/> : null}
                                         <NavLink
-                                            onClick={onCloseBurger}
+                                            onClick={!sublinks ? onCloseBurger : null}
                                             to={path}
                                             className={activeNavLinks}
                                         >
@@ -138,16 +167,19 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                                 className={styles['sideBar__acardeon']}
                                             >
                                                 {
-                                                    sublinks.map((item, index) => (
-                                                        <Link
-                                                            onClick={onCloseBurger}
-                                                            key={index}
-                                                            to={`${path}#${item.href}`}
-                                                              className={`${styles["sideBar__acardeonItem"]} ${hash.includes(item.href) ? styles["sideBar__acardeonItem_active"] : ""}`}>
-                                                            <span className={styles["sideBar__acardeonItemLine"]}></span>
-                                                            <span>{item.title}</span>
-                                                        </Link>
-                                                    ))
+                                                    sublinks
+                                                        .filter(item => (token && user.subscription === subscriptionTypes.arb) || !item.isPrivate)
+                                                        .map((item, index) => (
+                                                            <Link
+                                                                onClick={onCloseBurger}
+                                                                key={index}
+                                                                to={`${path}#${item.href}`}
+                                                                className={`${styles["sideBar__acardeonItem"]} ${hash.includes(item.href) ? styles["sideBar__acardeonItem_active"] : ""}`}>
+                                                                <span
+                                                                    className={styles["sideBar__acardeonItemLine"]}></span>
+                                                                <span>{item.title}</span>
+                                                            </Link>
+                                                        ))
                                                 }
                                             </TransitionProvider> : null
                                         }
@@ -180,12 +212,15 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                 />
                             </button>
                         </div>
-                        <button className={styles["sideBar__logoutBtn"]}>
+                        <button
+                            className={styles["sideBar__logoutBtn"]}
+                            onClick={onClickLoginLogout}
+                        >
                             <Svg
                                 className={styles["sideBar__logoutIcon"]}
                                 id={logOutIcon}
                             />
-                            <span className={styles["sideBar__logoutText"]}>Logout</span>
+                            <span className={styles["sideBar__logoutText"]}>{token ? 'Logout' : 'Log In'}</span>
                         </button>
                     </div>
                 </TransitionProvider>

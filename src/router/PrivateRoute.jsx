@@ -1,15 +1,16 @@
 import React from 'react'
-import {adminLoginPagePath, loginPagePath} from './path';
+import {adminLoginPagePath, loginPagePath, mainPagePath} from './path';
 import { Navigate } from 'react-router-dom';
+import Cookies from "js-cookie";
 
-const PrivateRoute = ({element,navigateTo,role,reversedStatement}) => {
-   const token = localStorage.getItem('token')
-   const user = JSON.parse(localStorage.getItem('user'))
-   const statement = reversedStatement ? token || user : !token || !user || role && user.role !== role
+const PrivateRoute = ({element,noAuth}) => {
+   const token = Cookies.get('token')
+   const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null
+   const isAuthenticated = !token || !user
+   const statement = noAuth ? !isAuthenticated : isAuthenticated
 
-   const navigate = !token || !user ? navigateTo || adminLoginPagePath : -1
    return (
-       statement ? <Navigate to={navigate} replace={true} /> : element
+       statement ? <Navigate to={mainPagePath} replace={true} /> : element
    )
 }
 

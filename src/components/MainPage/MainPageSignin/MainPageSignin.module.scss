@@ -2,24 +2,23 @@
 @import "../../../styles/mixins";
 
 .signin {
-  background: radial-gradient(circle at 50% 130%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 60%);
+  margin-top: 172px;
+
+  @include lgScreenMedia {
+    margin-top: 140px;
+  }
+
+  @include mdScreenMedia {
+    margin-top: 100px;
+  }
+
+  @include smScreenMedia {
+    margin-top: 80px;
+  }
 
   &__container {
-    padding-bottom: 106px;
     @include flexCol();
     flex-direction: column;
-
-    @include lgScreenMedia {
-      padding-bottom: 80px;
-    }
-
-    @include mdScreenMedia {
-      padding-bottom: 60px;
-    }
-
-    @include smScreenMedia {
-      padding-bottom: 50px;
-    }
   }
 
   &__title {

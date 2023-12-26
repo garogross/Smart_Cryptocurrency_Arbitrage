@@ -1,7 +1,7 @@
 import React from 'react';
 import NewsPageList from "../../components/NewsPage/NewsPageList/NewsPageList";
 
-function NewsPage(props) {
+function NewsPage() {
     return (
         <NewsPageList/>
     );

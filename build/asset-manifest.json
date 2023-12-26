@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/static/css/main.e5fb8e46.css",
+    "main.js": "/static/js/main.31447f69.js",
+    "static/media/authBlockBg.jpg": "/static/media/authBlockBg.3f990edff32db4472afb.jpg",
+    "static/media/headerShark.png": "/static/media/headerShark.266e5a6d9ab081d3c778.png",
+    "static/media/newsDark2.jpg": "/static/media/newsDark2.99ef1ac41f8511a7320a.jpg",
+    "static/media/newsLight.jpg": "/static/media/newsLight.8d5e2ed5b38ab5f0d641.jpg",
+    "static/media/newsLight2.jpg": "/static/media/newsLight2.fc19843e76e2dc38ec3c.jpg",
+    "static/media/SuisseIntl-Regular.ttf": "/static/media/SuisseIntl-Regular.7ea99720633194a9e3c4.ttf",
+    "static/media/cexArbitrageLight.jpg": "/static/media/cexArbitrageLight.8f80ed915016b9893eb4.jpg",
+    "static/media/cexArbitrageDark.jpg": "/static/media/cexArbitrageDark.4ad48a68511a5e1b2869.jpg",
+    "static/media/dexArbitrageDark.jpg": "/static/media/dexArbitrageDark.975213c74904bb3a92c4.jpg",
+    "static/media/arbitrageScannerBg.jpg": "/static/media/arbitrageScannerBg.82f48d9d261539c56965.jpg",
+    "static/media/SuisseIntl-Medium.ttf": "/static/media/SuisseIntl-Medium.1dfd0a1c28a4683e0024.ttf",
+    "static/media/newsDak1.jpg": "/static/media/newsDak1.9ee0d25a33c3b30a619d.jpg",
+    "static/media/dexBotMob.png": "/static/media/dexBotMob.82c8fe79b40173e8c245.png",
+    "static/media/dexArbitrageLight.jpg": "/static/media/dexArbitrageLight.8d00668c50e7469232ba.jpg",
+    "static/media/newsTopBlockBg.jpg": "/static/media/newsTopBlockBg.aa59b62dcc71e5b1531e.jpg",
+    "static/media/newsbottomBlock2Bg.jpg": "/static/media/newsbottomBlock2Bg.2b3b7fc8b6cc054ea46c.jpg",
+    "static/media/newsbottomBlock1Bg.jpg": "/static/media/newsbottomBlock1Bg.2155c09e3d72d687691f.jpg",
+    "static/media/dexBot.png": "/static/media/dexBot.cb9ddd4c8adffa31ce6d.png",
+    "static/media/newsItem.webp": "/static/media/newsItem.3abf7aaf2c0d28cc74f3.webp",
+    "static/media/error.png": "/static/media/error.16f98430b35df2489e58.png",
+    "static/media/sprite.svg": "/static/media/sprite.8e2db894b5f25c302f081d2588bfe4b2.svg",
+    "index.html": "/index.html",
+    "main.e5fb8e46.css.map": "/static/css/main.e5fb8e46.css.map",
+    "main.31447f69.js.map": "/static/js/main.31447f69.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e5fb8e46.css",
+    "static/js/main.31447f69.js"
+  ]
+}

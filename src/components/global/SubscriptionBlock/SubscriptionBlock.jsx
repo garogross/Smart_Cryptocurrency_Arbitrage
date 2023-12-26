@@ -4,11 +4,20 @@ import MainBtn from "../../layout/MainBtn/MainBtn";
 import Svg from "../../layout/Svg/Svg";
 import {successIcon} from "../../../assets/svg";
 import SubscriptionBlockModal from "./SubscriptionBlockModal/SubscriptionBlockModal";
+import {useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
+import {signUpPagePath} from "../../../router/path";
 
-function SubscriptionBlock(props) {
-    const [selectedSubscribeType, setSelectedSubscribeType] = useState()
+function SubscriptionBlock() {
+    const navigate = useNavigate()
+    const token = useSelector(state => state.auth.token)
+    const [selectedSubscribeType, setSelectedSubscribeType] = useState(null)
 
-    const onSelectSubscribe = (type) => setSelectedSubscribeType(type)
+    const onSelectSubscribe = (type) => {
+        token ?
+            setSelectedSubscribeType(type) :
+            navigate(signUpPagePath)
+    }
     const closeModal = () => setSelectedSubscribeType(null)
 
     return (
@@ -98,7 +107,13 @@ function SubscriptionBlock(props) {
                     </div>
                 </div>
             </div>
-            <SubscriptionBlockModal onClose={closeModal} show={selectedSubscribeType}/>
+            {
+                selectedSubscribeType ?
+                <SubscriptionBlockModal
+                    onClose={closeModal}
+                    show={selectedSubscribeType}
+                /> : null
+            }
         </>
     );
 }

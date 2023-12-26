@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styles from "./MainInput.module.scss"
 
-function MainInput({
+const MainInput = memo(({
                        className,
                        isInvalid,
                        onChange,
                        value,
                        icon,
                        ...properties
-                   }) {
+                   }) => {
+
 
     return (
         <input
+            autoComplete={'off'}
             onChange={onChange}
             value={value}
             style={{backgroundImage: icon ? `url(${icon})` : 'none'}}
@@ -24,6 +26,6 @@ function MainInput({
 
         />
     );
-}
+})
 
 export default MainInput;

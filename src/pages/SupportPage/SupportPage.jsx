@@ -1,7 +1,7 @@
 import React from 'react';
 import SupportPageBlock from "../../components/SupportPage/SupportPageBlock/SupportPageBlock";
 
-function SupportPage(props) {
+function SupportPage() {
     return (
         <div className={'gradientBg'}>
             <div className="container">

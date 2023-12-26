@@ -9,7 +9,8 @@ export const formProps = () =>  ({
     fields: [
         {
             placeholder: "E-mail",
-            img: emailImage
+            img: emailImage,
+            key: 'email'
         },
     ],
     btnText: "Отправить",

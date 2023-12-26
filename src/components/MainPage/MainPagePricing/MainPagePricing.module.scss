@@ -3,21 +3,6 @@
 
 
 .pricing {
-  margin-bottom: 172px;
-
-  @include lgScreenMedia {
-    margin-bottom: 140px;
-  }
-
-  @include mdScreenMedia {
-    margin-bottom: 100px;
-  }
-
-  @include smScreenMedia {
-    margin-bottom: 80px;
-  }
-
-
   &__title {
     margin-bottom: 35px;
   }

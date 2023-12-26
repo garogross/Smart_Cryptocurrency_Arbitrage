@@ -20,6 +20,10 @@
   &__contentText {
     margin-bottom: 45px;
     text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
 
     @include smScreenMedia {
       margin-bottom: 40px;

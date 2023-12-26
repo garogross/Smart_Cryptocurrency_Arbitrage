@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import styles from "./TopBar.module.scss"
+import {useLocation, useNavigate} from "react-router-dom";
+
 import Svg from "../../../layout/Svg/Svg";
+
+import styles from "./TopBar.module.scss"
 import {burgerIcon} from "../../../../assets/svg";
 import {navLogoImage} from "../../../../assets/images";
-import {useLocation, useNavigate} from "react-router-dom";
 import {mainPagePath} from "../../../../router/path";
 
 function TopBar({burgerOpened,onOpenBurger}) {
@@ -11,7 +13,6 @@ function TopBar({burgerOpened,onOpenBurger}) {
     const {pathname} = useLocation()
     const [isScrolled, setIsScrolled] = useState(false)
 
-    console.log(pathname)
     useEffect(() => {
         if(pathname === mainPagePath) {
             window.addEventListener('scroll', checkIsScrolled);

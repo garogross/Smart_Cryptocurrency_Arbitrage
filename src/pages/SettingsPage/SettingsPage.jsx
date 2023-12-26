@@ -1,7 +1,7 @@
 import React from 'react';
 import SettingsPageBlock from "../../components/SettingsPage/SettingsPageBlock/SettingsPageBlock";
 
-function SettingsPage(props) {
+function SettingsPage() {
     return (
         <div className={'gradientBg'}>
             <div className="container">

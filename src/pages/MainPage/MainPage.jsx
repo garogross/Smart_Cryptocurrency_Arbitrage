@@ -7,9 +7,11 @@ import MainPageCommunity from "../../components/MainPage/MainPageCommunity/MainP
 import MainPagePricing from "../../components/MainPage/MainPagePricing/MainPagePricing";
 import MainPageSignin from "../../components/MainPage/MainPageSignin/MainPageSignin";
 
-function MainPage(props) {
+import styles from "./MainPage.module.scss"
+
+function MainPage() {
     return (
-        <div>
+        <div className={styles['main']}>
             <MainPageHeader/>
             <div className={'container'}>
                 <MainPageArbitrageBot/>

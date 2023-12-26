@@ -4,22 +4,25 @@ import {Link} from "react-router-dom";
 import {loginPagePath} from "../../router/path";
 
 
-export const formProps =  () => ({
+export const formProps = () => ({
     title: <>Создание <span className={'blueText'}>аккаунта</span></>,
     fields: [
         {
             placeholder: "Никнейм",
-            img: userImage
+            img: userImage,
+            key: "username"
         },
         {
             type: 'email',
             placeholder: "E-mail",
-            img: emailImage
+            img: emailImage,
+            key: "email"
         },
         {
             type: 'password',
             placeholder: "Пароль",
-            img: passwordImage
+            img: passwordImage,
+            key: "password"
         },
     ],
     btnText: "Создать аккаунт",

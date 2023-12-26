@@ -6,7 +6,7 @@ import {newsDak1Image, newsDark2Image, newsLight1Image, newsLight2Image} from ".
 import {arrowWithLineIcon, successIcon} from "../../../assets/svg";
 import AbsoluteBlock from "../../global/AbsoluteBlock/AbsoluteBlock";
 
-function MainPageArbitrageNews(props) {
+function MainPageArbitrageNews() {
     return (
         <div>
             <div className={styles["arbitrageNews"]}>
