@@ -74,6 +74,10 @@
     }
   }
 
+  &__resultBlockLinkText {
+    color: inherit;
+  }
+
   &__profitText {
     @include setFont(17px, 700);
     margin-bottom: 5px;

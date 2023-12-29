@@ -1,13 +1,18 @@
 import {
     CREATE_NEWS_ERROR,
-    CREATE_NEWS_LOADING_START, CREATE_NEWS_SUCCESS, EDIT_NEWS_ERROR, EDIT_NEWS_SUCCESS,
+    CREATE_NEWS_LOADING_START,
+    CREATE_NEWS_SUCCESS, DELETE_NEWS_ERROR,
+    DELETE_NEWS_LOADING_START, DELETE_NEWS_SUCCESS,
+    EDIT_NEWS_ERROR,
+    EDIT_NEWS_LOADING_START,
+    EDIT_NEWS_SUCCESS,
     GET_NEWS_ERROR,
     GET_NEWS_LOADING_START,
     GET_NEWS_SUCCESS
 } from "../types";
 import {
     authConfig,
-    createNewsUrl,
+    createNewsUrl, deleteNewsUrl,
     editNewsUrl,
     fetchRequest,
     getNewsUrl,
@@ -71,7 +76,7 @@ export const createNews = (formData,clb) => async (dispatch,getState) => {
 }
 
 export const editNews = (formData,clb) => async (dispatch,getState) => {
-    dispatch({type: CREATE_NEWS_LOADING_START})
+    dispatch({type: EDIT_NEWS_LOADING_START})
     const data = new FormData();
     for (const key in formData) {
         if(!formData[key]) continue;
@@ -95,5 +100,21 @@ export const editNews = (formData,clb) => async (dispatch,getState) => {
     } catch (err) {
         console.error({err})
         dispatch(setError(err,EDIT_NEWS_ERROR))
+    }
+}
+
+export const deleteNews = (id,clb) => async (dispatch,getState) => {
+    dispatch({type: DELETE_NEWS_LOADING_START})
+
+    try {
+        await fetchRequest(deleteNewsUrl,"POST",JSON.stringify({id}),)
+        const news = getState().news.data
+        const payload = news.filter(item => item.id !== id)
+
+        dispatch({type: DELETE_NEWS_SUCCESS,payload})
+        clb()
+    } catch (err) {
+        console.error({err})
+        dispatch(setError(err,DELETE_NEWS_ERROR))
     }
 }

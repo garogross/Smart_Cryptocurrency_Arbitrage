@@ -116,4 +116,12 @@
 	c42.1,0,81,13.7,112.6,36.7L100.7,368.6C77.7,337,64,298.1,64,256z M256,448c-42.1,0-81-13.7-112.6-36.7l267.9-267.9
 	c23,31.7,36.7,70.5,36.7,112.6C448,362.1,362,448,256,448z"></path>
   </symbol>
+
+    <symbol  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 668" id="delete">
+        <path d="M233.333 334V500.667"  stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M366.667 334V500.667"  stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M33.333 167.333H566.666"  stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M100 267.333V534C100 589.23 144.772 634 200 634H400C455.23 634 500 589.23 500 534V267.333"  stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M200 100.667C200 63.8477 229.848 34 266.667 34H333.333C370.153 34 400 63.8477 400 100.667V167.333H200V100.667Z"  stroke-width="66.6667" stroke-linecap="round" stroke-linejoin="round"></path>
+    </symbol>
 </svg>

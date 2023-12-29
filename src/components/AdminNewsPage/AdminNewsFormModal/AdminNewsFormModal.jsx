@@ -9,6 +9,10 @@ import {useFormValue} from "../../../hooks/useFormValue";
 import {newsTypes} from "../../../constants";
 import Select from "../../layout/Select/Select";
 import MainBtn from "../../layout/MainBtn/MainBtn";
+import Svg from "../../layout/Svg/Svg";
+import {deleteIcon} from "../../../assets/svg";
+import {useDispatch} from "react-redux";
+import {deleteNews} from "../../../redux/action/news";
 
 function AdminNewsFormModal({
                                 item,
@@ -18,6 +22,7 @@ function AdminNewsFormModal({
                                 error,
                                 loading
                             }) {
+    const dispatch = useDispatch()
     const {formData, onChange, setFormData} = useFormValue({
         title: item?.title || "",
         body: item?.body || "",
@@ -39,6 +44,10 @@ function AdminNewsFormModal({
         onSubmit(formData, onClose)
     }
 
+    const onDelete = () => {
+        dispatch(deleteNews(item?.id, onClose))
+    }
+
     const selectValues = Object.values(newsTypes).map(item => ({
         value: item,
         item: item[0].toUpperCase() + item.slice(1)
@@ -56,6 +65,15 @@ function AdminNewsFormModal({
                     style={'opacity'}
                     inProp={item}
                 >
+                    {
+                        item?.id ?
+                        <button
+                            onClick={onDelete}
+                            className={styles['adminNewsFormModal__deleteBtn']}
+                        >
+                            <Svg id={deleteIcon} className={styles['adminNewsFormModal__deleteIcon']}/>
+                        </button> : null
+                    }
                     <h2 className={`${styles["adminNewsFormModal__title"]}`}>{title}</h2>
                     <form
                         className={styles["adminNewsFormModal__contentBlock"]}
@@ -115,7 +133,10 @@ function AdminNewsFormModal({
                             disabled={loading}
                         >Сохранить</MainBtn>
                     </form>
-                    <CrossBtn onClick={onClose}/>
+                    <CrossBtn
+                        onClick={onClose}
+                        iconClassName={styles['adminNewsFormModal__crossIcon']}
+                    />
                 </TransitionProvider>
             </NewPortalProvider>
         </>

@@ -23,7 +23,7 @@ function SupportPageBlock() {
                             <Svg className={styles["supportBlock__btnIcon"]} id={emailIcon}/>
                             <p className={styles["supportBlock__btnText"]}>
                                 Email:
-                                <span className={styles["supportBlock__btnText_link"]}>support@alphador.ai</span>
+                                <span className={styles["supportBlock__btnText_link"]}>info@1whale.io</span>
                             </p>
                         </a>
                         <a
@@ -35,7 +35,7 @@ function SupportPageBlock() {
                             <Svg className={styles["supportBlock__btnIcon"]} id={telegramIcon}/>
                             <p className={styles["supportBlock__btnText"]}>
                                 Telegram:
-                                <sman className={styles["supportBlock__btnText_link"]}>@shablon</sman>
+                                <sman className={styles["supportBlock__btnText_link"]}>@OneWhaleNews</sman>
                             </p>
                         </a>
                     </div>

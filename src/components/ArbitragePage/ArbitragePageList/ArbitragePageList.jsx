@@ -29,6 +29,7 @@ const filterProfit = (item, profit) => (
 
 const filterBlacklist = (item, blacklist) => (!blacklist?.find(symbol => item.Symbol.includes(symbol.toLowerCase())))
 
+
 const filterHiddens = (item, filters) => (
     !filters.hidden?.find(hidden => {
         const now = new Date()
@@ -47,7 +48,6 @@ function ArbitragePageList() {
     const filters = useSelector(state => state.arbitrage.filters)
     const loading = useSelector(state => state.arbitrage.getLoading)
     const dispatch = useDispatch()
-
 
     useEffect(() => {
         dispatch(setAutoRefresh())
@@ -87,7 +87,6 @@ function ArbitragePageList() {
     ))
 
 
-    console.log(filteredData.length)
     return (
 
         <div className={styles["arbitrageList"]}>

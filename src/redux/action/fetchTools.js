@@ -9,7 +9,7 @@ export const baseConfig = {
     }
 }
 
-export const authConfig = (isFormData) => {
+export const authConfig = () => {
     const token = getLSItem(lsProps.token,true);
     return {
         headers: {
@@ -40,6 +40,7 @@ export const editUserDataUrl = '/changeUser'
 export const getNewsUrl = '/news'
 export const createNewsUrl = '/createNews'
 export const editNewsUrl = '/editNews'
+export const deleteNewsUrl = '/deleteNews'
 
 // arbitrage
 export const getArbitrageUrl = '/arb'

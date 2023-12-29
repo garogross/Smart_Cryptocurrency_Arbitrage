@@ -1,15 +1,33 @@
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Route, Routes} from 'react-router-dom';
-import {routes} from "../../router/path";
+import {Route, Routes, useLocation} from 'react-router-dom';
+import {
+    adminLoginPagePath, adminNewsPagePath,
+    forgotPasswordPagePath,
+    loginPagePath,
+    resetPasswordPagePath,
+    routes,
+    signUpPagePath
+} from "../../router/path";
 import Navbar from "../global/Navbar/Navbar";
 import {changeUserData, checkIsLoggedIn} from "../../redux/action/auth";
 import {regSw, subscribe} from '../../helper';
 import {subscriptionTypes} from "../../constants";
 
+const navbarDisabledPages = [
+    loginPagePath,
+    signUpPagePath,
+    forgotPasswordPagePath,
+    resetPasswordPagePath,
+    adminLoginPagePath,
+]
+
 function App() {
+    const location = useLocation()
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
+
+    const isNavigationDisabled = !navbarDisabledPages.includes(location.pathname)
 
     const onSubscribe = (data) => {
         dispatch(changeUserData({push_subscription: data}))
@@ -35,9 +53,18 @@ function App() {
         dispatch(checkIsLoggedIn())
     }, []);
 
+    useEffect(() => {
+        if(!isNavigationDisabled) document.body.classList.remove('navbarOpened')
+    }, [location]);
+
+
     return (
         <>
-            <Navbar/>
+            {
+                !navbarDisabledPages.includes(location.pathname) ?
+                    <Navbar/>
+                    : null
+            }
             <Routes>
                 {
                     routes.map(({path, component}, index) => (

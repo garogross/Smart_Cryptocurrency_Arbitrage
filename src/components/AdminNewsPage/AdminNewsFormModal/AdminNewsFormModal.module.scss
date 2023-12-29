@@ -60,8 +60,25 @@
   &__errorBlock {
     @include flexCol();
   }
+
   &__errorBlockText {
-    @include setFont(14px,400,$color-red)
+    @include setFont(14px, 400, $color-red)
   }
 
+  &__deleteBtn {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    position: absolute;
+    right: 66px;
+    top: 20px;
+  }
+
+  &__deleteIcon {
+    @include svg(22px, transparent, 22px, $color-red)
+  }
+
+  &__crossIcon {
+    @include svg(20px, transparent, 20px, $color-white)
+  }
 }

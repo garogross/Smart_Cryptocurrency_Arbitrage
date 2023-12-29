@@ -1,7 +1,12 @@
 import {
     CREATE_NEWS_ERROR,
     CREATE_NEWS_LOADING_START,
-    CREATE_NEWS_SUCCESS, EDIT_NEWS_ERROR, EDIT_NEWS_LOADING_START, EDIT_NEWS_SUCCESS,
+    CREATE_NEWS_SUCCESS,
+    DELETE_NEWS_ERROR,
+    DELETE_NEWS_LOADING_START, DELETE_NEWS_SUCCESS,
+    EDIT_NEWS_ERROR,
+    EDIT_NEWS_LOADING_START,
+    EDIT_NEWS_SUCCESS,
     GET_NEWS_ERROR,
     GET_NEWS_LOADING_START,
     GET_NEWS_SUCCESS
@@ -16,6 +21,8 @@ const initialState = {
     createError: null,
     editLoading: false,
     editError: null,
+    deleteLoading: false,
+    deleteError: null,
 }
 
 
@@ -85,6 +92,28 @@ export const newsReducer = (state = initialState,action) => {
                 ...state,
                 editLoading: false,
                 editError: payload
+            }
+        }
+
+        case DELETE_NEWS_SUCCESS: {
+            return {
+                ...state,
+                deleteLoading: false,
+                data: payload
+            }
+        }
+        case DELETE_NEWS_LOADING_START: {
+            return {
+                ...state,
+                deleteLoading: true,
+                deleteError: null
+            }
+        }
+        case DELETE_NEWS_ERROR: {
+            return {
+                ...state,
+                deleteLoading: false,
+                deleteError: payload
             }
         }
 
