@@ -133,7 +133,8 @@ export const authReducer = (state = initialState, action) => {
         case EDIT_USER_DATA_SUCCESS: {
             return {
                 ...state,
-                user: payload,
+                user: payload.user,
+                token: payload.token,
                 editDataLoading: false
             }
         }

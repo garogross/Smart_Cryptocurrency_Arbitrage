@@ -1,4 +1,5 @@
-import Cookies from "js-cookie";
+import {getLSItem} from "../../utils/functions/localStorage";
+import {lsProps} from "../../utils/cookies";
 
 export const baseUrl = 'http://116.202.58.43:8000';
 
@@ -8,13 +9,20 @@ export const baseConfig = {
     }
 }
 
-export const authConfig = () => {
-    const token = Cookies.get('token');
+export const authConfig = (isFormData) => {
+    const token = getLSItem(lsProps.token,true);
     return {
         headers: {
             'Authorization': token ? `Bearer ${token}` : null,
-            'Content-Type': 'application/json',
         }
+    }
+}
+
+export const setEmptyFieldsError = (formData) => {
+    let emptyField = Object.keys(formData).find(item => !formData[item])
+
+    if (emptyField) {
+        throw {message: `${emptyField} обязательно к заполнению`, status: 400};
     }
 }
 
@@ -26,8 +34,15 @@ export const forgotPasswordUrl = '/forgotPassword'
 export const resetPasswordUrl = '/resetPassword'
 export const checkIsSubscribedUrl = '/isSubscribed'
 export const changePassUrl = '/changePass'
-export const getNewsUrl = '/news'
 export const editUserDataUrl = '/changeUser'
+
+// news
+export const getNewsUrl = '/news'
+export const createNewsUrl = '/createNews'
+export const editNewsUrl = '/editNews'
+
+// arbitrage
+export const getArbitrageUrl = '/arb'
 
 
 export const fetchRequest = async (fetchUrl, method = 'GET', body = null, config = authConfig()) => {

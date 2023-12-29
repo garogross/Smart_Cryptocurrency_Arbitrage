@@ -2,6 +2,7 @@ import React from 'react';
 import Svg from "../../layout/Svg/Svg";
 import {emailIcon, telegramIcon} from "../../../assets/svg";
 import styles from "./SupportPageBlock.module.scss"
+import {mailLink, telegramLink} from "../../../constants";
 
 function SupportPageBlock() {
     return (
@@ -14,20 +15,29 @@ function SupportPageBlock() {
                         сообщить об
                         ошибке.</p>
                     <div className={styles["supportBlock__btns"]}>
-                        <button className={styles["supportBlock__btn"]}>
+                        <a
+                            href={mailLink}
+                            target={"_blank"}
+                            rel={'noreferrer'}
+                            className={styles["supportBlock__btn"]}>
                             <Svg className={styles["supportBlock__btnIcon"]} id={emailIcon}/>
                             <p className={styles["supportBlock__btnText"]}>
                                 Email:
-                                <a className={styles["supportBlock__btnText_link"]}>support@alphador.ai</a>
+                                <span className={styles["supportBlock__btnText_link"]}>support@alphador.ai</span>
                             </p>
-                        </button>
-                        <button className={styles["supportBlock__btn"]}>
+                        </a>
+                        <a
+                            target={"_blank"}
+                            rel={'noreferrer'}
+                            className={styles["supportBlock__btn"]}
+                            href={telegramLink}
+                        >
                             <Svg className={styles["supportBlock__btnIcon"]} id={telegramIcon}/>
                             <p className={styles["supportBlock__btnText"]}>
                                 Telegram:
-                                <a className={styles["supportBlock__btnText_link"]}>@shablon</a>
+                                <sman className={styles["supportBlock__btnText_link"]}>@shablon</sman>
                             </p>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,16 @@
 
 
-export const getLocalStorageItem = (key) => {
+export const getLSItem = (key,isParse) => {
     const result = localStorage.getItem(key)
-    return result ? JSON.parse(result) : null
+    if(isParse) {
+        return result ? JSON.parse(result) : null
+    } else {
+        return result;
+    }
 }
 
-export const setLocalStorageItem = (key,data) => localStorage.setItem(key,JSON.stringify(data))
+export const setLSItem = (key,data) => {
+    localStorage.setItem(key, JSON.stringify(data))
+}
+
+export const removeLSItem = (key) => localStorage.removeItem(key)

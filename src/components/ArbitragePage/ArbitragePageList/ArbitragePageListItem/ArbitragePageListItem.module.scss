@@ -6,6 +6,7 @@
   padding: 25px 30px 20px;
   background-color: $color-blue-bold;
   border-radius: 10px;
+  height: 100%;
 
   @include smScreenMedia {
     padding: 17px 15px 15px;

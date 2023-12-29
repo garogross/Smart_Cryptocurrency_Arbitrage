@@ -1,44 +1,72 @@
 import {
     CHANGE_PASSWORD_ERROR,
-    CHANGE_PASSWORD_LOADING_START, CHANGE_PASSWORD_SUCCESS, EDIT_USER_DATA_LOADING_START, EDIT_USER_DATA_SUCCESS,
+    CHANGE_PASSWORD_LOADING_START,
+    CHANGE_PASSWORD_SUCCESS,
+    EDIT_USER_DATA_ERROR,
+    EDIT_USER_DATA_LOADING_START,
+    EDIT_USER_DATA_SUCCESS,
     FORGOT_PASSWORD_ERROR,
-    FORGOT_PASSWORD_LOADING_START, FORGOT_PASSWORD_SUCCESS, GET_USER_ERROR, GET_USER_LOADING_START, GET_USER_SUCCESS,
+    FORGOT_PASSWORD_LOADING_START,
+    FORGOT_PASSWORD_SUCCESS,
+    GET_USER_ERROR,
+    GET_USER_LOADING_START,
+    GET_USER_SUCCESS,
     LOGIN_ERROR,
     LOGIN_LOADING_START,
-    LOGIN_SUCCESS, LOGOUT_USER, RESET_PASSWORD_ERROR, RESET_PASSWORD_LOADING_START, RESET_PASSWORD_SUCCESS,
+    LOGIN_SUCCESS,
+    LOGOUT_USER,
+    RESET_PASSWORD_ERROR,
+    RESET_PASSWORD_LOADING_START,
+    RESET_PASSWORD_SUCCESS, SET_ARBITRAGE_FILTERS,
     SIGNUP_ERROR,
-    SIGNUP_LOADING_START, SIGNUP_SUCCESS
+    SIGNUP_LOADING_START,
+    SIGNUP_SUCCESS
 } from "../types";
 import {
+    authConfig,
     baseConfig,
     changePassUrl,
     checkIsSubscribedUrl, editUserDataUrl,
     fetchRequest,
     forgotPasswordUrl,
-    resetPasswordUrl,
+    resetPasswordUrl, setEmptyFieldsError,
     setError,
     siginUrl,
     signupUrl
 } from "./fetchTools";
-import Cookies from 'js-cookie'
 import {subscriptionTypes} from "../../constants";
+import {getLSItem, removeLSItem, setLSItem} from "../../utils/functions/localStorage";
+import {lsProps} from "../../utils/cookies";
 
 
-const setEmptyFieldsError = (formData) => {
-    let emptyField = Object.keys(formData).find(item => !formData[item])
 
-    if (emptyField) {
-        throw {message: `${emptyField} обязательно к заполнению`, status: 400};
-    }
-}
 
-const authenticateUser = (url, formData, successType, setError, clb,method) => async (dispatch) => {
-    const {Token: token, User: user, Status: status} = await fetchRequest(url, method || 'POST', JSON.stringify(formData),baseConfig)
-    if ((token && user && !status) || (status === 'Success')) {
-        dispatch({type: successType, payload: {token,user: {...user,subscription: 'arb'}}})
-        Cookies.set('token', token)
-        Cookies.set('user', JSON.stringify({...user,subscription: 'arb'}))
-        clb()
+const authenticateUser = (url, formData, successType, setError, clb,config,forFilters,isAdmin) => async (dispatch) => {
+    const {
+        Token: token,
+        User,
+        Status: status
+    } = await fetchRequest(url,'POST', JSON.stringify(formData), config || baseConfig)
+    if ((token && User && !status) || (status === 'Success')) {
+        if(isAdmin && User.role !== 'admin') {
+            throw {message: 'Ты не Админ', status: 400};
+        }
+
+        const {min_amount,max_amount,profit,hidden,blacklist,exchanges,hidden_time,...user} = User
+
+        const filters = {
+            min_amount,max_amount,profit,hidden: hidden || [],blacklist: blacklist || [],exchanges,hidden_time
+        }
+
+
+        if(!forFilters) {
+            dispatch({type: successType, payload: {token, user}})
+            setLSItem(lsProps.token, token)
+            setLSItem(lsProps.user,user)
+        }
+        dispatch({type: SET_ARBITRAGE_FILTERS, payload: filters})
+        setLSItem(lsProps.filters, filters)
+        if(clb) clb()
     } else {
         dispatch(setError('Не авторизован'))
     }
@@ -58,20 +86,22 @@ export const signup = (formData, clb) => async (dispatch) => {
 
 export const checkIsLoggedIn = () => (dispatch) => {
     dispatch({type: GET_USER_LOADING_START})
-    const token = Cookies.get('token')
-    const user = Cookies.get('user') ? JSON.parse(Cookies.get('user')) : null
+    const token = getLSItem(lsProps.token)
+    const user = getLSItem(lsProps.user,true)
+    const filters = getLSItem(lsProps.filters,true)
     dispatch({type: GET_USER_SUCCESS, payload: {token, user}})
+    dispatch({type: SET_ARBITRAGE_FILTERS,payload: filters})
 }
 
 export const setSignupError = (err) => dispatch => {
     dispatch(setError(err, SIGNUP_ERROR))
 }
 
-export const login = (formData, clb) => async (dispatch) => {
+export const login = (formData, clb,isAdmin) => async (dispatch) => {
     dispatch({type: LOGIN_LOADING_START})
     try {
         setEmptyFieldsError(formData)
-        await dispatch(authenticateUser(siginUrl, formData, LOGIN_SUCCESS, setLoginError, clb))
+        await dispatch(authenticateUser(siginUrl, formData, LOGIN_SUCCESS, setLoginError, clb,undefined,undefined,isAdmin))
     } catch (err) {
         console.error({err})
         dispatch(setLoginError(err))
@@ -87,7 +117,7 @@ export const forgotPassword = (formData, clb) => async (dispatch) => {
     try {
         setEmptyFieldsError(formData)
 
-        const {Status: status} = await fetchRequest(forgotPasswordUrl, 'POST', JSON.stringify(formData),baseConfig)
+        const {Status: status} = await fetchRequest(forgotPasswordUrl, 'POST', JSON.stringify(formData), baseConfig)
 
         if (status !== 'OK') {
             throw {message: `Неверный Эл. адрес`, status: 400};
@@ -125,8 +155,9 @@ export const setResetPasswordError = (err) => dispatch => {
 
 
 export const logOut = (clb) => (dispatch) => {
-    Cookies.remove('token')
-    Cookies.remove('user')
+    removeLSItem(lsProps.token)
+    removeLSItem(lsProps.user)
+    removeLSItem(lsProps.filters)
     dispatch({type: LOGOUT_USER})
     if (clb) clb()
 }
@@ -147,7 +178,7 @@ export const checkIsSubscribed = (clb) => async (dispatch, getState) => {
     }
 }
 
-export const changePassword = (formData,clb) => async (dispatch) => {
+export const changePassword = (formData, clb) => async (dispatch) => {
     dispatch({type: CHANGE_PASSWORD_LOADING_START})
     try {
         setEmptyFieldsError(formData)
@@ -156,30 +187,39 @@ export const changePassword = (formData,clb) => async (dispatch) => {
         clb()
     } catch (err) {
         console.error(err?.message)
-        dispatch({type: CHANGE_PASSWORD_ERROR,payload: err?.message === 'Unexpected end of JSON input' ? 'Неверный старый пароль' : err.message})
+        dispatch({
+            type: CHANGE_PASSWORD_ERROR,
+            payload: err?.message === 'Unexpected end of JSON input' ? 'Неверный старый пароль' : err.message
+        })
     }
 }
 
-export const changeUserData = (formData,showEmptyFieldsError,clb) => async (dispatch,getState) => {
+export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
     dispatch({type: EDIT_USER_DATA_LOADING_START})
 
-    const user = getState().autch.user
+    const user = getState().auth.user
 
     const reqData = {
         id: user.id,
         field: Object.keys(formData),
         value: Object.values(formData)
     }
-
     try {
-
-        if(showEmptyFieldsError) setEmptyFieldsError(formData)
-        dispatch(authenticateUser(editUserDataUrl,reqData,EDIT_USER_DATA_SUCCESS,))
-        const {Token: token,User: user} = await fetchRequest(editUserDataUrl, 'PATCH', JSON.stringify(reqData))
-        dispatch({type: CHANGE_PASSWORD_SUCCESS})
-        clb()
+        if (showEmptyFieldsError) setEmptyFieldsError(formData)
+        dispatch(authenticateUser(
+            editUserDataUrl,
+            reqData,
+            EDIT_USER_DATA_SUCCESS,
+            setEditUserDataError,
+            clb,
+            authConfig(),
+            !showEmptyFieldsError
+        ))
     } catch (err) {
-        console.error(err?.message)
-        dispatch({type: CHANGE_PASSWORD_ERROR,payload: err?.message === 'Unexpected end of JSON input' ? 'Неверный старый пароль' : err.message})
+        dispatch({type: EDIT_USER_DATA_ERROR, payload: err})
     }
+}
+
+export const setEditUserDataError = (err) => dispatch => {
+    dispatch(setError(err, EDIT_USER_DATA_ERROR))
 }

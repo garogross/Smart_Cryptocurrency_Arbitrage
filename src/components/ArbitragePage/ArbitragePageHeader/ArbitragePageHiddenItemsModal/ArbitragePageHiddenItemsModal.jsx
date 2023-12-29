@@ -22,15 +22,15 @@ function ArbitragePageHiddenItemsModal({show, onClose,title,data,onRemove}) {
                     <h4 className={styles["hiddenItemsModal__title"]}>{title}</h4>
                     <div className={styles["hiddenItemsModal__container"]}>
                         {
-                            data.map(({id,name}) => (
+                            data.map((item) => (
                                 <div
-                                    key={id}
+                                    key={item}
                                     className={styles["hiddenItemsModal__item"]}
                                 >
-                                    <p className={styles["hiddenItemsModal__itemText"]}>{name}</p>
+                                    <p className={styles["hiddenItemsModal__itemText"]}>{item}</p>
                                     <button
                                         className={styles["hiddenItemsModal__itemRemoveBtn"]}
-                                        onClick={() => onRemove(id)}
+                                        onClick={() => onRemove(item)}
                                     >
                                         <Svg className={styles["hiddenItemsModal__itemRemoveIcon"]} id={crossIcon}/>
                                     </button>

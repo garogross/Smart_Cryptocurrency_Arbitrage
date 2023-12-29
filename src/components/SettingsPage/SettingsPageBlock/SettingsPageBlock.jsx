@@ -4,7 +4,7 @@ import {editEmailImage, editUsernameImage, passwordKeyImage} from "../../../asse
 import styles from "./SettingsPageBlock.module.scss"
 import SettingsForm from "./SettingsForm/SettingsForm";
 import {useDispatch, useSelector} from "react-redux";
-import {changePassword} from "../../../redux/action/auth";
+import {changePassword, changeUserData} from "../../../redux/action/auth";
 
 const changePassFields = [
     {
@@ -33,7 +33,7 @@ const changeUserFields = (user)=>  ([
         icon: editUsernameImage,
         placeholder: "Имя пользователя",
         key: "username",
-        initialValue: user?.user_name || ""
+        initialValue: user?.username || ""
     },
 ])
 
@@ -42,12 +42,18 @@ function SettingsPageBlock() {
     const user = useSelector(state => state.auth.user)
     const changePasswordLoading = useSelector(state => state.auth.changePasswordLoading)
     const changePasswordError = useSelector(state => state.auth.changePasswordError)
+    const editDataLoading = useSelector(state => state.auth.editDataLoading)
+    const editDataError = useSelector(state => state.auth.editDataError)
     const [isNotificationsActive, setIsNotificationsActive] = useState(false)
 
     const toggleNotificationsActivity = () => setIsNotificationsActive(prevState => !prevState)
 
     const onChangePassword = (formData,clb) => {
         dispatch(changePassword({...formData,email: user.email},clb))
+    }
+
+    const onEditUserData = (formData,clb) => {
+        dispatch(changeUserData(formData,true,clb))
     }
 
     const memoizedChangeUserFields = useMemo(() => changeUserFields(user),[user])
@@ -64,6 +70,10 @@ function SettingsPageBlock() {
                             user ?
                                 <SettingsForm
                                     fields={memoizedChangeUserFields}
+                                    onSubmit={onEditUserData}
+                                    error={editDataError}
+                                    loading={editDataLoading}
+                                    submitSuccessText={'Данные обновлены.'}
                                 />  : null
                         }
 

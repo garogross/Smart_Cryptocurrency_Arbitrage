@@ -21,11 +21,9 @@ import {
     settingsIcon,
     subscriptionIcon,
     supportIcon, telegramIcon,
-    twitterIcon,
-    youtubeIcon
 } from "../../../../assets/svg";
 import {navLogoImage} from "../../../../assets/images";
-import {subscriptionTypes} from "../../../../constants";
+import {arbitrageTypes, newsTypes, subscriptionTypes, telegramLink} from "../../../../constants";
 
 const navLinks = [
     {
@@ -36,17 +34,17 @@ const navLinks = [
         sublinks: [
             {
                 title: 'Актуальные новости',
-                href: 'actuals',
+                href: newsTypes.actuals,
                 isPrivate: true
             },
             {
                 title: 'Прошедшие новости',
-                href: 'latest',
+                href: newsTypes.latest,
                 isPrivate: true
             },
             {
                 title: 'News Free',
-                href: 'newsFree'
+                href: newsTypes.free
             },
         ]
     },
@@ -58,17 +56,18 @@ const navLinks = [
         sublinks: [
             {
                 title: 'CEX — CEX Arbitrage',
-                href: 'cex-dex',
+                href: arbitrageTypes.cexToCex,
                 isPrivate: true
             },
             {
-                title: 'DEX — DEX Arbitrage',
-                href: 'dex-dex',
+                title: 'CEX — DEX Arbitrage',
+                href: arbitrageTypes.cexToDex,
                 isPrivate: true
             },
             {
                 title: 'Arbitrage Free',
-                href: 'arbitrageFree'
+                href: arbitrageTypes.free,
+                isNonPrivate: true
             },
         ]
     },
@@ -112,6 +111,8 @@ function SideBar({burgerOpened, onCloseBurger}) {
     const activeNavLinks = setActiveNavLinkClass(styles["sideBar__link"], styles["sideBar__link_active"])
 
 
+    const filterPrivates = (arr) => arr.filter(item => (token && user.subscription === subscriptionTypes.arb) || !item.isPrivate)
+
     return (
         <>
             <Backdrop inProp={burgerOpened} onClose={onCloseBurger}/>
@@ -140,36 +141,45 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                                                                        icon,
                                                                                        path,
                                                                                        sublinks
-                                                                                   }, index) => (
-                                    <Fragment key={index}>
-                                        {index === navLinks.length - 1 ? <b className={styles['sideBar__line']}/> : null}
-                                        <NavLink
-                                            onClick={!sublinks ? onCloseBurger : null}
-                                            to={path}
-                                            className={activeNavLinks}
-                                        >
-                                            <Svg className={styles["sideBar__linkIcon"]} id={icon}/>
-                                            <span className={styles["sideBar__linkText"]}>{title}</span>
-                                            {
-                                                sublinks ?
-                                                    <Svg
-                                                        id={arrowDownIcon}
-                                                        className={styles['sideBar__linkArrowIcon']}
-                                                    /> : null
-                                            }
-                                        </NavLink>
-                                        {sublinks ?
-                                            <TransitionProvider
-                                                duration={300}
-                                                inProp={pathname.includes(path)}
-                                                style={'height'}
-                                                height={'300px'}
-                                                className={styles['sideBar__acardeon']}
+                                                                                   }, index) => {
+
+                                    const isAuthenticated = token && user.subscription === subscriptionTypes.arb
+                                    const filteredSubLinks = sublinks
+                                        ?.filter(item => (
+                                            item.isPrivate && isAuthenticated ||
+                                            !item.isPrivate && isAuthenticated && !item.isNonPrivate ||
+                                            !isAuthenticated && !item.isPrivate
+                                        ))
+
+                                    return (
+                                        <Fragment key={index}>
+                                            {index === navLinks.length - 1 ?
+                                                <b className={styles['sideBar__line']}/> : null}
+                                            <NavLink
+                                                onClick={!sublinks || filteredSubLinks.length === 1 ? onCloseBurger : null}
+                                                to={`${path}${filteredSubLinks ? "#" + filteredSubLinks[0].href : ""}`}
+                                                className={activeNavLinks}
                                             >
+                                                <Svg className={styles["sideBar__linkIcon"]} id={icon}/>
+                                                <span className={styles["sideBar__linkText"]}>{title}</span>
                                                 {
-                                                    sublinks
-                                                        .filter(item => (token && user.subscription === subscriptionTypes.arb) || !item.isPrivate)
-                                                        .map((item, index) => (
+                                                    sublinks ?
+                                                        <Svg
+                                                            id={arrowDownIcon}
+                                                            className={styles['sideBar__linkArrowIcon']}
+                                                        /> : null
+                                                }
+                                            </NavLink>
+                                            {sublinks ?
+                                                <TransitionProvider
+                                                    duration={300}
+                                                    inProp={pathname.includes(path)}
+                                                    style={'height'}
+                                                    height={'300px'}
+                                                    className={styles['sideBar__acardeon']}
+                                                >
+                                                    {
+                                                        filteredSubLinks.map((item, index) => (
                                                             <Link
                                                                 onClick={onCloseBurger}
                                                                 key={index}
@@ -180,37 +190,42 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                                                 <span>{item.title}</span>
                                                             </Link>
                                                         ))
-                                                }
-                                            </TransitionProvider> : null
-                                        }
-                                    </Fragment>
-                                )
+                                                    }
+                                                </TransitionProvider> : null
+                                            }
+                                        </Fragment>
+                                    )
+                                }
                             )
                         }
                     </div>
                     <div className={styles["sideBar__bottomBlock"]}>
                         <div className={styles["sideBar__socialIconsBlock"]}>
 
-                            <button className={styles["sideBar__socialBtn"]}>
-                                <Svg
-                                    className={styles["sideBar__socialIcon"]}
-                                    id={twitterIcon}
-                                />
-                            </button>
+                            {/*<button className={styles["sideBar__socialBtn"]}>*/}
+                            {/*    <Svg*/}
+                            {/*        className={styles["sideBar__socialIcon"]}*/}
+                            {/*        id={twitterIcon}*/}
+                            {/*    />*/}
+                            {/*</button>*/}
 
-                            <button className={styles["sideBar__socialBtn"]}>
-                                <Svg
-                                    className={styles["sideBar__socialIcon"]}
-                                    id={youtubeIcon}
-                                />
-                            </button>
+                            {/*<button className={styles["sideBar__socialBtn"]}>*/}
+                            {/*    <Svg*/}
+                            {/*        className={styles["sideBar__socialIcon"]}*/}
+                            {/*        id={youtubeIcon}*/}
+                            {/*    />*/}
+                            {/*</button>*/}
 
-                            <button className={styles["sideBar__socialBtn"]}>
+                            <a
+                                href={telegramLink}
+                                target={"_blank"}
+                                rel={'noreferrer'}
+                                className={styles["sideBar__socialBtn"]}>
                                 <Svg
                                     className={styles["sideBar__socialIcon"]}
                                     id={telegramIcon}
                                 />
-                            </button>
+                            </a>
                         </div>
                         <button
                             className={styles["sideBar__logoutBtn"]}

@@ -1,0 +1,67 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.adminNewsFormModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  width: calc(100% - 20px);
+  background: radial-gradient(circle at -10% 50%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%), radial-gradient(circle at 110% 50%, rgba(88, 113, 242, 0.2) 2%, rgba(88, 113, 242, 0) 37%), $color-blue-bold;
+  border-radius: 20px;
+  @include flexCol(flex-start);
+  padding: 20px;
+  z-index: 9999;
+  gap: 20px;
+  flex-direction: column;
+  max-height: calc(100vh - 20px);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  @include smScreenMedia {
+    gap: 10px;
+  }
+
+
+  &__contentBlock {
+    height: 100%;
+    @include flexCol();
+    flex-direction: column;
+    gap: 14px;
+    max-width: 400px;
+    width: 100%;
+    padding: 0 2px;
+  }
+
+
+  &__title {
+    width: 100%;
+    @include setFont(25px, 700);
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 0.5px solid $color-grey;
+
+    @include smScreenMedia {
+      font-size: 18px;
+    }
+  }
+
+  &__label {
+    width: 100%;
+  }
+
+  &__labelText {
+    padding-bottom: 8px;
+    @include setFont(14px, 400)
+  }
+
+  &__errorBlock {
+    @include flexCol();
+  }
+  &__errorBlockText {
+    @include setFont(14px,400,$color-red)
+  }
+
+}

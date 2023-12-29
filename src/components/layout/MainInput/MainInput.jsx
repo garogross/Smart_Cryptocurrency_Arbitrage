@@ -1,5 +1,4 @@
 import React, {memo} from 'react';
-import styles from "./MainInput.module.scss"
 
 const MainInput = memo(({
                        className,
@@ -18,9 +17,9 @@ const MainInput = memo(({
             value={value}
             style={{backgroundImage: icon ? `url(${icon})` : 'none'}}
             className={
-                `${styles['mainInput']} ${className ? className : ''} ` +
-                `${isInvalid ? styles['mainInput_invalid'] : ""} ` +
-                `${icon ? styles['mainInput_withIcon'] : ""}`
+                `mainInput ${className ? className : ''} ` +
+                `${isInvalid ? 'mainInput_invalid' : ""} ` +
+                `${icon ? 'mainInput_withIcon' : ""}`
             }
             {...properties}
 

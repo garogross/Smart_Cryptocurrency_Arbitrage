@@ -10,14 +10,10 @@
     @include flexCol(flex-start,stretch);
     gap: 10px;
     flex-wrap: wrap;
-  }
 
-  &__loadingBlock {
-    width: 100%;
-    background-color: $color-black;
-    border-radius: 10px;
-    @include flexCol();
-    height: 200px;
+    @include mdScreenMedia {
+      justify-content: center;
+    }
   }
 
   &__item {

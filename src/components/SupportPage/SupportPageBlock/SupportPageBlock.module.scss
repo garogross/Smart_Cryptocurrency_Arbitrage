@@ -45,6 +45,7 @@
     @include flexCol(stretch,flex-start);
     flex-direction: column;
     gap: 10px;
+    text-decoration: none;
   }
 
   &__btn {
@@ -55,6 +56,7 @@
     gap: 7px;
     border: none;
     cursor: pointer;
+    text-decoration: none;
   }
 
   &__btnIcon {
@@ -62,11 +64,10 @@
   }
 
   &__btnText {
-    @include setFont(16px, 400)
+    @include setFont(16px, 400);
   }
 
   &__btnText_link {
-    text-decoration: none;
     color: $color-grey;
   }
 }

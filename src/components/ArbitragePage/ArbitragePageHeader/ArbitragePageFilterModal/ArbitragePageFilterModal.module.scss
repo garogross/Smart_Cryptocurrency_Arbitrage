@@ -6,7 +6,7 @@
   width: 100%;
   max-width: 440px;
   background-color: $color-blue-bold;
-  padding: 25px 20px 40px 35px;
+  padding: 40px 20px;
   position: fixed;
   right: 0;
   top: 0;
@@ -36,6 +36,7 @@
     flex-direction: column;
     gap: 16px;
     overflow-y: auto;
+    padding-left: 2px;
     padding-right: 6px;
     height: 100%;
 
@@ -53,7 +54,16 @@
   &__title {
     @include setFont(16px, 700);
     margin-bottom: 16px;
-    text-align: center;
+    @include flexCol();
+    gap: 5px;
+
+    @include smScreenMedia {
+      text-align: center;
+    }
+
+    & svg {
+      @include svg(18px,$color-white,12px)
+    }
 
     &__withLabel {
       margin-bottom: 5px;
@@ -126,7 +136,7 @@
   &__btnsBlock {
     @include flexCol();
     gap: 5px;
-    margin-top: 66px;
+    margin-top: 40px;
 
     @include smScreenMedia {
       margin-top: 30px;

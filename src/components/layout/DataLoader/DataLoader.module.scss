@@ -1,0 +1,15 @@
+@import "../../../styles/vars";
+@import "../../../styles/mixins";
+
+
+.dataLoader {
+  width: 100%;
+  background-color: $color-black;
+  border-radius: 10px;
+  @include flexCol();
+  height: 200px;
+
+  &__emptyIcon {
+    @include svg(80px,$color-main)
+  }
+}

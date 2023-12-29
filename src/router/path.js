@@ -10,6 +10,8 @@ import ArbitragePage from "../pages/ArbitragePage/ArbitragePage";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import SettingsPage from "../pages/SettingsPage/SettingsPage";
 import PrivateRoute from "./PrivateRoute";
+import AdminLoginPage from "../pages/Admin/AdminLoginPage/AdminLoginPage";
+import AdminNewsPage from "../pages/Admin/AdminNewsPage/AdminNewsPage";
 
 export const mainPagePath = '/'
 export const arbitragePagePath = '/arbitrage'
@@ -21,6 +23,10 @@ export const settingsPagePath = '/settings'
 export const signUpPagePath = '/signUp'
 export const subscribtionPagePath = '/subscribtion'
 export const supportPagePath = '/support'
+
+// админ
+export const adminLoginPagePath = '/admin/login'
+export const adminNewsPagePath = '/admin/news'
 
 export const routes = [
     {
@@ -63,6 +69,18 @@ export const routes = [
         path: supportPagePath,
         component: <SupportPage/>
     },
+
+    // админ
+    {
+        path: adminLoginPagePath,
+        component: <PrivateRoute element={<AdminLoginPage/>}  noAuth={true}/>
+    },
+    {
+        path: adminNewsPagePath,
+        component: <PrivateRoute element={<AdminNewsPage/>} isAdmin={true}/>
+    },
+
+    // ///
     {
         path: '*',
         component: <ErrorPage/>

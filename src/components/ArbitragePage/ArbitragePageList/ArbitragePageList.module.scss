@@ -3,25 +3,29 @@
 
 
 .arbitrageList {
-  margin-top: 15px;
-  padding: 40px;
-  background-color: $color-black-bold;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-radius: 16px;
-  gap: 25px;
+  padding-top: 20px;
 
-  @include xlScreenMedia {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  &__container {
+    padding: 40px;
+    background-color: $color-black-bold;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-radius: 16px;
+    gap: 25px;
+    align-items: stretch;
 
-  @include mdScreenMedia {
-    grid-template-columns: 1fr;
-  }
+    @include xlScreenMedia {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
-  @include smScreenMedia {
-    gap: 15px;
-    padding: 0 0 20px;
-    background-color: transparent;
+    @include mdScreenMedia {
+      grid-template-columns: 1fr;
+    }
+
+    @include smScreenMedia {
+      gap: 15px;
+      padding: 0 0 20px;
+      background-color: transparent;
+    }
   }
 }
