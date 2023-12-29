@@ -8,6 +8,7 @@ import MainPagePricing from "../../components/MainPage/MainPagePricing/MainPageP
 import MainPageSignin from "../../components/MainPage/MainPageSignin/MainPageSignin";
 
 import styles from "./MainPage.module.scss"
+import MainPageRegisterPopup from "../../components/MainPage/MainPageRegisterPopup/MainPageRegisterPopup";
 
 function MainPage() {
     return (
@@ -21,6 +22,7 @@ function MainPage() {
                 <MainPagePricing/>
             </div>
             <MainPageSignin/>
+            <MainPageRegisterPopup/>
         </div>
     );
 }

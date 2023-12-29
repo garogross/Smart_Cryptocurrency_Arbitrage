@@ -5,6 +5,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {signup} from "../../redux/action/auth";
 import {useNavigate} from "react-router-dom";
 import {mainPagePath} from "../../router/path";
+import {setLSItem} from "../../utils/functions/localStorage";
+import {lsProps} from "../../utils/cookies";
 
 function SignUpPage() {
     const loading = useSelector(state => state.auth.signupLoading)
@@ -13,6 +15,7 @@ function SignUpPage() {
     const navigate = useNavigate()
     const onSubmit = (formData) => {
         const navigateToHome = () => navigate(mainPagePath)
+        setLSItem(lsProps.isRegistered,true)
         dispatch(signup(formData,navigateToHome))
     }
 

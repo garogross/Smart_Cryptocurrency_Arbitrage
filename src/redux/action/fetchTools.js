@@ -76,6 +76,10 @@ export const setError = (err, type) => dispatch => {
             text: 'Wrong password',
             translate: "Неверный пароль"
         },
+        {
+            text: 'No user',
+            translate: "Эл. адрес не существует"
+        },
     ]
 
     const {message} = err

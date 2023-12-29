@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {eyeIcon} from "../../../../assets/svg";
 import Svg from "../../../layout/Svg/Svg";
 import {changeUserData} from "../../../../redux/action/auth";
+import {getArbitrage, requestArbitrage} from "../../../../redux/action/arbitrage";
 
 const setFilters = (exchanges,filters) => {
 
@@ -86,12 +87,17 @@ function ArbitragePageFilterModal({show, onClose}) {
            acc[cur] = value
             return acc
         },{})
-        dispatch(changeUserData(resData,false,onClose))
+        const onSuccess = () => {
+            dispatch(requestArbitrage())
+            onClose()
+        }
+
+        dispatch(changeUserData(resData,false,onSuccess))
     }
 
     return (
         <>
-            <Backdrop inProp={show} onClose={onClose}/>
+            <Backdrop inProp={show} onClose={onClose} highZIndex={true}/>
             <NewPortalProvider>
                 <TransitionProvider
                     className={styles["filterModal"]}

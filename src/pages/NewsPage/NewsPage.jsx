@@ -14,6 +14,8 @@ function NewsPage() {
     const [selectedItemId,setSelectedItemId] = useState(null)
     const loading = useSelector(state => state.news.getLoading)
 
+    console.dir({data})
+
     useEffect(() => {
         dispatch(getNews())
 

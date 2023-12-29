@@ -11,6 +11,7 @@
     background-image: url("../../../assets/images/AuthBlock/authBlockBg.jpg");
     background-position: center left;
     background-size: cover;
+    min-height: 100vh;
 
     @include lgScreenMedia {
       display: none;
@@ -19,7 +20,6 @@
 
   &__main {
     flex: 5;
-    height: 100%;
     @include flexCol();
     background-color: #181C2E;
     flex-direction: column;

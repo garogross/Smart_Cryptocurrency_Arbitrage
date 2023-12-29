@@ -11,6 +11,8 @@
 
   &__options {
     @include flexCol(space-between);
+    gap: 8px;
+    position: relative;
 
     @include smScreenMedia {
       flex-direction: column;
@@ -43,6 +45,24 @@
     cursor: pointer;
     border: none;
     background-color: transparent;
+    height: 40px;
+    @include flexCol();
+
+    &_desk {
+      @include smScreenMedia {
+        display: none;
+      }
+    }
+
+    &_mob {
+      display: none;
+      @include smScreenMedia {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    }
   }
 
   &__blacklistFilterOptions {

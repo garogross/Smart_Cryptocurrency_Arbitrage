@@ -13,7 +13,7 @@
   border-radius: 20px;
   @include flexCol();
   padding: 20px;
-  z-index: 9999;
+  z-index: 99999999;
   gap: 20px;
   flex-direction: column;
   max-height: calc(100vh - 20px);

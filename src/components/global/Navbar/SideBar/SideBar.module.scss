@@ -1,6 +1,14 @@
 @import "../../../../styles/vars";
 @import "../../../../styles/mixins";
 
+.sideBar__backdrop {
+  display: none;
+
+  @include mdScreenMedia {
+    display: block;
+  }
+}
+
 .sideBar {
   width: 100%;
   max-width: 312px;

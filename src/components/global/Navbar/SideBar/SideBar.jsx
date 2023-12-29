@@ -115,7 +115,12 @@ function SideBar({burgerOpened, onCloseBurger}) {
 
     return (
         <>
-            <Backdrop inProp={burgerOpened} onClose={onCloseBurger}/>
+            <Backdrop
+                inProp={burgerOpened}
+                onClose={onCloseBurger}
+                enableScroll={true}
+                className={styles["sideBar__backdrop"]}
+            />
             <NewPortalProvider>
                 <TransitionProvider
                     inProp={burgerOpened}
@@ -131,7 +136,7 @@ function SideBar({burgerOpened, onCloseBurger}) {
                             id={arrowIcon}
                         />
                     </button>
-                    <Link to={mainPagePath} onClick={onCloseBurger}>
+                    <Link to={mainPagePath}>
                         <img src={navLogoImage} alt="Logo" className={styles["sideBar__logoImage"]}/>
                     </Link>
                     <div className={`${styles["sideBar__menu"]} scrollbarDef`}>
@@ -156,7 +161,6 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                             {index === navLinks.length - 1 ?
                                                 <b className={styles['sideBar__line']}/> : null}
                                             <NavLink
-                                                onClick={!sublinks || filteredSubLinks.length === 1 ? onCloseBurger : null}
                                                 to={`${path}${filteredSubLinks ? "#" + filteredSubLinks[0].href : ""}`}
                                                 className={activeNavLinks}
                                             >
@@ -181,7 +185,6 @@ function SideBar({burgerOpened, onCloseBurger}) {
                                                     {
                                                         filteredSubLinks.map((item, index) => (
                                                             <Link
-                                                                onClick={onCloseBurger}
                                                                 key={index}
                                                                 to={`${path}#${item.href}`}
                                                                 className={`${styles["sideBar__acardeonItem"]} ${hash.includes(item.href) ? styles["sideBar__acardeonItem_active"] : ""}`}>

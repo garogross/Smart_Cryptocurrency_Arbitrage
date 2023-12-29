@@ -4,7 +4,7 @@ import NewPortalProvider from "../../../providers/NewPortalProvider";
 
 import styles from "./Backdrop.module.scss";
 
-const Backdrop = memo(({inProp, onClose,highZIndex,enableScroll}) => {
+const Backdrop = memo(({inProp, onClose,highZIndex,enableScroll,className}) => {
     useEffect(() => {
         if (inProp && !enableScroll) document.body.style.overflowY = 'hidden'
         return () => document.body.style.overflowY = 'visible'
@@ -13,6 +13,7 @@ const Backdrop = memo(({inProp, onClose,highZIndex,enableScroll}) => {
     return (
         <NewPortalProvider>
             <TransitionProvider
+                className={className}
                 inProp={inProp}
                 // eslint-disable-next-line react/style-prop-object
                 style={'opacity'}

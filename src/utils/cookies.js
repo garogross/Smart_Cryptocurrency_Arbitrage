@@ -3,4 +3,5 @@ export const lsProps = {
     token: 'token',
     user: 'user',
     filters: 'filters',
+    isRegistered: 'isRegistered',
 }

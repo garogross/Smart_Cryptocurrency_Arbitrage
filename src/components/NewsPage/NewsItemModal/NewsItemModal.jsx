@@ -9,7 +9,7 @@ import {baseUrl} from "../../../redux/action/fetchTools";
 function NewsItemModal({item, onClose}) {
     return (
         <>
-            <Backdrop inProp={item} onClose={onClose}/>
+            <Backdrop inProp={item} onClose={onClose} highZIndex={true}/>
             <NewPortalProvider>
                 <TransitionProvider
                     className={`${styles["newsItemModal"]}`}

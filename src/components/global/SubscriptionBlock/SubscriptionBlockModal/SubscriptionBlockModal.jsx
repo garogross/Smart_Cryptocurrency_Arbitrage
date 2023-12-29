@@ -33,7 +33,7 @@ function SubscriptionBlockModal({show, onClose}) {
 
     return (
         <>
-            <Backdrop onClose={onClose} inProp={show}/>
+            <Backdrop onClose={onClose} inProp={show} highZIndex={true}/>
             <NewPortalProvider>
                 <TransitionProvider
                     style={'opacity'}
@@ -41,8 +41,7 @@ function SubscriptionBlockModal({show, onClose}) {
                     className={styles["subscriptionBlockModal"]}
                 >
                     <CrossBtn onClick={onClose}/>
-                    <h4 className={styles["subscriptionBlockModal__title"]}>Если вы уже зарегистрировались, нажмите
-                        кнопку "Обновить"</h4>
+                    <h4 className={styles["subscriptionBlockModal__title"]}>Если вы уже приобрели посписку, нажмите кнопку "Обновить"</h4>
                     <p className={styles["subscriptionBlockModal__text"]}>Вы подписаны на {subscribtionText} подписку</p>
                     <TransitionProvider
                         duration={100}

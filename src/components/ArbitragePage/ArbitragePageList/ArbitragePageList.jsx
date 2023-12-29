@@ -5,8 +5,8 @@ import {useSocket} from "../../../hooks/useSocket";
 import {useDispatch, useSelector} from "react-redux";
 import {setAutoRefresh, getArbitrage, requestArbitrage} from "../../../redux/action/arbitrage";
 import {useLocation, useNavigate} from "react-router-dom";
-import {arbitragePagePath} from "../../../router/path";
-import {arbitrageTypes} from "../../../constants";
+import {arbitragePagePath, loginPagePath} from "../../../router/path";
+import {arbitrageTypes, subscriptionTypes} from "../../../constants";
 import DataLoader from "../../layout/DataLoader/DataLoader";
 import {changeUserData} from "../../../redux/action/auth";
 import {getCreatedAt} from "../../../utils/functions/date";
@@ -73,7 +73,9 @@ function ArbitragePageList() {
             ex2: item.Ex2,
         }
         const oldData = filters.hidden || []
-        dispatch(changeUserData({hidden: [...oldData, newItem]}))
+        if(!oldData.find(oldItem => oldItem.symbol === item.Symbol)) {
+            dispatch(changeUserData({hidden: [...oldData, newItem]}))
+        }
     }
 
     const filteredData = data.filter(item => (
@@ -84,6 +86,8 @@ function ArbitragePageList() {
         filterHiddens(item,filters)
     ))
 
+
+    console.log(filteredData.length)
     return (
 
         <div className={styles["arbitrageList"]}>
@@ -96,6 +100,7 @@ function ArbitragePageList() {
                                     key={index}
                                     onAddToBlackList={onAddToBlackList}
                                     onAddToHidden={onAddToHidden}
+                                    isArb={user.subscription === subscriptionTypes.arb}
                                     {...item}
                                 />
                             ))

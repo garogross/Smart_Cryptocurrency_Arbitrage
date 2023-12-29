@@ -8,7 +8,7 @@
   margin: 0 auto;
   gap: 15px;
 
-  @include mdScreenMedia {
+  @include lgScreenMedia {
     flex-direction: column;
   }
 
@@ -18,6 +18,8 @@
     background-color: #101328;
     padding: 40px;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 
     @include smScreenMedia {
       padding: 20px;
@@ -42,6 +44,7 @@
   }
 
   &__boxDescriptionText {
+    min-height: 50px;
     @include mdScreenMedia {
       text-align: center;
     }

@@ -11,7 +11,7 @@ import CrossBtn from "../../../layout/CrossBtn/CrossBtn";
 function ArbitragePageHiddenItemsModal({show, onClose,title,data,onRemove}) {
     return (
         <>
-            <Backdrop inProp={show} onClose={onClose}/>
+            <Backdrop inProp={show} onClose={onClose} highZIndex={true}/>
             <NewPortalProvider>
                 <TransitionProvider
                     className={styles["hiddenItemsModal"]}

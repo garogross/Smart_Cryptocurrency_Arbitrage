@@ -49,7 +49,7 @@ function AdminNewsFormModal({
 
     return (
         <>
-            <Backdrop inProp={item} onClose={onClose}/>
+            <Backdrop inProp={item} onClose={onClose} highZIndex={true}/>
             <NewPortalProvider>
                 <TransitionProvider
                     className={`${styles["adminNewsFormModal"]} scrollbarDef`}

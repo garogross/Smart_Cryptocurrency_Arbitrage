@@ -47,7 +47,7 @@ function ArbitragePageHeader() {
                     >Blacklist
                     </button>
                     <button
-                        className={styles["arbitrageHeader__eyeBtn"]}
+                        className={`${styles["arbitrageHeader__eyeBtn"]} ${styles["arbitrageHeader__eyeBtn_desk"]}`}
                         onClick={openHiddenItemsModal}
                     >
                         <Svg className={styles["arbitrageHeader__eyeIcon"]} id={eyeIcon}/>
@@ -68,6 +68,12 @@ function ArbitragePageHeader() {
                         <Svg className={styles["arbitrageHeader__refreshIcon"]} id={refreshIcon}/>
                     </button>
                 </div>
+                <button
+                    className={`${styles["arbitrageHeader__eyeBtn"]} ${styles["arbitrageHeader__eyeBtn_mob"]}`}
+                    onClick={openHiddenItemsModal}
+                >
+                    <Svg className={styles["arbitrageHeader__eyeIcon"]} id={eyeIcon}/>
+                </button>
             </div>
             <ArbitragePageHiddenItemsModal
                 show={isBlackListModalOpened}

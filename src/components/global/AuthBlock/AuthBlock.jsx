@@ -45,9 +45,7 @@ function AuthBlock({
     return (
         <>
             <div className={styles["authBlock"]}>
-                {/*<div className={styles["authBlock__image"]}></div>*/}
                 <div className={styles["authBlock__imageBlock"]}>
-                    {/*<img src={authBlockBgImage} alt="" className={styles["authBlock__image"]}/>*/}
                 </div>
                 <div className={styles["authBlock__main"]}>
                     <div className={styles["authBlock__mainContainer"]}>

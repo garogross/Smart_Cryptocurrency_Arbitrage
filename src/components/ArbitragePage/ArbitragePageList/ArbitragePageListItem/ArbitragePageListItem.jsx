@@ -21,6 +21,7 @@ function ArbitragePageListItem({
                                    onAddToHidden,
                                    Ex1,
                                    Ex2,
+                                   isArb
                                }) {
 
     const today = new Date()
@@ -35,17 +36,23 @@ function ArbitragePageListItem({
             <div className={styles["arbitrageListItem__header"]}>
                 <h5 className={styles["arbitrageListItem__title"]}>{Symbol.toUpperCase()}</h5>
                 <div className={styles["arbitrageListItem__headerBtns"]}>
-                    <button
-                        onClick={() => onAddToHidden({Symbol,Ex1,Ex2})}
-                        className={styles["arbitrageListItem__hiderBtn"]}>
-                        <Svg className={styles["arbitrageListItem__hideIcon"]} id={eyeIcon}/>
-                    </button>
-                    <button
-                        className={styles["arbitrageListItem__hiderBtn"]}
-                        onClick={() => onAddToBlackList(Symbol)}
-                    >
-                        <Svg className={styles["arbitrageListItem__crossIcon"]} id={crossIcon}/>
-                    </button>
+                    {
+                        isArb ?
+                            <>
+                                <button
+                                    onClick={() => onAddToHidden({Symbol, Ex1, Ex2})}
+                                    className={styles["arbitrageListItem__hiderBtn"]}>
+                                    <Svg className={styles["arbitrageListItem__hideIcon"]} id={eyeIcon}/>
+                                </button>
+                                <button
+                                    className={styles["arbitrageListItem__hiderBtn"]}
+                                    onClick={() => onAddToBlackList(Symbol)}
+                                >
+                                    <Svg className={styles["arbitrageListItem__crossIcon"]} id={crossIcon}/>
+                                </button>
+                            </> : null
+                    }
+
                 </div>
             </div>
             <div

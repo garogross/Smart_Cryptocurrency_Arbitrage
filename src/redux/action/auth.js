@@ -168,8 +168,9 @@ export const checkIsSubscribed = (clb) => async (dispatch, getState) => {
         const fetchData = await fetchRequest(checkIsSubscribedUrl)
         const user = getState().auth.user
         const subscription = fetchData.IsSubscribed ? subscriptionTypes.arb : subscriptionTypes.free
-
-        dispatch({type: GET_USER_SUCCESS, payload: {user: {...user, subscription}}})
+        const newData =  {...user, subscription}
+        dispatch({type: GET_USER_SUCCESS, payload: {user: newData}})
+        setLSItem(lsProps.user,newData)
         if (clb) clb()
 
     } catch (err) {
@@ -195,7 +196,7 @@ export const changePassword = (formData, clb) => async (dispatch) => {
 }
 
 export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
-    dispatch({type: EDIT_USER_DATA_LOADING_START})
+    if(showEmptyFieldsError) dispatch({type: EDIT_USER_DATA_LOADING_START})
 
     const user = getState().auth.user
 
