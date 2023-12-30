@@ -28,7 +28,7 @@ import {
     changePassUrl,
     checkIsSubscribedUrl, editUserDataUrl,
     fetchRequest,
-    forgotPasswordUrl,
+    forgotPasswordUrl, getUserUrl,
     resetPasswordUrl, setEmptyFieldsError,
     setError,
     siginUrl,
@@ -42,11 +42,13 @@ import {lsProps} from "../../utils/cookies";
 
 
 const authenticateUser = (url, formData, successType, setError, clb,config,forFilters,isAdmin) => async (dispatch) => {
+    const method = formData ? 'POST' : 'GET'
+    const body = formData ? JSON.stringify(formData) : null
     const {
         Token: token,
         User,
         Status: status
-    } = await fetchRequest(url,'POST', JSON.stringify(formData), config || baseConfig)
+    } = await fetchRequest(url,method, body, config || baseConfig)
     if ((token && User && !status) || (status === 'Success')) {
         if(isAdmin && User.role !== 'admin') {
             throw {message: 'Ты не Админ', status: 400};
@@ -91,6 +93,10 @@ export const checkIsLoggedIn = () => (dispatch) => {
     const filters = getLSItem(lsProps.filters,true)
     dispatch({type: GET_USER_SUCCESS, payload: {token, user}})
     dispatch({type: SET_ARBITRAGE_FILTERS,payload: filters})
+
+    if(token) {
+        dispatch(getUser())
+    }
 }
 
 export const setSignupError = (err) => dispatch => {
@@ -110,6 +116,20 @@ export const login = (formData, clb,isAdmin) => async (dispatch) => {
 
 export const setLoginError = (err) => dispatch => {
     dispatch(setError(err, LOGIN_ERROR))
+}
+
+export const getUser = () => async (dispatch) => {
+    dispatch({type: GET_USER_LOADING_START})
+    try {
+        await dispatch(authenticateUser(getUserUrl, null, GET_USER_SUCCESS, setGetUserError, undefined,authConfig()))
+    } catch (err) {
+        console.error({err})
+        dispatch(setLoginError(err))
+    }
+}
+
+export const setGetUserError = (err) => dispatch => {
+    dispatch(setError(err, GET_USER_ERROR))
 }
 
 export const forgotPassword = (formData, clb) => async (dispatch) => {

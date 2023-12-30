@@ -1,17 +1,34 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./NewsList.module.scss"
 import {baseUrl} from "../../../redux/action/fetchTools";
 import DataLoader from "../../layout/DataLoader/DataLoader";
+import {getNews} from "../../../redux/action/news";
+import {newsPagePath} from "../../../router/path";
+import {useDispatch, useSelector} from "react-redux";
+import {useLocation, useNavigate} from "react-router-dom";
+
 
 
 function NewsList({data,loading,onClick}) {
+    const dispatch = useDispatch()
+    const {hash} = useLocation()
+    const navigate = useNavigate()
 
+    const filteredData = data.filter(item => item.type === hash.slice(1))
+
+    useEffect(() => {
+        dispatch(getNews())
+
+        if(!hash) {
+            navigate(`${newsPagePath}#free`)
+        }
+    }, []);
 
     return (
         <div className={styles["newsList"]}>
             <div className={`${styles["newsList__container"]} container`}>
                 {
-                    data.map(({id,title,tag,picture}) => (
+                    filteredData.filter(item => item.type === hash.slice(1)).map(({id,title,tag,picture}) => (
                         <div
                             onClick={() => onClick(id)}
                             className={styles["newsList__item"]}
@@ -23,7 +40,7 @@ function NewsList({data,loading,onClick}) {
                         </div>
                     ))
                 }
-                <DataLoader loading={loading} isEmpty={!data.length}/>
+                <DataLoader loading={loading} isEmpty={!filteredData.length}/>
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ import NewPortalProvider from "../../../../providers/NewPortalProvider";
 
 import styles from "./SideBar.module.scss"
 import {
+    adminNewsPagePath,
     arbitragePagePath, loginPagePath, mainPagePath,
     newsPagePath,
     settingsPagePath,
@@ -30,6 +31,7 @@ const navLinks = [
         title: "Arbitration News",
         icon: newsIcon,
         path: newsPagePath,
+        adminPath: adminNewsPagePath,
         isPrivate: true,
         sublinks: [
             {
@@ -89,29 +91,25 @@ const navLinks = [
     },
 ]
 
-function SideBar({burgerOpened, onCloseBurger}) {
+function SideBar({burgerOpened, onCloseBurger, isMobile}) {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const location = useLocation()
     const token = useSelector(state => state.auth.token)
     const user = useSelector(state => state.auth.user)
-
     const {pathname, hash} = location
 
     const onClickLoginLogout = () => {
         const clb = () => navigate(loginPagePath)
         token ? dispatch(logOut(clb)) : navigate(loginPagePath)
-        onCloseBurger()
     }
+
 
     const setActiveNavLinkClass = (defaultClass, activeClass) => {
         return ({isActive}) => (isActive ? `${defaultClass} ${activeClass}` : defaultClass)
     }
 
     const activeNavLinks = setActiveNavLinkClass(styles["sideBar__link"], styles["sideBar__link_active"])
-
-
-    const filterPrivates = (arr) => arr.filter(item => (token && user.subscription === subscriptionTypes.arb) || !item.isPrivate)
 
     return (
         <>
@@ -136,70 +134,85 @@ function SideBar({burgerOpened, onCloseBurger}) {
                             id={arrowIcon}
                         />
                     </button>
-                    <Link to={mainPagePath}>
+                    <Link to={mainPagePath} onClick={isMobile ? onCloseBurger : null}>
                         <img src={navLogoImage} alt="Logo" className={styles["sideBar__logoImage"]}/>
                     </Link>
                     <div className={`${styles["sideBar__menu"]} scrollbarDef`}>
                         {
-                            navLinks.filter(item => token || !item.isPrivate).map(({
-                                                                                       title,
-                                                                                       icon,
-                                                                                       path,
-                                                                                       sublinks
-                                                                                   }, index) => {
+                            navLinks
+                                .filter(item => token || !item.isPrivate)
+                                .map(({
+                                          title,
+                                          icon,
+                                          path,
+                                          adminPath,
+                                          sublinks
+                                      }, index) => {
+                                        const linkPath = user?.role === "admin" && adminPath ? adminPath : path
+                                        const isAuthenticated = token && user.subscription === subscriptionTypes.arb
+                                        const filteredSubLinks = sublinks
+                                            ?.filter(item => (
+                                                user.role === 'admin' ||
+                                                item.isPrivate && isAuthenticated ||
+                                                !item.isPrivate && isAuthenticated && !item.isNonPrivate ||
+                                                !isAuthenticated && !item.isPrivate
+                                            ))
 
-                                    const isAuthenticated = token && user.subscription === subscriptionTypes.arb
-                                    const filteredSubLinks = sublinks
-                                        ?.filter(item => (
-                                            item.isPrivate && isAuthenticated ||
-                                            !item.isPrivate && isAuthenticated && !item.isNonPrivate ||
-                                            !isAuthenticated && !item.isPrivate
-                                        ))
+                                        const onClickLinks = (isNavLink) => {
+                                            console.log({isMobile})
+                                            console.log({isNavLink})
+                                            if (
+                                                isMobile &&
+                                                (!isNavLink ||
+                                                    isNavLink && !sublinks || filteredSubLinks.length === 1)) onCloseBurger()
+                                        }
 
-                                    return (
-                                        <Fragment key={index}>
-                                            {index === navLinks.length - 1 ?
-                                                <b className={styles['sideBar__line']}/> : null}
-                                            <NavLink
-                                                to={`${path}${filteredSubLinks ? "#" + filteredSubLinks[0].href : ""}`}
-                                                className={activeNavLinks}
-                                            >
-                                                <Svg className={styles["sideBar__linkIcon"]} id={icon}/>
-                                                <span className={styles["sideBar__linkText"]}>{title}</span>
-                                                {
-                                                    sublinks ?
-                                                        <Svg
-                                                            id={arrowDownIcon}
-                                                            className={styles['sideBar__linkArrowIcon']}
-                                                        /> : null
-                                                }
-                                            </NavLink>
-                                            {sublinks ?
-                                                <TransitionProvider
-                                                    duration={300}
-                                                    inProp={pathname.includes(path)}
-                                                    style={'height'}
-                                                    height={'300px'}
-                                                    className={styles['sideBar__acardeon']}
+                                        return (
+                                            <Fragment key={index}>
+                                                {index === navLinks.length - 1 ?
+                                                    <b className={styles['sideBar__line']}/> : null}
+                                                <NavLink
+                                                    onClick={() => onClickLinks(true)}
+                                                    to={`${linkPath}${filteredSubLinks ? "#" + filteredSubLinks[0].href : ""}`}
+                                                    className={activeNavLinks}
                                                 >
+                                                    <Svg className={styles["sideBar__linkIcon"]} id={icon}/>
+                                                    <span className={styles["sideBar__linkText"]}>{title}</span>
                                                     {
-                                                        filteredSubLinks.map((item, index) => (
-                                                            <Link
-                                                                key={index}
-                                                                to={`${path}#${item.href}`}
-                                                                className={`${styles["sideBar__acardeonItem"]} ${hash.includes(item.href) ? styles["sideBar__acardeonItem_active"] : ""}`}>
+                                                        sublinks ?
+                                                            <Svg
+                                                                id={arrowDownIcon}
+                                                                className={styles['sideBar__linkArrowIcon']}
+                                                            /> : null
+                                                    }
+                                                </NavLink>
+                                                {sublinks ?
+                                                    <TransitionProvider
+                                                        duration={300}
+                                                        inProp={pathname.includes(linkPath)}
+                                                        style={'height'}
+                                                        height={'300px'}
+                                                        className={styles['sideBar__acardeon']}
+                                                    >
+                                                        {
+                                                            filteredSubLinks.map((item, index) => (
+                                                                <Link
+                                                                    key={index}
+                                                                    onClick={() => onClickLinks()}
+                                                                    to={`${linkPath}#${item.href}`}
+                                                                    className={`${styles["sideBar__acardeonItem"]} ${hash.includes(item.href) ? styles["sideBar__acardeonItem_active"] : ""}`}>
                                                                 <span
                                                                     className={styles["sideBar__acardeonItemLine"]}></span>
-                                                                <span>{item.title}</span>
-                                                            </Link>
-                                                        ))
-                                                    }
-                                                </TransitionProvider> : null
-                                            }
-                                        </Fragment>
-                                    )
-                                }
-                            )
+                                                                    <span>{item.title}</span>
+                                                                </Link>
+                                                            ))
+                                                        }
+                                                    </TransitionProvider> : null
+                                                }
+                                            </Fragment>
+                                        )
+                                    }
+                                )
                         }
                     </div>
                     <div className={styles["sideBar__bottomBlock"]}>

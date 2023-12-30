@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {eyeIcon, refreshIcon} from "../../../assets/svg";
 import Svg from "../../layout/Svg/Svg";
 import styles from "./ArbitragePageHeader.module.scss"
@@ -7,6 +7,7 @@ import ArbitragePageFilterModal from "./ArbitragePageFilterModal/ArbitragePageFi
 import {useDispatch, useSelector} from "react-redux";
 import {setAutoRefresh} from "../../../redux/action/arbitrage";
 import {changeUserData} from "../../../redux/action/auth";
+import {getCreatedAt} from "../../../utils/functions/date";
 
 
 function ArbitragePageHeader() {
@@ -25,6 +26,23 @@ function ArbitragePageHeader() {
     const closeHiddenItemsModal = () => setIsHiddenItemsModalOpened(false)
     const openFilterModal = () => setIsFilterModalOpened(true)
     const closeFilterModal = () => setIsFilterModalOpened(false)
+
+    useEffect(() => {
+        if(isHiddenItemsModalOpened) {
+
+            const hidden = filters.hidden.filter(hidden => {
+                const now = new Date()
+                const createdAt = getCreatedAt(hidden.created_at)
+                createdAt.setHours(createdAt.getHours()+4)
+                createdAt.setMinutes(createdAt.getMinutes() + filters.hidden_time)
+                return createdAt > now
+            })
+
+            if(hidden.length !== filters.length) {
+                dispatch(changeUserData({hidden}))
+            }
+        }
+    }, [isHiddenItemsModalOpened]);
 
 
     const onRemoveBlackListItem = (item) => {

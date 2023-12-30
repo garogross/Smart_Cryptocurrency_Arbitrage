@@ -78,6 +78,8 @@ function ArbitragePageList() {
         }
     }
 
+
+
     const filteredData = data.filter(item => (
         filterType(item, hash) &&
         filterExchanges(item, filters.exchanges) &&

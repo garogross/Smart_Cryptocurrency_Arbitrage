@@ -49,6 +49,11 @@
     border-radius: 10px;
     align-self: center;
     width: 100%;
+
+    @include smScreenMedia {
+      aspect-ratio: auto;
+      min-height: 180px;
+    }
   }
 
   &__itemText {

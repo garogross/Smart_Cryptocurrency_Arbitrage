@@ -14,23 +14,16 @@ import {changeUserData, checkIsLoggedIn} from "../../redux/action/auth";
 import {regSw, subscribe} from '../../helper';
 import {subscriptionTypes} from "../../constants";
 
-const navbarDisabledPages = [
-    loginPagePath,
-    signUpPagePath,
-    forgotPasswordPagePath,
-    resetPasswordPagePath,
-    adminLoginPagePath,
-]
 
 function App() {
-    const location = useLocation()
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
 
-    const isNavigationDisabled = !navbarDisabledPages.includes(location.pathname)
 
     const onSubscribe = (data) => {
-        dispatch(changeUserData({push_subscription: data}))
+        if (user?.push_subscription?.endpoint !== data.endpoint) {
+            dispatch(changeUserData({push_subscription: data}))
+        }
     }
 
     async function registerAndSubscribe() {
@@ -53,18 +46,11 @@ function App() {
         dispatch(checkIsLoggedIn())
     }, []);
 
-    useEffect(() => {
-        if(!isNavigationDisabled) document.body.classList.remove('navbarOpened')
-    }, [location]);
 
 
     return (
         <>
-            {
-                !navbarDisabledPages.includes(location.pathname) ?
-                    <Navbar/>
-                    : null
-            }
+            <Navbar/>
             <Routes>
                 {
                     routes.map(({path, component}, index) => (

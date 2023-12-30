@@ -30,6 +30,7 @@ export const setEmptyFieldsError = (formData) => {
 // auth
 export const signupUrl = '/signup'
 export const siginUrl = '/signin'
+export const getUserUrl = '/user'
 export const forgotPasswordUrl = '/forgotPassword'
 export const resetPasswordUrl = '/resetPassword'
 export const checkIsSubscribedUrl = '/isSubscribed'
