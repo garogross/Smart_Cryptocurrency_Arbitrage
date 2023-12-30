@@ -159,8 +159,6 @@ function SideBar({burgerOpened, onCloseBurger, isMobile}) {
                                             ))
 
                                         const onClickLinks = (isNavLink) => {
-                                            console.log({isMobile})
-                                            console.log({isNavLink})
                                             if (
                                                 isMobile &&
                                                 (!isNavLink ||

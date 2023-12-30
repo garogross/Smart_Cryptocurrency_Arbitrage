@@ -14,9 +14,28 @@ import {eyeIcon} from "../../../../assets/svg";
 import Svg from "../../../layout/Svg/Svg";
 import {changeUserData} from "../../../../redux/action/auth";
 import {getArbitrage, requestArbitrage} from "../../../../redux/action/arbitrage";
+import {useLocation} from "react-router-dom";
 
 const setFilters = (exchanges,filters) => {
 
+    const chains = [
+        {
+            title: "BSC",
+            value: "bsc",
+        },
+        {
+            title: "Ethereum",
+            value: "eth",
+        },
+        {
+            title: "Polygon",
+            value: "polygon",
+        },
+        {
+            title: "Arbitrum",
+            value: "arbitrum",
+        }
+    ]
     const setOptions = (arr) => arr.map(item => ({title: item[0].toUpperCase()+item.slice(1),value: item}))
 
 
@@ -27,6 +46,14 @@ const setFilters = (exchanges,filters) => {
             name: 'Exchanges',
             options: setOptions(exchanges),
             selectedOptions: filters.exchanges || [],
+        },
+        {
+            type: 'checkbox',
+            key: 'blockchains',
+            name: 'Blockchain',
+            options: chains,
+            selectedOptions: filters.blockchains || [],
+            onlyFor: arbitrageTypes.cexToDex
         },
         {
             type: 'input',
@@ -58,6 +85,7 @@ const setFilters = (exchanges,filters) => {
 
 function ArbitragePageFilterModal({show, onClose}) {
     const dispatch = useDispatch()
+    const {hash} = useLocation()
     const exchanges = useSelector(state => state.arbitrage.exchanges)
     const userFilters = useSelector(state => state.arbitrage.filters)
     const filters = setFilters(exchanges,userFilters)
@@ -67,6 +95,7 @@ function ArbitragePageFilterModal({show, onClose}) {
     }, {})
 
     const {onChange, formData, setFormData} = useFormValue(initialData)
+
 
     const onToggleCheckBox = (e) => {
         const {name, value} = e.target
@@ -80,7 +109,6 @@ function ArbitragePageFilterModal({show, onClose}) {
 
     const onSubmit = (e) => {
         e.preventDefault()
-
         const resData = Object.keys(formData).reduce((acc,cur) => {
             const value = Array.isArray(formData[cur]) || +formData[cur] == NaN ?
                 formData[cur] : +formData[cur]
@@ -114,7 +142,9 @@ function ArbitragePageFilterModal({show, onClose}) {
                         onSubmit={onSubmit}
                     >
                         {
-                            filters.map(({
+                            filters
+                                .filter(item => !item.onlyFor || hash.slice(1) === item.onlyFor)
+                                .map(({
                                              key,
                                              type,
                                              name,

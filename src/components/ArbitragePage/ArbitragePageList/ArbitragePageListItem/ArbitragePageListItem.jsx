@@ -7,12 +7,13 @@ import {getCreatedAt} from "../../../../utils/functions/date";
 function ArbitragePageListItem({
                                    AskAmount,
                                    AskCount,
-                                   AskPrice,
+                                   AskAmountUSDT,
+                                   BidAmountUSDT,
+                                   BidPrice,
                                    BidAmount,
                                    BidCount,
-                                   BidPrice,
                                    Chain,
-                                   Fee,
+                                   FeeUSDT,
                                    Profit,
                                    SpotFee,
                                    Timestamp,
@@ -71,7 +72,7 @@ function ArbitragePageListItem({
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>ASK: </span>
-                    {AskPrice.toFixed(4)} - {AskCount} ордер
+                    {AskAmountUSDT.toFixed(4)} - {AskCount} ордер
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Сеть: </span>
@@ -79,7 +80,7 @@ function ArbitragePageListItem({
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Комиссия Перевода: </span>
-                    {Fee}$
+                    {FeeUSDT}$
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Комиссия Спота: </span>
@@ -97,12 +98,12 @@ function ArbitragePageListItem({
             <div
                 className={`${styles["arbitrageListItem__resultBlock"]} ${styles['arbitrageListItem__resultBlock_input']}`}>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
-                <span className={styles["arbitrageListItem__resultBlockText_red"]}>SELL: </span>
+                    <span className={styles["arbitrageListItem__resultBlockText_red"]}>SELL: </span>
                     {BidAmount.toFixed(4)} USDT
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_red"]}>BID: </span>
-                    {BidPrice.toFixed(4)} - {BidCount} ордеров
+                    {BidAmountUSDT.toFixed(4)} - {BidCount} ордеров
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_red"]}>Сеть: </span>
@@ -126,7 +127,8 @@ function ArbitragePageListItem({
             </p>
             <div className={styles["arbitrageListItem__footer"]}>
                 <p className={styles["arbitrageListItem__footerText"]}>{timestampText} minutes ago</p>
-                <p className={styles["arbitrageListItem__footerText"]}>Spotted: about {Math.round(spotedText)} hours ago</p>
+                <p className={styles["arbitrageListItem__footerText"]}>Spotted: about {Math.round(spotedText)} hours
+                    ago</p>
             </div>
         </div>
     );

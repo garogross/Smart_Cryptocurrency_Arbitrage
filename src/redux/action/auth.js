@@ -54,10 +54,10 @@ const authenticateUser = (url, formData, successType, setError, clb,config,forFi
             throw {message: 'Ты не Админ', status: 400};
         }
 
-        const {min_amount,max_amount,profit,hidden,blacklist,exchanges,hidden_time,...user} = User
+        const {min_amount,max_amount,profit,hidden,blacklist,exchanges,hidden_time,blockchains,...user} = User
 
         const filters = {
-            min_amount,max_amount,profit,hidden: hidden || [],blacklist: blacklist || [],exchanges,hidden_time
+            min_amount,max_amount,profit,hidden: hidden || [],blacklist: blacklist || [],exchanges,hidden_time,blockchains
         }
 
 

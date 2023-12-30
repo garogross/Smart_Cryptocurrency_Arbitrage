@@ -29,16 +29,24 @@ const filterProfit = (item, profit) => (
 
 const filterBlacklist = (item, blacklist) => (!blacklist?.find(symbol => item.Symbol.includes(symbol.toLowerCase())))
 
-
-const filterHiddens = (item, filters) => (
-    !filters.hidden?.find(hidden => {
-        const now = new Date()
-        const createdAt = getCreatedAt(hidden.created_at)
-        createdAt.setHours(createdAt.getHours()+4)
-        createdAt.setMinutes(createdAt.getMinutes() + filters.hidden_time)
-        return item.Symbol.includes(hidden.symbol.toLowerCase()) && createdAt > now
-    })
+const filterBlockchain = (item, blockchains) => (
+    item.Kind === arbitrageTypes.cexToCex ||
+    (!blockchains?.find(chain => chain === item.Chain))
 )
+
+
+const filterHiddens = (item, filters) => {
+    const now = new Date()
+    return (
+        !filters.hidden?.find(hidden => {
+            const createdAt = getCreatedAt(hidden.created_at)
+            createdAt.setHours(createdAt.getHours() + 4)
+            createdAt.setMinutes(createdAt.getMinutes() + filters.hidden_time)
+            return item.Symbol.includes(hidden.symbol.toLowerCase()) && createdAt > now
+        })
+    )
+}
+
 
 function ArbitragePageList() {
     const {hash} = useLocation()
@@ -73,11 +81,10 @@ function ArbitragePageList() {
             ex2: item.Ex2,
         }
         const oldData = filters.hidden || []
-        if(!oldData.find(oldItem => oldItem.symbol === item.Symbol)) {
+        if (!oldData.find(oldItem => oldItem.symbol === item.Symbol)) {
             dispatch(changeUserData({hidden: [...oldData, newItem]}))
         }
     }
-
 
 
     const filteredData = data.filter(item => (
@@ -85,9 +92,9 @@ function ArbitragePageList() {
         filterExchanges(item, filters.exchanges) &&
         filterProfit(item, filters.profit) &&
         filterBlacklist(item, filters.blacklist) &&
-        filterHiddens(item,filters)
-    ))
-
+        filterBlockchain(item, filters.blockchains) &&
+        filterHiddens(item, filters)
+    )).sort((a, b) => b.Profit - a.Profit)
 
     return (
 

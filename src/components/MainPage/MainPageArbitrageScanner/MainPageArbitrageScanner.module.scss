@@ -20,7 +20,7 @@
   &__block {
     width: 100%;
     border-radius: 24px;
-    padding: 32px 26px 0;
+    padding: 0 26px;
     @include flexCol(flex-start,flex-end);
     background: url("../../../assets/images/MainPage/arbitrageScannerBg.jpg") center;
     background-size: cover;
@@ -42,7 +42,7 @@
     }
 
     &_cex {
-      gap: 60px;
+      gap: 20px;
 
       @include lgScreenMedia {
         flex-direction: column;
@@ -51,6 +51,7 @@
   }
 
   &__dexImages {
+    padding-top: 32px;
     flex: 1;
     @include flexCol();
     gap: 12px;
@@ -81,7 +82,7 @@
     }
 
     &_cex {
-      max-width: 44%;
+      max-width: 51%;
     }
 
     @include mdScreenMedia {
@@ -91,10 +92,21 @@
 
   &__dexTextBlock {
     flex: 1;
+    align-self: center;
+    margin-bottom: 6px;
+
+    @include lgScreenMedia {
+      margin-top: 26px;
+    }
+
+    @include smScreenMedia {
+      margin-top: 15px;
+    }
   }
 
   &__subtitle {
     margin-bottom: 6px;
+    padding-top: 6px;
 
     @include mdScreenMedia {
       text-align: center;
@@ -106,7 +118,8 @@
     margin-bottom: 25px;
 
     @include xlScreenMedia {
-      font-size: 24px;
+      font-size: 20px;
+      margin-bottom: 15px;
     }
 
     @include mdScreenMedia {
@@ -120,8 +133,18 @@
   }
 
   &__cexTextBlock {
+    margin-bottom: 6px;
     flex: 5;
     margin-left: 20px;
+    align-self: center;
+
+    @include lgScreenMedia {
+      margin-top: 26px;
+    }
+
+    @include smScreenMedia {
+      margin-top: 15px;
+    }
   }
 
   &__contentTxt {
@@ -131,6 +154,7 @@
   }
 
   &__cexImages {
+    padding-top: 32px;
     flex: 7;
     @include flexCol(center,flex-end);
     gap: 12px;

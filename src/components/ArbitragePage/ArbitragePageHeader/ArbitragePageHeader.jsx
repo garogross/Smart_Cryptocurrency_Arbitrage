@@ -28,21 +28,28 @@ function ArbitragePageHeader() {
     const closeFilterModal = () => setIsFilterModalOpened(false)
 
     useEffect(() => {
-        if(isHiddenItemsModalOpened) {
-
-            const hidden = filters.hidden.filter(hidden => {
-                const now = new Date()
-                const createdAt = getCreatedAt(hidden.created_at)
-                createdAt.setHours(createdAt.getHours()+4)
-                createdAt.setMinutes(createdAt.getMinutes() + filters.hidden_time)
-                return createdAt > now
-            })
-
-            if(hidden.length !== filters.length) {
-                dispatch(changeUserData({hidden}))
-            }
+        let interval = null
+        if (filters.hidden && filters.hidden_time) {
+            interval = setInterval(() => {
+                const hidden = filters.hidden.filter(hidden => {
+                    const now = new Date()
+                    const createdAt = getCreatedAt(hidden.created_at)
+                    createdAt.setHours(createdAt.getHours() + 4)
+                    createdAt.setMinutes(createdAt.getMinutes() + filters.hidden)
+                    return createdAt > now
+                })
+                if (hidden.length !== filters.hidden.length) {
+                    dispatch(changeUserData({hidden}))
+                }
+            }, filters.hidden_time * 60 * 1000)
         }
-    }, [isHiddenItemsModalOpened]);
+
+        return () => {
+            if (interval) clearInterval(interval)
+        }
+    }, [filters]);
+
+
 
 
     const onRemoveBlackListItem = (item) => {

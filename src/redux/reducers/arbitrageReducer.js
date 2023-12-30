@@ -19,7 +19,8 @@ const initialState = {
         hidden:[],
         blacklist:[],
         exchanges:[],
-        hidden_time:0
+        hidden_time:0,
+        blockchains: [],
     }
 }
 
