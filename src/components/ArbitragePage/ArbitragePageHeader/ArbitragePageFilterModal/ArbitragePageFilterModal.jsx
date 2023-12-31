@@ -16,7 +16,7 @@ import {changeUserData} from "../../../../redux/action/auth";
 import {getArbitrage, requestArbitrage} from "../../../../redux/action/arbitrage";
 import {useLocation} from "react-router-dom";
 
-const setFilters = (exchanges,filters) => {
+const setFilters = (filters) => {
 
     const chains = [
         {
@@ -36,7 +36,24 @@ const setFilters = (exchanges,filters) => {
             value: "arbitrum",
         }
     ]
-    const setOptions = (arr) => arr.map(item => ({title: item[0].toUpperCase()+item.slice(1),value: item}))
+
+    const exchanges = [
+        "binance",
+        "bitfinex",
+        "bybit",
+        "defilamaArbitrum",
+        "defilamaBsc",
+        "defilamaEth",
+        "defilamaPolygon",
+        "gate",
+        "huobi",
+        "jupiter",
+        "kucoin",
+        "mexc",
+        "okex",
+        "poloniex"
+    ]
+    const setOptions = (arr) => arr.map(item => ({title: item[0].toUpperCase() + item.slice(1), value: item}))
 
 
     return [
@@ -65,13 +82,13 @@ const setFilters = (exchanges,filters) => {
         {
             type: 'input',
             key: 'min_amount',
-            name: 'Min Обьем',
+            name: 'Min Обьем $',
             value: filters.min_amount
         },
         {
             type: 'input',
             key: 'max_amount',
-            name: 'Max Обьем',
+            name: 'Max Обьем $',
             value: filters.max_amount
         },
         {
@@ -86,16 +103,14 @@ const setFilters = (exchanges,filters) => {
 function ArbitragePageFilterModal({show, onClose}) {
     const dispatch = useDispatch()
     const {hash} = useLocation()
-    const exchanges = useSelector(state => state.arbitrage.exchanges)
     const userFilters = useSelector(state => state.arbitrage.filters)
-    const filters = setFilters(exchanges,userFilters)
+    const filters = setFilters(userFilters)
     const initialData = filters.reduce((acc, cur) => {
         acc[cur.key] = cur.type === 'checkbox' ? cur.selectedOptions || [] : cur.value || ''
         return acc
     }, {})
 
     const {onChange, formData, setFormData} = useFormValue(initialData)
-
 
     const onToggleCheckBox = (e) => {
         const {name, value} = e.target
@@ -109,18 +124,18 @@ function ArbitragePageFilterModal({show, onClose}) {
 
     const onSubmit = (e) => {
         e.preventDefault()
-        const resData = Object.keys(formData).reduce((acc,cur) => {
+        const resData = Object.keys(formData).reduce((acc, cur) => {
             const value = Array.isArray(formData[cur]) || +formData[cur] == NaN ?
                 formData[cur] : +formData[cur]
-           acc[cur] = value
+            acc[cur] = value
             return acc
-        },{})
+        }, {})
         const onSuccess = () => {
             dispatch(requestArbitrage())
-            onClose()
+            onClose(true)
         }
 
-        dispatch(changeUserData(resData,false,onSuccess))
+        dispatch(changeUserData(resData, false, onSuccess))
     }
 
     return (
@@ -145,56 +160,57 @@ function ArbitragePageFilterModal({show, onClose}) {
                             filters
                                 .filter(item => !item.onlyFor || hash.slice(1) === item.onlyFor)
                                 .map(({
-                                             key,
-                                             type,
-                                             name,
-                                             options,
-                                             selectedOptions,
-                                             label,
-                                             value,
-                                         }, index) => (
-                                <div
-                                    key={index}
-                                    className={styles["filterModal__item"]}
-                                >
-                                    <h6 className={`${styles["filterModal__title"]} ${label ? styles["filterModal__title_withLabel"] : ''}`}>{name}</h6>
-                                    {label ? <p className={styles["filterModal__inputLabelText"]}>{label}</p> : ""}
-                                    {
-                                        type === 'checkbox' ?
-                                            <div className={styles["filterModal__checkboxesList"]}>
-                                                {
-                                                    options.map(({title,value}, optionIndex) => (
-                                                        <div key={optionIndex}>
-                                                            <input
-                                                                name={key}
-                                                                onChange={onToggleCheckBox}
-                                                                value={value}
-                                                                id={`${key}-${value}`}
-                                                                type="checkbox"
-                                                                checked={formData[key].includes(value)}
-                                                                className={styles['filterModal__checkbox__input']}/>
-                                                            <label
-                                                                htmlFor={`${key}-${value}`}
-                                                                className={`${styles['filterModal__checkbox__label']}`}
-                                                            >{title}</label>
-                                                        </div>
-                                                    ))
-                                                }
+                                          key,
+                                          type,
+                                          name,
+                                          options,
+                                          selectedOptions,
+                                          label,
+                                          value,
+                                      }, index) => (
+                                    <div
+                                        key={index}
+                                        className={styles["filterModal__item"]}
+                                    >
+                                        <h6 className={`${styles["filterModal__title"]} ${label ? styles["filterModal__title_withLabel"] : ''}`}>{name}</h6>
+                                        {label ? <p className={styles["filterModal__inputLabelText"]}>{label}</p> : ""}
+                                        {
+                                            type === 'checkbox' ?
+                                                <div className={styles["filterModal__checkboxesList"]}>
+                                                    {
+                                                        options.map(({title, value}, optionIndex) => (
+                                                            <div key={optionIndex}>
+                                                                <input
+                                                                    name={key}
+                                                                    onChange={onToggleCheckBox}
+                                                                    value={value}
+                                                                    id={`${key}-${value}`}
+                                                                    type="checkbox"
+                                                                    checked={formData[key].includes(value)}
+                                                                    className={styles['filterModal__checkbox__input']}/>
+                                                                <label
+                                                                    htmlFor={`${key}-${value}`}
+                                                                    className={`${styles['filterModal__checkbox__label']}`}
+                                                                >{title}</label>
+                                                            </div>
+                                                        ))
+                                                    }
 
-                                            </div> :
-                                            <MainInput
-                                                type="number"
-                                                className={styles["filterModal__input"]}
-                                                value={formData[key]}
-                                                name={key}
-                                                onChange={onChange}
-                                            />
-                                    }
-                                </div>
-                            ))
+                                                </div> :
+                                                <MainInput
+                                                    type="number"
+                                                    className={styles["filterModal__input"]}
+                                                    value={formData[key]}
+                                                    name={key}
+                                                    onChange={onChange}
+                                                />
+                                        }
+                                    </div>
+                                ))
                         }
                         <div className={styles["filterModal__btnsBlock"]}>
                             <MainBtn
+                                type={'button'}
                                 onClick={onClose}
                                 className={styles['filterModal__btn']}
                                 isPassive={true}>Отменить</MainBtn>

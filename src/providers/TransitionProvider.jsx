@@ -1,6 +1,6 @@
 import { animated, useTransition } from 'react-spring'
 
-const TransitionProvider = ({style,inProp,className,duration,height,children}) => {
+const TransitionProvider = ({style,inProp,className,duration,height,children,top}) => {
     const transDuration = duration ? duration : 300;
 
 
@@ -30,6 +30,11 @@ const TransitionProvider = ({style,inProp,className,duration,height,children}) =
             from: {right: '-450px'},
             enter: {right: '0'},
             leave: {right: '-450px'},
+        },
+        top: {
+            from: {top: '-50px'},
+            enter: {top: top || '10px'},
+            leave: {top: '-50px'},
         },
         translateX: {
             from: {translateX: '100%'},

@@ -1,5 +1,5 @@
 import {
-    GET_ARBITRAGE_ERROR, GET_ARBITRAGE_EXCHANGES,
+    GET_ARBITRAGE_ERROR,
     GET_ARBITRAGE_LOADING_START,
     GET_ARBITRAGE_SUCCESS,
     SET_ARBITRAGE_AUTO_REFRESH, TOGGLE_ARBITRAGE_AUTO_REFRESH
@@ -11,7 +11,6 @@ import {getLSItem, setLSItem} from "../../utils/functions/localStorage";
 
 export const getArbitrage = (payload) => dispatch => {
     dispatch({type: GET_ARBITRAGE_SUCCESS, payload})
-    dispatch(getArbitrageExchanges(payload))
 }
 
 export const requestArbitrage = () => async (dispatch) => {
@@ -21,14 +20,6 @@ export const requestArbitrage = () => async (dispatch) => {
             dispatch(getArbitrage(data || []))
     } catch (err) {
         dispatch({type: GET_ARBITRAGE_ERROR})
-    }
-}
-
-export const getArbitrageExchanges = (data) => (dispatch, getState) => {
-    const exchanges = getState().arbitrage.exchanges
-    if (!exchanges?.length) {
-        const payload= [...new Set(data.map(item => [item.Ex1, item.Ex2]).flat())]
-        dispatch({type: GET_ARBITRAGE_EXCHANGES, payload})
     }
 }
 

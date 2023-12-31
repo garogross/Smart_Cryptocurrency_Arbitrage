@@ -69,7 +69,6 @@ const navLinks = [
             {
                 title: 'Arbitrage Free',
                 href: arbitrageTypes.free,
-                isNonPrivate: true
             },
         ]
     },
@@ -100,10 +99,12 @@ function SideBar({burgerOpened, onCloseBurger, isMobile}) {
     const {pathname, hash} = location
 
     const onClickLoginLogout = () => {
-        const clb = () => navigate(loginPagePath)
+        const clb = () => {
+            navigate(loginPagePath)
+            if(isMobile) onCloseBurger()
+        }
         token ? dispatch(logOut(clb)) : navigate(loginPagePath)
     }
-
 
     const setActiveNavLinkClass = (defaultClass, activeClass) => {
         return ({isActive}) => (isActive ? `${defaultClass} ${activeClass}` : defaultClass)
@@ -154,8 +155,7 @@ function SideBar({burgerOpened, onCloseBurger, isMobile}) {
                                             ?.filter(item => (
                                                 user.role === 'admin' ||
                                                 item.isPrivate && isAuthenticated ||
-                                                !item.isPrivate && isAuthenticated && !item.isNonPrivate ||
-                                                !isAuthenticated && !item.isPrivate
+                                                !item.isPrivate
                                             ))
 
                                         const onClickLinks = (isNavLink) => {

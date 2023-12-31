@@ -11,15 +11,24 @@ import DataLoader from "../../layout/DataLoader/DataLoader";
 import {changeUserData} from "../../../redux/action/auth";
 import {getCreatedAt} from "../../../utils/functions/date";
 
-const filterType = (item, hash) => (
-    hash.slice(1) === arbitrageTypes.free ||
-    item.Kind === hash.slice(1)
-)
+const filterType = (item, hash) => {
+    const type = hash.slice(1)
+    return (
+        type === arbitrageTypes.free &&
+        item.Profit <= 10 ||
+        item.Kind === hash.slice(1)
+    )
+}
 
 const filterExchanges = (item, exchanges) => (
     !exchanges?.length ||
     (exchanges.includes(item.Ex1) ||
         exchanges.includes(item.Ex2))
+)
+
+const filterAmount = (item, maxAmount) => (
+    !maxAmount ||
+    item.AskAmountUSDT < maxAmount
 )
 
 const filterProfit = (item, profit) => (
@@ -38,7 +47,7 @@ const filterBlockchain = (item, blockchains) => (
 const filterHiddens = (item, filters) => {
     const now = new Date()
     return (
-        !filters.hidden?.find(hidden => {
+            !filters.hidden?.find(hidden => {
             const createdAt = getCreatedAt(hidden.created_at)
             createdAt.setHours(createdAt.getHours() + 4)
             createdAt.setMinutes(createdAt.getMinutes() + filters.hidden_time)
@@ -89,6 +98,7 @@ function ArbitragePageList() {
 
     const filteredData = data.filter(item => (
         filterType(item, hash) &&
+        filterAmount(item, filters.max_amount) &&
         filterExchanges(item, filters.exchanges) &&
         filterProfit(item, filters.profit) &&
         filterBlacklist(item, filters.blacklist) &&
@@ -96,8 +106,8 @@ function ArbitragePageList() {
         filterHiddens(item, filters)
     )).sort((a, b) => b.Profit - a.Profit)
 
-    return (
 
+    return (
         <div className={styles["arbitrageList"]}>
             {
                 filteredData.length ?
