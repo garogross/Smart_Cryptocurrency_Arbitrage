@@ -183,7 +183,7 @@ function ArbitragePageListItem({
                 }
             </div>
             <p className={styles["arbitrageListItem__profitText"]}>
-                Комиссия Спота:
+                Общая комиссия:
                 <span className={styles["arbitrageListItem__profitText_blue"]}> {SpotFee.toFixed(4)}$</span>
             </p>
             <p className={styles["arbitrageListItem__profitText"]}>
