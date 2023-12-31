@@ -32,7 +32,7 @@ const navLinks = [
         icon: newsIcon,
         path: newsPagePath,
         adminPath: adminNewsPagePath,
-        // isPrivate: true,
+        isPrivate: true,
         sublinks: [
             {
                 title: 'Актуальные новости',
@@ -101,9 +101,14 @@ function SideBar({burgerOpened, onCloseBurger, isMobile}) {
     const onClickLoginLogout = () => {
         const clb = () => {
             navigate(loginPagePath)
-            if(isMobile) onCloseBurger()
+            if (isMobile) onCloseBurger()
         }
-        token ? dispatch(logOut(clb)) : navigate(loginPagePath)
+        if (token) {
+            dispatch(logOut(clb))
+        } else {
+            navigate(loginPagePath)
+            if (isMobile) onCloseBurger()
+        }
     }
 
     const setActiveNavLinkClass = (defaultClass, activeClass) => {

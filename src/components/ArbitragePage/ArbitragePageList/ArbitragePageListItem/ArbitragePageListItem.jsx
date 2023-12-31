@@ -66,10 +66,17 @@ function ArbitragePageListItem({
     const timestampText = getTimeDifference(Timestamp)
     const spotedText = getTimeDifference(Spoted)
 
-    const exAsk = Straight ? Ex1 : Ex2
-    const exBid = !Straight ? Ex1 : Ex2
+    let exAsk = Straight ? Ex1 : Ex2
+    let exBid = !Straight ? Ex1 : Ex2
     const linkAsk = Straight ? Link1 : Link2
     const linkBid = !Straight ? Link1 : Link2
+
+    if(exAsk === 'defilamaeth') {
+        exAsk = "SWAP"
+    }
+    if(exBid === 'defilamaeth') {
+        exBid = "SWAP"
+    }
 
     const setOrderText = (amount) => {
         const types = [
@@ -93,7 +100,8 @@ function ArbitragePageListItem({
         return type ? type[1] : 'a few seconds ago'
     }
 
-    const exchangeItem = exchangeColors.find(item => isCexToDex && item.ex === exBid)
+    const exchangeItem = exchangeColors
+        .find(item => isCexToDex && item.ex === exBid.toLowerCase() || isCexToDex && item.ex === exAsk.toLowerCase())
 
     return (
         <div className={styles["arbitrageListItem"]}>
@@ -135,7 +143,7 @@ function ArbitragePageListItem({
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Комиссия Перевода: </span>
-                    {FeeUSDT}$
+                    {FeeUSDT.toFixed(4)}$
                 </p>
 
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
