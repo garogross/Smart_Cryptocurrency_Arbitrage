@@ -12,12 +12,10 @@ const getTimeDifference = (unixDate) => {
 }
 
 function ArbitragePageListItem({
-                                   AskAmount,
                                    AskCount,
                                    AskAmountUSDT,
                                    BidAmountUSDT,
                                    BidPrice,
-                                   BidAmount,
                                    AskPrice,
                                    BidCount,
                                    Chain,
@@ -44,6 +42,8 @@ function ArbitragePageListItem({
 
     const exAsk = Straight ? Ex1 : Ex2
     const exBid = !Straight ? Ex1 : Ex2
+    const linkAsk = Straight ? Link1 : Link2
+    const linkBid = !Straight ? Link1 : Link2
 
     const setOrderText = (amount) => {
         const types = [
@@ -110,17 +110,14 @@ function ArbitragePageListItem({
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Комиссия Перевода: </span>
                     {FeeUSDT}$
                 </p>
-                <p className={styles["arbitrageListItem__resultBlockText"]}>
-                    <span className={styles["arbitrageListItem__resultBlockText_green"]}>Комиссия Спота: </span>
-                    {(SpotFee / 2).toFixed(4)}
-                </p>
 
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>Купить: </span>
                     <a
                         className={styles["arbitrageListItem__resultBlockLinkText"]}
                         target={"_blank"}
-                        href={Link1}>{exAsk.toUpperCase()}</a>
+                        rel="noreferrer"
+                        href={linkAsk}>{exAsk.toUpperCase()}</a>
                 </p>
             </div>
             <div
@@ -138,17 +135,18 @@ function ArbitragePageListItem({
                     {Chain}
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
-                    <span className={styles["arbitrageListItem__resultBlockText_red"]}>Комиссия Спота: </span>
-                    {(SpotFee * BidPrice).toFixed(4)}$
-                </p>
-                <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_red"]}>Продать: </span>
                     <a
                         className={styles["arbitrageListItem__resultBlockLinkText"]}
                         target={"_blank"}
-                        href={Link2}>{exBid.toUpperCase()}</a>
+                        rel="noreferrer"
+                        href={linkBid}>{exBid.toUpperCase()}</a>
                 </p>
             </div>
+            <p className={styles["arbitrageListItem__profitText"]}>
+                Комиссия Спота:
+                <span className={styles["arbitrageListItem__profitText_blue"]}> {SpotFee.toFixed(4)}$</span>
+            </p>
             <p className={styles["arbitrageListItem__profitText"]}>
                 Profit:
                 <span className={styles["arbitrageListItem__profitText_blue"]}> {Profit.toFixed(4)}$</span>

@@ -2,50 +2,40 @@ import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {Route, Routes, useLocation} from 'react-router-dom';
 import {
-    adminLoginPagePath, adminNewsPagePath,
-    forgotPasswordPagePath,
-    loginPagePath,
-    resetPasswordPagePath,
     routes,
-    signUpPagePath
 } from "../../router/path";
 import Navbar from "../global/Navbar/Navbar";
 import {changeUserData, checkIsLoggedIn} from "../../redux/action/auth";
-import {regSw, subscribe} from '../../helper';
 import {subscriptionTypes} from "../../constants";
-
+import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
 
 function App() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
 
+    useEffect(() => {
+        if (user && user.subscription === subscriptionTypes.arb) {
+            Notification.requestPermission().then(type => {
+                if (type === "granted") {
+                    const clb = (subscription) => {
+                        dispatch(changeUserData({push_subscription: subscription}))
+                    }
 
-    const onSubscribe = (data) => {
-        if (user?.push_subscription?.endpoint !== data.endpoint) {
-            dispatch(changeUserData({push_subscription: data}))
+                    serviceWorkerRegistration.register(clb);
+                }
+            })
         }
-    }
-
-    async function registerAndSubscribe() {
-        try {
-            const serviceWorkerReg = await regSw();
-            await subscribe(serviceWorkerReg, onSubscribe);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
+    }, [user]);
 
     useEffect(() => {
         if (user && user.subscription === subscriptionTypes.arb) {
-            registerAndSubscribe()
+            // registerAndSubscribe()
         }
     }, [user])
 
     useEffect(() => {
         dispatch(checkIsLoggedIn())
     }, []);
-
 
 
     return (

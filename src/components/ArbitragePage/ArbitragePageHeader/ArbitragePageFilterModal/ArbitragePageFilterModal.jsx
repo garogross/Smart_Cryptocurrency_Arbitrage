@@ -16,7 +16,7 @@ import {changeUserData} from "../../../../redux/action/auth";
 import {getArbitrage, requestArbitrage} from "../../../../redux/action/arbitrage";
 import {useLocation} from "react-router-dom";
 
-const setFilters = (filters) => {
+const setFilters = (filters,type) => {
 
     const chains = [
         {
@@ -38,30 +38,49 @@ const setFilters = (filters) => {
     ]
 
     const exchanges = [
-        "binance",
-        "bitfinex",
-        "bybit",
-        "defilamaArbitrum",
-        "defilamaBsc",
-        "defilamaEth",
-        "defilamaPolygon",
-        "gate",
-        "huobi",
-        "jupiter",
-        "kucoin",
-        "mexc",
-        "okex",
-        "poloniex"
+        {
+            value:"binance"
+        },
+        {
+            value:"bitfinex"
+        },
+        {
+            value:"bybit"
+        },
+        {
+            value:"gate"
+        },
+        {
+            value:"huobi"
+        },
+        {
+            value:"jupiter",
+            onlyFor: arbitrageTypes.cexToDex
+        },
+        {
+            value:"kucoin"
+        },
+        {
+            value:"mexc"
+        },
+        {
+            value:"okex"
+        },
+        {
+            value:"poloniex"
+        }
     ]
-    const setOptions = (arr) => arr.map(item => ({title: item[0].toUpperCase() + item.slice(1), value: item}))
 
+    const filteredExchanges = exchanges
+        .filter(item => !item?.onlyFor || item.onlyFor === type)
+        .map(({value}) => ({title: value[0].toUpperCase() + value.slice(1), value}))
 
     return [
         {
             type: 'checkbox',
             key: 'exchanges',
             name: 'Exchanges',
-            options: setOptions(exchanges),
+            options: filteredExchanges,
             selectedOptions: filters.exchanges || [],
         },
         {
@@ -104,7 +123,7 @@ function ArbitragePageFilterModal({show, onClose}) {
     const dispatch = useDispatch()
     const {hash} = useLocation()
     const userFilters = useSelector(state => state.arbitrage.filters)
-    const filters = setFilters(userFilters)
+    const filters = setFilters(userFilters,hash.slice(1))
     const initialData = filters.reduce((acc, cur) => {
         acc[cur.key] = cur.type === 'checkbox' ? cur.selectedOptions || [] : cur.value || ''
         return acc

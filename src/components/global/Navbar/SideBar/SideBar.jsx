@@ -32,7 +32,7 @@ const navLinks = [
         icon: newsIcon,
         path: newsPagePath,
         adminPath: adminNewsPagePath,
-        isPrivate: true,
+        // isPrivate: true,
         sublinks: [
             {
                 title: 'Актуальные новости',
@@ -153,7 +153,7 @@ function SideBar({burgerOpened, onCloseBurger, isMobile}) {
                                         const isAuthenticated = token && user.subscription === subscriptionTypes.arb
                                         const filteredSubLinks = sublinks
                                             ?.filter(item => (
-                                                user.role === 'admin' ||
+                                                user?.role === 'admin' ||
                                                 item.isPrivate && isAuthenticated ||
                                                 !item.isPrivate
                                             ))
