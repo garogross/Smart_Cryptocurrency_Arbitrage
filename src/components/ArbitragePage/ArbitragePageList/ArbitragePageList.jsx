@@ -119,6 +119,7 @@ function ArbitragePageList() {
                                     onAddToBlackList={onAddToBlackList}
                                     onAddToHidden={onAddToHidden}
                                     isArb={user.subscription === subscriptionTypes.arb}
+                                    isCexToDex={hash.slice(1) === arbitrageTypes.cexToDex}
                                     {...item}
                                 />
                             ))

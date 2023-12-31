@@ -11,8 +11,33 @@ const getTimeDifference = (unixDate) => {
     return Math.round((today.getTime() - date.getTime()) / (1000 * 60 * 60))
 }
 
+const exchangeColors = [
+    {
+        ex: "defilamaeth",
+        color: "#003ded",
+        name: "Ethereum"
+    },
+    {
+        ex: "defilamapolygon",
+        color: "#843FE1",
+        name: "Polygon"
+    },
+    {
+        ex: "defilamabsc",
+        color: "#ffc728",
+        name: "BSC"
+    },
+    {
+        ex: "arbitrum",
+        color: "#fff",
+        name: "Arbitrum"
+    },
+]
+
 function ArbitragePageListItem({
                                    AskCount,
+                                   AskAmount,
+                                   BidAmount,
                                    AskAmountUSDT,
                                    BidAmountUSDT,
                                    BidPrice,
@@ -32,7 +57,8 @@ function ArbitragePageListItem({
                                    Link1,
                                    Link2,
                                    Straight,
-                                   Spoted
+                                   Spoted,
+                                   isCexToDex
                                }) {
 
 
@@ -67,6 +93,7 @@ function ArbitragePageListItem({
         return type ? type[1] : 'a few seconds ago'
     }
 
+    const exchangeItem = exchangeColors.find(item => isCexToDex && item.ex === exBid)
 
     return (
         <div className={styles["arbitrageListItem"]}>
@@ -96,7 +123,7 @@ function ArbitragePageListItem({
                 className={`${styles["arbitrageListItem__resultBlock"]} ${styles['arbitrageListItem__resultBlock_output']}`}>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>BUY: </span>
-                    {AskAmountUSDT.toFixed(4)} USDT
+                    {AskAmount.toFixed(4)} ({AskAmountUSDT.toFixed(4)} USDT)
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_green"]}>ASK: </span>
@@ -124,7 +151,7 @@ function ArbitragePageListItem({
                 className={`${styles["arbitrageListItem__resultBlock"]} ${styles['arbitrageListItem__resultBlock_input']}`}>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_red"]}>SELL: </span>
-                    {BidAmountUSDT.toFixed(4)} USDT
+                    {BidAmount.toFixed(4)} ({BidAmountUSDT.toFixed(4)} USDT)
                 </p>
                 <p className={styles["arbitrageListItem__resultBlockText"]}>
                     <span className={styles["arbitrageListItem__resultBlockText_red"]}>BID: </span>
@@ -142,6 +169,18 @@ function ArbitragePageListItem({
                         rel="noreferrer"
                         href={linkBid}>{exBid.toUpperCase()}</a>
                 </p>
+
+                {
+                    exchangeItem ?
+                    <div
+                    className={styles["arbitrageListItem__exhcangeBlock"]}
+                    style={{
+                        backgroundColor: exchangeItem.color
+                    }}
+                >
+                    <h6 className={styles["arbitrageListItem__exhcangeBlockText"]}>{exchangeItem.name}</h6>
+                </div> : null
+                }
             </div>
             <p className={styles["arbitrageListItem__profitText"]}>
                 Комиссия Спота:
