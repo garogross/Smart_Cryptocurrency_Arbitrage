@@ -64,7 +64,7 @@ const setFilters = (filters,type) => {
             value:"mexc"
         },
         {
-            value:"okex"
+            value:"okx"
         },
         {
             value:"poloniex"

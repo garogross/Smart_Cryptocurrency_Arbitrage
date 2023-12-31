@@ -93,7 +93,7 @@
 
 
   &__footer {
-    @include flexCol(space-between);
+    @include flexCol(flex-end);
     margin-top: 10px;
 
     @include smScreenMedia {

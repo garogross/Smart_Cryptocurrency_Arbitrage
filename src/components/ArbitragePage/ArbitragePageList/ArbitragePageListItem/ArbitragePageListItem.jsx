@@ -191,7 +191,6 @@ function ArbitragePageListItem({
                 <span className={styles["arbitrageListItem__profitText_blue"]}> {Profit.toFixed(4)}$</span>
             </p>
             <div className={styles["arbitrageListItem__footer"]}>
-                <p className={styles["arbitrageListItem__footerText"]}>{setDateText(timestampText)}</p>
                 <p className={styles["arbitrageListItem__footerText"]}>Spotted: {setDateText(spotedText)}</p>
             </div>
         </div>
