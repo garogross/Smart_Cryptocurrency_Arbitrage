@@ -1,4 +1,4 @@
-const PUBLIC_VAPID_KEY = 'BOXrn-dgo59XPsYiAPm3KqmJZ-tQPaoGm3C2a6eUmv4m24vjbVvEMK0lja6k72lfqpwOso0pNA2Lh2uE8930F5U'; // Same as in server.js
+const PUBLIC_VAPID_KEY = 'BOXrn-dgo59XPsYiAPm3KqmJZ-tQPaoGm3C2a6eUmv4m24vjbVvEMK0lja6k72lfqpwOso0pNA2Lh2uE8930F5U';
 
 const urlB64ToUint8Array = base64String => {
     const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -14,12 +14,17 @@ const urlB64ToUint8Array = base64String => {
 };
 
 export const register = async (clb) => {
+    console.log("register")
     if ('serviceWorker' in navigator && 'PushManager' in window) {
+        console.log("PushManager")
+
         navigator.serviceWorker
             .register(`${process.env.PUBLIC_URL}/service-worker.js`)
             .then(registration => {
+                console.log("registration")
                 registration.pushManager.getSubscription()
                     .then(subscription => {
+                        console.log("subscription")
                         if(subscription) {
                             clb(subscription)
                         } else {
