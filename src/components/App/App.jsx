@@ -14,7 +14,7 @@ function App() {
     const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
-        if (user && user.subscription === subscriptionTypes.arb && !user?.push_notification?.endpoint) {
+        // if (user && user.subscription === subscriptionTypes.arb && !user?.push_notification?.endpoint) {
             console.log("useEffect")
             Notification.requestPermission().then(type => {
                 console.log("requestPermission",type)
@@ -30,11 +30,11 @@ function App() {
                         // dispatch(changeUserData({push_subscription: subscription}))
                     }
 
-                    serviceWorkerRegistration.register(clb);
+                    // serviceWorkerRegistration.register(clb);
                 }
             })
-        }
-    }, [user]);
+        // }
+    }, []);
 
     useEffect(() => {
         if (user && user.subscription === subscriptionTypes.arb) {
