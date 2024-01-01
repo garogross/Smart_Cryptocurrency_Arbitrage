@@ -36,7 +36,11 @@ const exchangeColors = [
     },
 ]
 
-const exText = (ex) => ex.startsWith('defilama') ? "SWAP" : ex.toUpperCase()
+const exText = (ex) => {
+    if(ex.startsWith('defilama')) return  "SWAP"
+    else if(ex.toLowerCase() === "okex") return "OKX"
+    else return ex.toUpperCase()
+}
 
 function ArbitragePageListItem({
                                    AskCount,
