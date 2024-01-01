@@ -22,8 +22,10 @@ const filterType = (item, hash) => {
 
 const filterExchanges = (item, exchanges) => (
     !exchanges?.length ||
-    (exchanges.includes(item.Ex1) ||
-        exchanges.includes(item.Ex2))
+    (
+        exchanges.includes(item.Ex1) &&
+        exchanges.includes(item.Ex2)
+    )
 )
 
 const filterAmount = (item, maxAmount) => (

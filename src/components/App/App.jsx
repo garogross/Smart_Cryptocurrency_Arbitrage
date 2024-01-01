@@ -14,16 +14,23 @@ function App() {
     const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
-        if (user && user.subscription === subscriptionTypes.arb) {
-            // Notification.requestPermission().then(type => {
-            //     if (type === "granted") {
-            //         const clb = (subscription) => {
-            //             dispatch(changeUserData({push_subscription: subscription}))
-            //         }
-            //
-            //         serviceWorkerRegistration.register(clb);
-            //     }
-            // })
+        if (user && user.subscription === subscriptionTypes.arb && !user?.push_notification?.endpoint) {
+            Notification.requestPermission().then(type => {
+                if (type === "granted") {
+                    const clb = (subscription) => {
+                        fetch(`http://localhost:5000/api/v1/translate/subscribe`, {
+                            method: 'POST',
+                            body: JSON.stringify(subscription),
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
+                        // dispatch(changeUserData({push_subscription: subscription}))
+                    }
+
+                    serviceWorkerRegistration.register(clb);
+                }
+            })
         }
     }, [user]);
 
