@@ -12,8 +12,5 @@ export function formatDate(dateStr) {
 export const toDateValue = date => date ? new Date(date).toISOString().split('T')[0] : ""
 
 export const getCreatedAt = (secs) => {
-    const createdAt = new Date('01/01/1970')
-    createdAt.setSeconds(secs)
-
-    return createdAt
+    return new Date(secs * 1000)
 }

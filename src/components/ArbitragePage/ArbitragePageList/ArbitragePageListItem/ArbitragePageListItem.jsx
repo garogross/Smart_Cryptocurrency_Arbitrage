@@ -8,31 +8,35 @@ import {getCreatedAt} from "../../../../utils/functions/date";
 const getTimeDifference = (unixDate) => {
     const today = new Date()
     const date = getCreatedAt(unixDate)
-    return Math.round((today.getTime() - date.getTime()) / (1000 * 60 * 60))
+    return Math.round((today.getTime() - date.getTime()) / 1000)
 }
+
 
 const exchangeColors = [
     {
-        ex: "defilamaeth",
+        ex: "defilamaEth",
         color: "#003ded",
         name: "Ethereum"
     },
     {
-        ex: "defilamapolygon",
+        ex: "defilamaPolygon",
         color: "#843FE1",
         name: "Polygon"
     },
     {
-        ex: "defilamabsc",
+        ex: "defilamaBsc",
         color: "#ffc728",
         name: "BSC"
     },
     {
-        ex: "arbitrum",
+        ex: "defilamaArbitrum",
         color: "#fff",
+        colorText: "#5871F2",
         name: "Arbitrum"
     },
 ]
+
+const exText = (ex) => ex.startsWith('defilama') ? "SWAP" : ex.toUpperCase()
 
 function ArbitragePageListItem({
                                    AskCount,
@@ -47,7 +51,6 @@ function ArbitragePageListItem({
                                    FeeUSDT,
                                    Profit,
                                    SpotFee,
-                                   Timestamp,
                                    Symbol,
                                    onAddToBlackList,
                                    onAddToHidden,
@@ -58,12 +61,13 @@ function ArbitragePageListItem({
                                    Link2,
                                    Straight,
                                    Spoted,
-                                   isCexToDex
+                                   isCexToDex,
+                                   ProfitPct,
+                                   Contract,
+                                   ContractLink
                                }) {
 
 
-
-    const timestampText = getTimeDifference(Timestamp)
     const spotedText = getTimeDifference(Spoted)
 
     let exAsk = Straight ? Ex1 : Ex2
@@ -71,12 +75,6 @@ function ArbitragePageListItem({
     const linkAsk = Straight ? Link1 : Link2
     const linkBid = !Straight ? Link1 : Link2
 
-    if(exAsk === 'defilamaeth') {
-        exAsk = "SWAP"
-    }
-    if(exBid === 'defilamaeth') {
-        exBid = "SWAP"
-    }
 
     const setOrderText = (amount) => {
         const types = [
@@ -90,9 +88,9 @@ function ArbitragePageListItem({
 
     const setDateText = (spotedAt) => {
         const types = [
-            [24*60*60,"more than a day ago"],
-            [60*60,`${Math.round(spotedAt/60/60)} hour ago`],
-            [60,`${Math.round(spotedAt/60/60)} min. ago`],
+            [24 * 60 * 60, "more than a day ago"],
+            [60 * 60, `${Math.round(spotedAt / 60 / 60)} hour ago`],
+            [60, `${Math.round(spotedAt / 60 / 60)} min. ago`],
         ]
 
         const type = types.find(item => spotedAt >= item[0])
@@ -101,7 +99,10 @@ function ArbitragePageListItem({
     }
 
     const exchangeItem = exchangeColors
-        .find(item => isCexToDex && item.ex === exBid.toLowerCase() || isCexToDex && item.ex === exAsk.toLowerCase())
+        .find(item => isCexToDex &&
+            item.ex === exBid ||
+            item.ex === exAsk
+        )
 
     return (
         <div className={styles["arbitrageListItem"]}>
@@ -152,7 +153,7 @@ function ArbitragePageListItem({
                         className={styles["arbitrageListItem__resultBlockLinkText"]}
                         target={"_blank"}
                         rel="noreferrer"
-                        href={linkAsk}>{exAsk.toUpperCase()}</a>
+                        href={linkAsk}>{exText(exAsk)}</a>
                 </p>
             </div>
             <div
@@ -175,19 +176,36 @@ function ArbitragePageListItem({
                         className={styles["arbitrageListItem__resultBlockLinkText"]}
                         target={"_blank"}
                         rel="noreferrer"
-                        href={linkBid}>{exBid.toUpperCase()}</a>
+                        href={linkBid}>{exText(exBid)}</a>
                 </p>
 
                 {
+                    isCexToDex ?
+                        <p className={styles["arbitrageListItem__resultBlockText"]}>
+                            <span className={styles["arbitrageListItem__resultBlockText_red"]}>Адрес Контракта: </span>
+                            <a
+                                className={styles["arbitrageListItem__resultBlockLinkText"]}
+                                target={"_blank"}
+                                rel="noreferrer"
+                                href={ContractLink}>{Contract}</a>
+                        </p> : null
+                }
+
+                {
                     exchangeItem ?
-                    <div
-                    className={styles["arbitrageListItem__exhcangeBlock"]}
-                    style={{
-                        backgroundColor: exchangeItem.color
-                    }}
-                >
-                    <h6 className={styles["arbitrageListItem__exhcangeBlockText"]}>{exchangeItem.name}</h6>
-                </div> : null
+                        <div
+                            className={styles["arbitrageListItem__exhcangeBlock"]}
+                            style={{
+                                backgroundColor: exchangeItem.color
+                            }}
+                        >
+                            <h6
+                                className={styles["arbitrageListItem__exhcangeBlockText"]}
+                                style={{
+                                    color: exchangeItem.colorText || "#fff"
+                                }}
+                            >{exchangeItem.name}</h6>
+                        </div> : null
                 }
             </div>
             <p className={styles["arbitrageListItem__profitText"]}>
@@ -196,7 +214,8 @@ function ArbitragePageListItem({
             </p>
             <p className={styles["arbitrageListItem__profitText"]}>
                 Profit:
-                <span className={styles["arbitrageListItem__profitText_blue"]}> {Profit.toFixed(4)}$</span>
+                <span
+                    className={styles["arbitrageListItem__profitText_blue"]}> {Profit.toFixed(4)}$ ({ProfitPct.toFixed(4)}%)</span>
             </p>
             <div className={styles["arbitrageListItem__footer"]}>
                 <p className={styles["arbitrageListItem__footerText"]}>Spotted: {setDateText(spotedText)}</p>

@@ -64,6 +64,10 @@
 
   &__resultBlockText {
     @include setFont(13px, 400);
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     &_green {
       color: #75FFAC;
@@ -117,5 +121,6 @@
 
   &__exhcangeBlockText {
     @include setFont(14px, 400);
+
   }
 }

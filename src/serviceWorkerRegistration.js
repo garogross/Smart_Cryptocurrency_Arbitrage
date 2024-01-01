@@ -14,7 +14,6 @@ const urlB64ToUint8Array = base64String => {
 };
 
 export const register = async (clb) => {
-    console.log("register")
     if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log("PushManager")
 
