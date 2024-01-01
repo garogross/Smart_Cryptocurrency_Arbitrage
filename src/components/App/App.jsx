@@ -15,15 +15,15 @@ function App() {
 
     useEffect(() => {
         if (user && user.subscription === subscriptionTypes.arb) {
-            Notification.requestPermission().then(type => {
-                if (type === "granted") {
-                    const clb = (subscription) => {
-                        dispatch(changeUserData({push_subscription: subscription}))
-                    }
-
-                    serviceWorkerRegistration.register(clb);
-                }
-            })
+            // Notification.requestPermission().then(type => {
+            //     if (type === "granted") {
+            //         const clb = (subscription) => {
+            //             dispatch(changeUserData({push_subscription: subscription}))
+            //         }
+            //
+            //         serviceWorkerRegistration.register(clb);
+            //     }
+            // })
         }
     }, [user]);
 

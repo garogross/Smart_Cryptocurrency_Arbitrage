@@ -21,7 +21,7 @@
     width: calc(100% / 3 - 20px);
     background-color: $color-black;
     border-radius: 10px;
-    aspect-ratio: 1.5/1;
+    //aspect-ratio: 1.5/1;
     @include flexCol(flex-end, flex-start);
     flex-direction: column;
     cursor: pointer;
