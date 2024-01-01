@@ -36,11 +36,6 @@ function App() {
         // }
     }, []);
 
-    useEffect(() => {
-        if (user && user.subscription === subscriptionTypes.arb) {
-            // registerAndSubscribe()
-        }
-    }, [user])
 
     useEffect(() => {
         dispatch(checkIsLoggedIn())
