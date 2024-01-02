@@ -1,10 +1,8 @@
 // global
 import checkImage from "./images/global/check.png"
 
-
 // navbar
 import navLogoImage from "./images/Navbar/Navlogo.png"
-
 
 // main page
 import cexArbitrageDarkImage from "./images/MainPage/cexArbitrageDark.jpg"
