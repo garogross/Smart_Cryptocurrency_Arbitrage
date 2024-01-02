@@ -18,7 +18,7 @@ export const register = async (clb) => {
         console.log("PushManager")
 
         navigator.serviceWorker
-            .register(`${process.env.PUBLIC_URL}/service-worker.js`)
+            .register(`${process.env.PUBLIC_URL}/service-worker.js`, { scope: '/'})
             .then(registration => {
                 console.log("registration")
                 registration.pushManager.getSubscription()
