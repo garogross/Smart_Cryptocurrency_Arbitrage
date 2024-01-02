@@ -1,7 +1,7 @@
 import {emailImage, passwordImage} from "../../assets/images";
 import React from "react";
 import {Link} from "react-router-dom";
-import {forgotPasswordPagePath, loginPagePath, signUpPagePath} from "../../router/path";
+import {forgotPasswordPagePath} from "../../router/path";
 
 
 export const formProps = () =>  ({

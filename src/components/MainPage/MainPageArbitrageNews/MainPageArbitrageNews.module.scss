@@ -79,6 +79,7 @@
 
   &__topBlockImage {
     border-radius: 13px 13px 0 0;
+    overflow: hidden;
 
     &:first-child {
       width: 45%;
@@ -143,7 +144,7 @@
     @include flexCol();
     position: relative;
 
-    @include lgScreenMedia {
+    @include xlScreenMedia {
       display: none;
     }
   }
@@ -162,7 +163,7 @@
   }
 
   &__topBlockInstructionsText {
-    @include lgScreenMedia {
+    @include xlScreenMedia {
       text-align: center;
     }
   }
@@ -204,6 +205,7 @@
 
   &__bottomBlockImg {
     border-radius: 13px 13px 0 0;
+    overflow: hidden;
 
     &_left {
       max-width: 70%;

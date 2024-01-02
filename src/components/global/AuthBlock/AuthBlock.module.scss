@@ -8,9 +8,10 @@
   &__imageBlock {
     flex: 7;
     width: 100%;
-    background-image: url("../../../assets/images/AuthBlock/authBlockBg.jpg");
+    background-image: url("../../../assets/images/AuthBlock/authBlockBg.webp"),url("../../../assets/images/AuthBlock/authBlockBg.jpg");
     background-position: center left;
     background-size: cover;
+    background-repeat: no-repeat;
     min-height: 100vh;
 
     @include xlScreenMedia {

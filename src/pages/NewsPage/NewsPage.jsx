@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import NewsList from "../../components/NewsPage/NewsList/./NewsList";
-import {useDispatch, useSelector} from "react-redux";
-import {getNews} from "../../redux/action/news";
-import {newsPagePath} from "../../router/path";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useSelector} from "react-redux";
 import NewsItemModal from "../../components/NewsPage/NewsItemModal/NewsItemModal";
 
 function NewsPage() {

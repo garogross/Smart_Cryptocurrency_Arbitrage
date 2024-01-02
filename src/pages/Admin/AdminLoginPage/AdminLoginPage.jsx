@@ -3,7 +3,7 @@ import {formProps} from "../../LoginPage/formProps";
 import AuthBlock from "../../../components/global/AuthBlock/AuthBlock";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {adminNewsPagePath, mainPagePath} from "../../../router/path";
+import {adminNewsPagePath} from "../../../router/path";
 import {login} from "../../../redux/action/auth";
 
 function AdminLoginPage(props) {

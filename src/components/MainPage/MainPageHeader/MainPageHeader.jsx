@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from "./MainPageHeader.module.scss"
-import {headerSharkImage} from "../../../assets/images";
+import {headerSharkImage, headerSharkImageWebp} from "../../../assets/images";
 import SecondaryBtn from "../../layout/SecondaryBtn/SecondaryBtn";
 import {useNavigate} from "react-router-dom";
 import {loginPagePath, signUpPagePath} from "../../../router/path";
 import {useSelector} from "react-redux";
+import ImageWebp from "../../layout/ImageWebp/ImageWebp";
 
 function MainPageHeader() {
     const token = useSelector(state => state.auth.token)
@@ -36,7 +37,12 @@ function MainPageHeader() {
 
                 </div>
                 <div className={styles["mainPageHeader_imageBlock"]}>
-                    <img src={headerSharkImage} alt="Shark" className={styles["mainPageHeader_image"]}/>
+                    <ImageWebp
+                        srcSet={headerSharkImageWebp}
+                        src={headerSharkImage}
+                        alt="Shark"
+                        className={styles["mainPageHeader_image"]}
+                    />
                 </div>
             </div>
         </div>

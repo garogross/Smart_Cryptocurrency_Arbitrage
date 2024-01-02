@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from "./MainPageArbitrageScanner.module.scss"
 import {
-    cexArbitrageDarkImage,
-    cexArbitrageLightImage,
-    dexArbitrageDarkImage,
-    dexArbitrageLightImage
+    cexArbitrageDarkImage, cexArbitrageDarkImageWebp,
+    cexArbitrageLightImage, cexArbitrageLightImageWebp,
+    dexArbitrageDarkImage, dexArbitrageDarkImageWebp,
+    dexArbitrageLightImage, dexArbitrageLightImageWebp
 } from "../../../assets/images";
 import AbsoluteBlock from "../../global/AbsoluteBlock/AbsoluteBlock";
+import ImageWebp from "../../layout/ImageWebp/ImageWebp";
 
 function MainPageArbitrageScanner() {
 
@@ -27,10 +28,14 @@ function MainPageArbitrageScanner() {
                             className={styles["arbitrageScanner__mobAbsoluteBlock"]}
                         >DEX</AbsoluteBlock>
                     </div>
-                    <img src={dexArbitrageLightImage} alt="market" className={
-                        `${styles["arbitrageScanner__image"]} `+
-                        `${styles["arbitrageScanner__lightImage"]} `
-                    }
+                    <ImageWebp
+                        pictureClass={
+                            `${styles["arbitrageScanner__image"]} ` +
+                            `${styles["arbitrageScanner__lightImage"]} `
+                        }
+                        srcSet={dexArbitrageLightImageWebp}
+                        src={dexArbitrageLightImage}
+                        alt="market"
                     />
                     <div className={styles['arbitrageScanner__mobAbsoluteBlockWrapper']}>
                         <AbsoluteBlock
@@ -38,12 +43,13 @@ function MainPageArbitrageScanner() {
                             className={styles["arbitrageScanner__mobAbsoluteBlock"]}
                         >CEX</AbsoluteBlock>
                     </div>
-                    <img
+                    <ImageWebp
+                        srcSet={dexArbitrageDarkImageWebp}
                         src={dexArbitrageDarkImage}
                         alt="orders"
-                        className={
-                            `${styles["arbitrageScanner__image"]} `+
-                            `${styles["arbitrageScanner__darkImage"]} `+
+                        pictureClass={
+                            `${styles["arbitrageScanner__image"]} ` +
+                            `${styles["arbitrageScanner__darkImage"]} ` +
                             `${styles["arbitrageScanner__darkImage_dex"]}`
                         }/>
                 </div>
@@ -78,9 +84,12 @@ function MainPageArbitrageScanner() {
                             className={styles["arbitrageScanner__mobAbsoluteBlock"]}
                         >GATE</AbsoluteBlock>
                     </div>
-                    <img src={cexArbitrageLightImage} alt="orders"
-                         className={
-                             `${styles["arbitrageScanner__image"]} `+
+                    <ImageWebp
+                        srcSet={cexArbitrageLightImageWebp}
+                        src={cexArbitrageLightImage}
+                        alt="orders"
+                         pictureClass={
+                             `${styles["arbitrageScanner__image"]} ` +
                              `${styles["arbitrageScanner__lightImage"]} `
                          }
                     />
@@ -90,11 +99,16 @@ function MainPageArbitrageScanner() {
                             className={styles["arbitrageScanner__mobAbsoluteBlock"]}
                         >KuCoin</AbsoluteBlock>
                     </div>
-                    <img src={cexArbitrageDarkImage} alt="orders" className={
-                        `${styles["arbitrageScanner__image"]} `+
-                        `${styles["arbitrageScanner__darkImage"]} `+
-                        `${styles["arbitrageScanner__darkImage_cex"]} `
-                    }/>
+                    <ImageWebp
+                        srcSet={cexArbitrageDarkImageWebp}
+                        src={cexArbitrageDarkImage}
+                        alt="orders"
+                        pictureClass={
+                            `${styles["arbitrageScanner__image"]} ` +
+                            `${styles["arbitrageScanner__darkImage"]} ` +
+                            `${styles["arbitrageScanner__darkImage_cex"]} `
+                        }
+                    />
                 </div>
             </div>
         </div>

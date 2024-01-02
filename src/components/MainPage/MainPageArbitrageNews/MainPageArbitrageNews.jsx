@@ -2,9 +2,16 @@ import React from 'react';
 import Svg from "../../layout/Svg/Svg";
 
 import styles from "./MainPageArbitrageNews.module.scss"
-import {newsDak1Image, newsDark2Image, newsLight1Image, newsLight2Image} from "../../../assets/images";
+import {
+    newsDak1Image,
+    newsDak1ImageWebp,
+    newsDark2Image, newsDark2ImageWebp,
+    newsLight1Image, newsLight1ImageWebp,
+    newsLight2Image, newsLight2ImageWebp
+} from "../../../assets/images";
 import {arrowWithLineIcon, successIcon} from "../../../assets/svg";
 import AbsoluteBlock from "../../global/AbsoluteBlock/AbsoluteBlock";
+import ImageWebp from "../../layout/ImageWebp/ImageWebp";
 
 function MainPageArbitrageNews() {
     return (
@@ -17,8 +24,18 @@ function MainPageArbitrageNews() {
                     новых токенов, заканчивая рассветом/крахом многих проектов.</p>
                 <div className={styles["arbitrageNews__topBlock"]}>
                     <div className={`${styles["arbitrageNews__topBlockImages"]} ${styles['arbitrageNews__blurBox']}`}>
-                        <img src={newsLight1Image} alt="screenshot" className={styles["arbitrageNews__topBlockImage"]}/>
-                        <img src={newsLight2Image} alt="screenshot" className={styles["arbitrageNews__topBlockImage"]}/>
+                        <ImageWebp
+                            src={newsLight1Image}
+                            srcSet={newsLight1ImageWebp}
+                            alt="screenshot"
+                            pictureClass={styles["arbitrageNews__topBlockImage"]}
+                        />
+                        <ImageWebp
+                            src={newsLight2Image}
+                            srcSet={newsLight2ImageWebp}
+                            alt="screenshot"
+                            pictureClass={styles["arbitrageNews__topBlockImage"]}
+                        />
                         <div className={styles["arbitrageNews__linearBox"]}></div>
                     </div>
                     <div className={styles["arbitrageNews__topBlockText"]}>
@@ -64,21 +81,31 @@ function MainPageArbitrageNews() {
                         <AbsoluteBlock
                             className={styles["arbitrageNews__absoluteBlock"]}
                         >DEX</AbsoluteBlock>
-                        <div className={`${styles["arbitrageNews__linearBox"]} ${styles["arbitrageNews__linearBox_bottom"]}`}></div>
+                        <div
+                            className={`${styles["arbitrageNews__linearBox"]} ${styles["arbitrageNews__linearBox_bottom"]}`}></div>
 
-                        <img src={newsDak1Image} alt="screenshot"
-                             className={`${styles["arbitrageNews__bottomBlockImg"]} ${styles["arbitrageNews__bottomBlockImg_left"]}`}/>
+                        <ImageWebp
+                            src={newsDak1Image}
+                            srcSet={newsDak1ImageWebp}
+                            alt="screenshot"
+                            pictureClass={`${styles["arbitrageNews__bottomBlockImg"]} ${styles["arbitrageNews__bottomBlockImg_left"]}`}
+                        />
                     </div>
                     <div
                         className={`${styles["arbitrageNews__bottomBlockContainer"]} ${styles["arbitrageNews__blurBox"]}`}>
-                        <div className={`${styles["arbitrageNews__linearBox"]} ${styles["arbitrageNews__linearBox_bottom"]}`}></div>
+                        <div
+                            className={`${styles["arbitrageNews__linearBox"]} ${styles["arbitrageNews__linearBox_bottom"]}`}></div>
 
                         <AbsoluteBlock
                             isRed={true}
                             className={styles["arbitrageNews__absoluteBlock"]}
                         >KuCoin</AbsoluteBlock>
-                        <img src={newsDark2Image} alt="screenshot"
-                             className={`${styles["arbitrageNews__bottomBlockImg"]} ${styles["arbitrageNews__bottomBlockImg_right"]}`}/>
+                        <ImageWebp
+                            srcSet={newsDark2ImageWebp}
+                            src={newsDark2Image}
+                            alt="screenshot"
+                            pictureClass={`${styles["arbitrageNews__bottomBlockImg"]} ${styles["arbitrageNews__bottomBlockImg_right"]}`}
+                        />
                     </div>
                 </div>
             </div>
