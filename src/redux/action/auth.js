@@ -36,7 +36,7 @@ import {
 } from "./fetchTools";
 import {subscriptionTypes} from "../../constants";
 import {getLSItem, removeLSItem, setLSItem} from "../../utils/functions/localStorage";
-import {lsProps} from "../../utils/cookies";
+import {lsProps} from "../../utils/lsProps";
 
 
 

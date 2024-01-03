@@ -1,7 +1,7 @@
 import React from 'react'
 import {mainPagePath} from './path';
 import { Navigate } from 'react-router-dom';
-import {lsProps} from "../utils/cookies";
+import {lsProps} from "../utils/lsProps";
 import {getLSItem} from "../utils/functions/localStorage";
 
 const PrivateRoute = ({element,noAuth,isAdmin}) => {

@@ -8,7 +8,7 @@ export const useSocket = (onMessageReceived,onRequestData) => {
 
     useEffect(() => {
 
-        const socket = new WebSocket('ws://116.202.58.43:8543');
+        const socket = new WebSocket('wss://1whale.ru/ws');
 
         if(user) {
             if(user.subscription === subscriptionTypes.arb && autoRefresh) {

@@ -1,5 +1,5 @@
 import {getLSItem} from "../../utils/functions/localStorage";
-import {lsProps} from "../../utils/cookies";
+import {lsProps} from "../../utils/lsProps";
 
 export const baseUrl = 'https://1whale.ru/api';
 

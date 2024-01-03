@@ -5,7 +5,7 @@ import {
     SET_ARBITRAGE_AUTO_REFRESH, TOGGLE_ARBITRAGE_AUTO_REFRESH
 } from "../types";
 import {fetchRequest, getArbitrageUrl} from "./fetchTools";
-import {lsProps} from "../../utils/cookies";
+import {lsProps} from "../../utils/lsProps";
 import {getLSItem, setLSItem} from "../../utils/functions/localStorage";
 
 

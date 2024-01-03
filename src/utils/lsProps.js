@@ -4,4 +4,5 @@ export const lsProps = {
     user: 'user',
     filters: 'filters',
     isRegistered: 'isRegistered',
+    usePushNot: 'usePushNot',
 }

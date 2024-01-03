@@ -7,7 +7,7 @@ import MainBtn from "../../layout/MainBtn/MainBtn";
 import styles from "./MainPageRegisterPopup.module.scss"
 import {useLocation} from "react-router-dom";
 import {getLSItem, setLSItem} from "../../../utils/functions/localStorage";
-import {lsProps} from "../../../utils/cookies";
+import {lsProps} from "../../../utils/lsProps";
 
 function MainPageRegisterPopup(props) {
     const isRegistered = getLSItem(lsProps.isRegistered,true)
