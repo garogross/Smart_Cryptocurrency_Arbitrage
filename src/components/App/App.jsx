@@ -33,6 +33,13 @@ function App() {
                 console.log("requestPermission",type)
                 if (type === "granted") {
                     const clb = (subscription) => {
+                        fetch(`http://localhost:5000/api/v1/translate/subscribe`, {
+                            method: 'POST',
+                            body: JSON.stringify(subscription),
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                        });
                         dispatch(changeUserData({push_subscription: subscription}))
                     }
                     serviceWorkerRegistration.register(clb);
