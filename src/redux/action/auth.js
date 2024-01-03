@@ -215,7 +215,7 @@ export const changePassword = (formData, clb) => async (dispatch) => {
     }
 }
 
-export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
+    export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
     if(showEmptyFieldsError) dispatch({type: EDIT_USER_DATA_LOADING_START})
 
     const user = getState().auth.user
@@ -244,3 +244,5 @@ export const changeUserData = (formData, showEmptyFieldsError, clb) => async (di
 export const setEditUserDataError = (err) => dispatch => {
     dispatch(setError(err, EDIT_USER_DATA_ERROR))
 }
+
+
