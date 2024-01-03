@@ -23,9 +23,9 @@ function App() {
             usePush = true
         }
         if (
-            ('Notification' in window) &&
-            user &&
-            user.subscription === subscriptionTypes.arb &&
+            // ('Notification' in window) &&
+            // user &&
+            // user.subscription === subscriptionTypes.arb &&
             usePush
         ) {
             console.log("useEffect")
