@@ -1,10 +1,10 @@
 self.addEventListener('push', event => {
-    const {body} = event.data.json()
+    const {body,title} = event.data.json()
     const options = {
         body,
         icon: "./icon.png"
     };
     event.waitUntil(
-        self.registration.showNotification('Push Notification', options)
+        self.registration.showNotification(title, options)
     );
 });

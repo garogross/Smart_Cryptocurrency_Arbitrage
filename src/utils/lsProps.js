@@ -5,4 +5,5 @@ export const lsProps = {
     filters: 'filters',
     isRegistered: 'isRegistered',
     usePushNot: 'usePushNot',
+    pushendpoint: 'pushendpoint',
 }

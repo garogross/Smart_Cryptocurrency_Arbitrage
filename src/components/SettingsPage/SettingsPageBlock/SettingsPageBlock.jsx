@@ -4,7 +4,10 @@ import {editEmailImage, editUsernameImage, passwordKeyImage} from "../../../asse
 import styles from "./SettingsPageBlock.module.scss"
 import SettingsForm from "./SettingsForm/SettingsForm";
 import {useDispatch, useSelector} from "react-redux";
-import {changePassword, changeUserData} from "../../../redux/action/auth";
+import {changePassword, changeUserData, onUserSubscribe} from "../../../redux/action/auth";
+import {getLSItem, removeLSItem, setLSItem} from "../../../utils/functions/localStorage";
+import {lsProps} from "../../../utils/lsProps";
+import {subscribePush} from "../../../utils/functions/pushNotification";
 
 const changePassFields = [
     {
@@ -44,9 +47,33 @@ function SettingsPageBlock() {
     const changePasswordError = useSelector(state => state.auth.changePasswordError)
     const editDataLoading = useSelector(state => state.auth.editDataLoading)
     const editDataError = useSelector(state => state.auth.editDataError)
-    const [isNotificationsActive, setIsNotificationsActive] = useState(false)
+    const [isNotificationsActive,setIsNotificationsActive] = useState(getLSItem(lsProps.usePushNot,true))
 
-    const toggleNotificationsActivity = () => setIsNotificationsActive(prevState => !prevState)
+    const toggleNotificationsActivity = () => {
+        if(isNotificationsActive) {
+            const pushendpoint = getLSItem(lsProps.pushendpoint,true)
+            const payload = user.push_subscription.filter(item => item.endpoint !== pushendpoint)
+            const onSuccess = () => {
+                removeLSItem(lsProps.pushendpoint)
+                setLSItem(lsProps.usePushNot,false)
+                setIsNotificationsActive(false)
+            }
+
+            dispatch(
+                changeUserData(
+                    {push_subscription: payload},
+                    false,
+                    onSuccess
+            ))
+        } else {
+            let usePush = getLSItem(lsProps.usePushNot, true)
+            subscribePush((sub) => dispatch(
+                onUserSubscribe(sub,usePush,() => setIsNotificationsActive(true)))
+
+            )
+        }
+
+    }
 
     const onChangePassword = (formData,clb) => {
         dispatch(changePassword({...formData,email: user.email},clb))

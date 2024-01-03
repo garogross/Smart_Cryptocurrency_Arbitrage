@@ -39,36 +39,41 @@ import {getLSItem, removeLSItem, setLSItem} from "../../utils/functions/localSto
 import {lsProps} from "../../utils/lsProps";
 
 
-
-
-const authenticateUser = (url, formData, successType, setError, clb,config,forFilters,isAdmin) => async (dispatch) => {
+const authenticateUser = (url, formData, successType, setError, clb, config, forFilters, isAdmin) => async (dispatch) => {
     const method = formData ? 'POST' : 'GET'
     const body = formData ? JSON.stringify(formData) : null
     const {
         Token: token,
         User,
         Status: status
-    } = await fetchRequest(url,method, body, config || baseConfig)
+    } = await fetchRequest(url, method, body, config || baseConfig)
     if ((token && User && !status) || (status === 'Success')) {
-        if(isAdmin && User.role !== 'admin') {
+        if (isAdmin && User.role !== 'admin') {
             throw {message: 'Ты не Админ', status: 400};
         }
 
-        const {min_amount,max_amount,profit,hidden,blacklist,exchanges,hidden_time,blockchains,...user} = User
+        const {min_amount, max_amount, profit, hidden, blacklist, exchanges, hidden_time, blockchains, ...user} = User
 
         const filters = {
-            min_amount,max_amount,profit,hidden: hidden || [],blacklist: blacklist || [],exchanges,hidden_time,blockchains
+            min_amount,
+            max_amount,
+            profit,
+            hidden: hidden || [],
+            blacklist: blacklist || [],
+            exchanges,
+            hidden_time,
+            blockchains
         }
 
 
-        if(!forFilters) {
+        if (!forFilters) {
             dispatch({type: successType, payload: {token, user}})
             setLSItem(lsProps.token, token)
-            setLSItem(lsProps.user,user)
+            setLSItem(lsProps.user, user)
         }
         dispatch({type: SET_ARBITRAGE_FILTERS, payload: filters})
         setLSItem(lsProps.filters, filters)
-        if(clb) clb()
+        if (clb) clb()
     } else {
         dispatch(setError('Не авторизован'))
     }
@@ -89,12 +94,12 @@ export const signup = (formData, clb) => async (dispatch) => {
 export const checkIsLoggedIn = () => (dispatch) => {
     dispatch({type: GET_USER_LOADING_START})
     const token = getLSItem(lsProps.token)
-    const user = getLSItem(lsProps.user,true)
-    const filters = getLSItem(lsProps.filters,true)
+    const user = getLSItem(lsProps.user, true)
+    const filters = getLSItem(lsProps.filters, true)
     dispatch({type: GET_USER_SUCCESS, payload: {token, user}})
-    dispatch({type: SET_ARBITRAGE_FILTERS,payload: filters})
+    dispatch({type: SET_ARBITRAGE_FILTERS, payload: filters})
 
-    if(token) {
+    if (token) {
         dispatch(getUser())
     }
 }
@@ -103,11 +108,11 @@ export const setSignupError = (err) => dispatch => {
     dispatch(setError(err, SIGNUP_ERROR))
 }
 
-export const login = (formData, clb,isAdmin) => async (dispatch) => {
+export const login = (formData, clb, isAdmin) => async (dispatch) => {
     dispatch({type: LOGIN_LOADING_START})
     try {
         setEmptyFieldsError(formData)
-        await dispatch(authenticateUser(siginUrl, formData, LOGIN_SUCCESS, setLoginError, clb,undefined,undefined,isAdmin))
+        await dispatch(authenticateUser(siginUrl, formData, LOGIN_SUCCESS, setLoginError, clb, undefined, undefined, isAdmin))
     } catch (err) {
         console.error({err})
         dispatch(setLoginError(err))
@@ -121,9 +126,10 @@ export const setLoginError = (err) => dispatch => {
 export const getUser = () => async (dispatch) => {
     dispatch({type: GET_USER_LOADING_START})
     try {
-        await dispatch(authenticateUser(getUserUrl, null, GET_USER_SUCCESS, setGetUserError, undefined,authConfig()))
+        await dispatch(authenticateUser(getUserUrl, null, GET_USER_SUCCESS, setGetUserError, undefined, authConfig()))
     } catch (err) {
         console.error({err})
+        dispatch(logOut())
         dispatch(setLoginError(err))
     }
 }
@@ -178,6 +184,8 @@ export const logOut = (clb) => (dispatch) => {
     removeLSItem(lsProps.token)
     removeLSItem(lsProps.user)
     removeLSItem(lsProps.filters)
+    removeLSItem(lsProps.pushendpoint)
+    removeLSItem(lsProps.usePushNot)
     dispatch({type: LOGOUT_USER})
     if (clb) clb()
 }
@@ -188,9 +196,9 @@ export const checkIsSubscribed = (clb) => async (dispatch, getState) => {
         const fetchData = await fetchRequest(checkIsSubscribedUrl)
         const user = getState().auth.user
         const subscription = fetchData.IsSubscribed ? subscriptionTypes.arb : subscriptionTypes.free
-        const newData =  {...user, subscription}
+        const newData = {...user, subscription}
         dispatch({type: GET_USER_SUCCESS, payload: {user: newData}})
-        setLSItem(lsProps.user,newData)
+        setLSItem(lsProps.user, newData)
         if (clb) clb()
 
     } catch (err) {
@@ -215,9 +223,8 @@ export const changePassword = (formData, clb) => async (dispatch) => {
     }
 }
 
-    export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
-    if(showEmptyFieldsError) dispatch({type: EDIT_USER_DATA_LOADING_START})
-
+export const changeUserData = (formData, showEmptyFieldsError, clb) => async (dispatch, getState) => {
+    if (showEmptyFieldsError) dispatch({type: EDIT_USER_DATA_LOADING_START})
     const user = getState().auth.user
 
     const reqData = {
@@ -245,4 +252,19 @@ export const setEditUserDataError = (err) => dispatch => {
     dispatch(setError(err, EDIT_USER_DATA_ERROR))
 }
 
-
+export const onUserSubscribe = (subscription, usePush, clb) => (dispatch, getState) => {
+    const user = getState().auth.user
+    const payload = user.push_subscription?.length ? [...user.push_subscription, subscription] : [subscription]
+    dispatch(
+        changeUserData(
+            {push_subscription: payload},
+            true,
+            () => {
+                setLSItem(lsProps.pushendpoint, subscription.endpoint)
+                if (!usePush) {
+                    setLSItem(lsProps.usePushNot, true)
+                }
+                if (clb) clb()
+            })
+    )
+}

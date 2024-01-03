@@ -15,15 +15,12 @@ const urlB64ToUint8Array = base64String => {
 
 export const register = async (clb) => {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
-        console.log("PushManager")
 
         navigator.serviceWorker
             .register(`${process.env.PUBLIC_URL}/service-worker.js`, { scope: '/'})
             .then(registration => {
-                console.log("registration")
                 registration.pushManager.getSubscription()
                     .then(subscription => {
-                        console.log("subscription")
                         if(subscription) {
                             clb(subscription)
                         } else {
