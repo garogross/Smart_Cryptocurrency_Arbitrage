@@ -1,7 +1,7 @@
 import {getLSItem} from "../../utils/functions/localStorage";
 import {lsProps} from "../../utils/cookies";
 
-export const baseUrl = 'http://116.202.58.43:8000';
+export const baseUrl = 'https://116.202.58.43:8000';
 
 export const baseConfig = {
     headers: {
