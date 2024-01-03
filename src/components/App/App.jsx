@@ -16,7 +16,7 @@ function App() {
     useEffect(() => {
         // if (user && user.subscription === subscriptionTypes.arb) { //  && !user?.push_notification?.endpoint
             console.log("useEffect")
-            Notification.requestPermission()
+            // Notification.requestPermission()
                 // .then(type => {
                 // console.log("requestPermission",type)
                 // if (type === "granted") {
