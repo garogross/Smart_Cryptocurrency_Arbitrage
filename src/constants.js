@@ -18,4 +18,5 @@ export const arbitrageTypes = {
 //links
 
 export const telegramLink = "https://t.me/OneWhaleNews"
+export const subscribeTelegramLink =  "/" //"https://t.me/OneWhaleNews"
 export const mailLink = "mailto:info@1whale.io"

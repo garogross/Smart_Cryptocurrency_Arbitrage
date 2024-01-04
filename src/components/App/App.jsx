@@ -1,33 +1,34 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {Route, Routes, useLocation} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import {
     routes,
 } from "../../router/path";
 import Navbar from "../global/Navbar/Navbar";
-import {changeUserData, checkIsLoggedIn, onUserSubscribe} from "../../redux/action/auth";
+import {checkIsLoggedIn, onUserSubscribe} from "../../redux/action/auth";
 import {subscriptionTypes} from "../../constants";
-import * as serviceWorkerRegistration from "../../serviceWorkerRegistration";
-import {getLSItem, setLSItem} from "../../utils/functions/localStorage";
+import {getLSItem} from "../../utils/functions/localStorage";
 import {lsProps} from "../../utils/lsProps";
 import {subscribePush} from "../../utils/functions/pushNotification";
+import ParticlesBg from "../global/particlesBg/ParticlesBg";
 
 function App() {
     const dispatch = useDispatch()
     const user = useSelector(state => state.auth.user)
 
+
     useEffect(() => {
 
         if (!user) return;
         let usePush = getLSItem(lsProps.usePushNot, true)
-        const  pushendpoint = getLSItem(lsProps.pushendpoint)
+        const pushendpoint = getLSItem(lsProps.pushendpoint)
         if (
             ('Notification' in window) &&
             user.subscription === subscriptionTypes.arb &&
             (usePush || usePush === null) &&
             !pushendpoint
         ) {
-            subscribePush((sub) => dispatch(onUserSubscribe(sub)),usePush)
+            subscribePush((sub) => dispatch(onUserSubscribe(sub)), usePush)
         }
     }, [user]);
 
@@ -36,9 +37,9 @@ function App() {
         dispatch(checkIsLoggedIn())
     }, []);
 
-
     return (
         <>
+            <ParticlesBg/>
             <Navbar/>
             <Routes>
                 {

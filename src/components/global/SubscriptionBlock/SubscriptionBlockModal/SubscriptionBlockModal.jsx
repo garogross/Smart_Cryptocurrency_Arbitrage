@@ -9,7 +9,7 @@ import styles from "./SubscriptionBlockModal.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {checkIsSubscribed} from "../../../../redux/action/auth";
 import Loader from "../../../layout/Loader/Loader";
-import {subscriptionTypes} from "../../../../constants";
+import {subscribeTelegramLink, subscriptionTypes} from "../../../../constants";
 
 function SubscriptionBlockModal({show, onClose}) {
     const dispatch = useDispatch()
@@ -65,9 +65,11 @@ function SubscriptionBlockModal({show, onClose}) {
                             disabled={loading}
                             onClick={() => dispatch(checkIsSubscribed())}
                         >Обновить</MainBtn>
-                        <MainBtn
-                            disabled={loading}
-                        >Subscribe</MainBtn>
+                        <a href={subscribeTelegramLink} style={{width: '100%'}}>
+                            <MainBtn
+                                disabled={loading}
+                            >Subscribe</MainBtn>
+                        </a>
                     </div>
                 </TransitionProvider>
             </NewPortalProvider>
